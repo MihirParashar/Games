@@ -176,11 +176,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3c4a5af4feb3d448815145416ebec94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noSkinSprite: {fileID: 21300000, guid: ba12a205a20e414498a5637ebb500a0b, type: 3}
   skinSprites:
+  - {fileID: 21300000, guid: ba12a205a20e414498a5637ebb500a0b, type: 3}
   - {fileID: 21300000, guid: d6fed257bdaa0254aa84f0bd54f44798, type: 3}
   - {fileID: 21300000, guid: c431c81990fe4d04aa996eb838fce75e, type: 3}
   - {fileID: 21300000, guid: 3f3010a389edfc440bd47320186c6420, type: 3}
+  - {fileID: 21300000, guid: 71d5cca2a7ce6d34e87bd2115bb3c7ab, type: 3}
+  - {fileID: 21300000, guid: 255e094d145f41940b9fe736ce4bb4d5, type: 3}
+  - {fileID: 21300000, guid: 5b8ef57f38b74544db5a85d0e12d8a31, type: 3}
 --- !u!1 &4174789317811173004
 GameObject:
   m_ObjectHideFlags: 0
@@ -241,6 +244,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -398,6 +402,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []

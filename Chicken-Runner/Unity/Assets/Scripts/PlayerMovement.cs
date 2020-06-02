@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(PlayerController))]
 public class PlayerMovement : MonoBehaviour
@@ -62,7 +63,10 @@ public class PlayerMovement : MonoBehaviour
     {
         isJumping = true;
     }
+
 #endif
+
+        
 
 
             /*  if (joystick.Vertical < -0.4f) //We are crouching

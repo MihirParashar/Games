@@ -6,14 +6,19 @@ public class PauseMenu : MonoBehaviour
 {
     public static bool isPaused = false;
 
-    GameObject pauseMenu;
+    public GameObject pauseMenu;
     GameObject tutorialText;
+
+    GameManager gameManager;
 
     void Start()
     {
-        pauseMenu = GameObject.FindGameObjectWithTag("PauseMenu");
+        if (pauseMenu == null)
+        {
+            pauseMenu = GameObject.FindGameObjectWithTag("PauseMenu");
+        }
         tutorialText = GameObject.FindGameObjectWithTag("Tutorial");
-
+        gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
         pauseMenu.SetActive(false);
     }
 
@@ -47,7 +52,10 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
-        Time.timeScale = 1.0f;
+        if (!gameManager.hasEndedGame)
+        {
+            Time.timeScale = 1.0f;
+        }
         isPaused = false;
         pauseMenu.SetActive(false);
         if (tutorialText != null)

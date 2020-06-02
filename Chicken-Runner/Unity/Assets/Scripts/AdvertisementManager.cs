@@ -11,11 +11,19 @@ public class AdvertisementManager : MonoBehaviour
     int numOfTimesAdWatched;
     private const string iosID = "3509019";
     private const string androidID = "3509018";
+    private const int adLimit = 5;
 
     // Start is called before the first frame update
 
     private void Start()
     {
+#if UNITY_STANDALONE
+        if (adButton != null)
+        {
+            adButton.SetActive(false);
+            adLimitText.SetActive(false);
+        }
+#endif
         string gameID = null;
 #if UNITY_ANDROID
         gameID = androidID;
@@ -26,7 +34,7 @@ public class AdvertisementManager : MonoBehaviour
         {
             Advertisement.Initialize(gameID, false);
         }
-            if (PlayerPrefs.GetInt("numOfTimesAdWatched") >= 3)
+            if (PlayerPrefs.GetInt("numOfTimesAdWatched") >= adLimit)
             {
                 if (adButton != null)
                 {
@@ -44,8 +52,8 @@ public class AdvertisementManager : MonoBehaviour
                 }
             }
 
-        //Temporary, please remove later!!
-        PlayerPrefs.SetInt("numOfTimesAdWatched", 0);
+        //Temporary, please remove later!
+        //PlayerPrefs.SetInt("numOfTimesAdWatched", 0);
 
         gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
 #region A lot of "if" statements...
@@ -76,10 +84,17 @@ public class AdvertisementManager : MonoBehaviour
 
     private void Update()
     {
+#if UNITY_STANDALONE
+        if (adButton != null)
+        {
+            adButton.SetActive(false);
+            adLimitText.SetActive(false);
+        }
+#endif
         numOfTimesAdWatched = PlayerPrefs.GetInt("numOfTimesAdWatched");
         
 
-        if (PlayerPrefs.GetInt("numOfTimesAdWatched") >= 3) {
+        if (PlayerPrefs.GetInt("numOfTimesAdWatched") >= adLimit) {
             if (DateTime.Now.Subtract(DateTime.Parse(PlayerPrefs.GetString("oldDate"))).TotalHours >= 24)
             {
                 PlayerPrefs.SetInt("numOfTimesAdWatched", 0);
@@ -111,7 +126,7 @@ public class AdvertisementManager : MonoBehaviour
         
         PlayerPrefs.SetInt("numOfTimesAdWatched", PlayerPrefs.GetInt("numOfTimesAdWatched") + 1);
         Debug.Log(PlayerPrefs.GetInt("numOfTimesAdWatched"));
-        if (PlayerPrefs.GetInt("numOfTimesAdWatched") >= 3)
+        if (PlayerPrefs.GetInt("numOfTimesAdWatched") >= adLimit)
         {
             if (adButton != null)
             {

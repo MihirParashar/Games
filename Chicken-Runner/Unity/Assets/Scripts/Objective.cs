@@ -1,10 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Objective : MonoBehaviour
 {
+
     GameManager gameManager;
+    ParticleSystem ps;
+
     List<GameObject> seeds;
     GameObject[] seedsInScene;
 
@@ -16,9 +20,12 @@ public class Objective : MonoBehaviour
 
     void Start()
     {
-        PlayerPrefs.SetInt("NumOfSeedsCaught", 0);
+
         seeds = new List<GameObject>();
         seedsInScene = GameObject.FindGameObjectsWithTag("Finish");
+
+        ps = GetComponent<ParticleSystem>();
+
         for (int i = 0; i < seedsInScene.Length; i++)
         {
             seeds.Add(seedsInScene[i]);
@@ -33,6 +40,7 @@ public class Objective : MonoBehaviour
             timesHitPlayer++;
             if (timesHitPlayer < 2)
             {
+                ps.Play();
                 //Disabling renderer for sprite, in other words, making it invisible
                 gameObject.GetComponent<BoxCollider2D>().enabled = false;
                 gameObject.GetComponent<SpriteRenderer>().enabled = false;
@@ -45,21 +53,25 @@ public class Objective : MonoBehaviour
     private void Update()
     {
         //So it only runs once
-        if (!hasWon)
+        if (SceneManager.GetActiveScene().name != "Infinite")
         {
-            allSeedsCaught = true;
-            foreach (GameObject seed in seeds)
+            if (!hasWon)
             {
-                if (!seed.GetComponent<Objective>().isSeedCaught)
+                allSeedsCaught = true;
+                foreach (GameObject seed in seeds)
                 {
-                    allSeedsCaught = false;
+                    if (seed != null)
+                        if (!seed.GetComponent<Objective>().isSeedCaught)
+                        {
+                            allSeedsCaught = false;
+                        }
                 }
-            }
-            if (allSeedsCaught)
-            {
-                gameManager.StartCoroutine(gameManager.Win());
-                allSeedsCaught = false;
-                hasWon = true;
+                if (allSeedsCaught)
+                {
+                    gameManager.StartCoroutine(gameManager.Win());
+                    allSeedsCaught = false;
+                    hasWon = true;
+                }
             }
         }
         

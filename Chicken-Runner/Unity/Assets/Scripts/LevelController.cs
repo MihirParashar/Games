@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿    using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,7 +19,6 @@ public class LevelController : MonoBehaviour
         levelOn = PlayerPrefs.GetInt("LevelOn", 1);
         for (int i = 0; i < levelButtons.Length; i++)
         {
-
             //Debug.Log("levelOn is: " + levelOn);
             //Debug.Log("i is: " + i);
             //Debug.Log(levelOn > i);
@@ -41,6 +40,11 @@ public class LevelController : MonoBehaviour
 
 
         PlayerPrefs.DeleteKey("LevelOn");
+
+        for (int i = 2; i < levelButtons.Length + 1; i++)
+        {
+            PlayerPrefs.SetInt("numOfTimesFinishedLevel" + i, 0);
+        }
         
     }
 }

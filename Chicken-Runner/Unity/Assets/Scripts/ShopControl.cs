@@ -30,14 +30,13 @@ public class ShopControl : MonoBehaviour
     private void Start()
     {
         //Temporary
-        PlayerPrefs.SetInt("MoneyAmount", 100);
-
+        //PlayerPrefs.SetInt("MoneyAmount", 100);
         //The default skin should always be available.
         PlayerPrefs.SetInt("IsItem0Sold", 1);
     }
     private void Update()
     {
-        moneyAmountText.text = "MONEY: " + PlayerPrefs.GetInt("MoneyAmount", 0).ToString();
+        moneyAmountText.text = "COINS: " + PlayerPrefs.GetInt("MoneyAmount", 0).ToString();
     }
     //Mashing cost and index into one integer, because Unity does not support multiple
     //parameters for onClick event.

@@ -7,35 +7,34 @@ using TMPro;
 
 public class LevelLoader : MonoBehaviour
 {
-    GameObject loadingScreen;
+    public GameObject loadingScreen;
     TextMeshProUGUI progressText;
     Slider progressSlider;
 
     void Start()
     {
-        loadingScreen = GameObject.FindGameObjectWithTag("LoadingScreen");
-        if (GameObject.FindGameObjectWithTag("LoadingText") != null)
+        if (loadingScreen == null)
         {
-            progressText = GameObject.FindGameObjectWithTag("LoadingText").GetComponent<TextMeshProUGUI>();
-            progressSlider = GameObject.FindGameObjectWithTag("LoadingSlider").GetComponent<Slider>();
-            loadingScreen.SetActive(false);
+            loadingScreen = GameObject.FindGameObjectWithTag("LoadingScreen");
         }
+        progressSlider = loadingScreen.transform.GetChild(1).GetComponent<Slider>();
+        progressText = loadingScreen.transform.GetChild(1).GetChild(2).GetComponent<TextMeshProUGUI>();
 
     }
 
     public void NextLevel()
     {
-        StartCoroutine(LoadLevelAsync(SceneManager.GetActiveScene().buildIndex + 1));
+        LoadLevel(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void Retry()
     {
-        StartCoroutine(LoadLevelAsync(SceneManager.GetActiveScene().buildIndex));
+        LoadLevel(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void MainMenu()
     {
-        StartCoroutine(LoadLevelAsync(0));
+        LoadLevel(0);
     }
 
     public void LoadLevel(int sceneIndex)
@@ -45,11 +44,9 @@ public class LevelLoader : MonoBehaviour
 
     public IEnumerator LoadLevelAsync(int sceneIndex)
     {
+
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
-        //Wait until all objects are initialized
-        while (loadingScreen == null) { yield return null; }
-        while (progressSlider == null) { yield return null; }
-        while (progressText == null) { yield return null; }
+        Debug.Log("loadingScreen obj is: " + loadingScreen);
         loadingScreen.SetActive(true);
         while (!operation.isDone)
         {

@@ -20,10 +20,17 @@ public class GameManager : MonoBehaviour
     BoxCollider2D enemyCol;
     GameObject nextLevelText;
 
-    static int test;
-
     [HideInInspector]
     public int numOfTimesFinished;
+
+
+    //Now we can know if the game ended,
+    //and whether we won or lost.
+    [HideInInspector]
+    public bool hasEndedGame = false;
+
+    [HideInInspector]
+    public bool hasLostGame = false;
 
     //How much money we earn when we complete a level
     const int moneyWinAmount = 10;
@@ -40,7 +47,18 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        test++;
+        PlayerPrefs.SetInt("NumOfSeedsCaught", 0);
+
+
+        //Change tutorial based on platform you are on
+#if UNITY_STANDALONE
+        //If we are on level 1
+        if (SceneManager.GetActiveScene().buildIndex == 3)
+        {
+            GameObject.FindGameObjectWithTag("Tutorial").transform.GetChild(0).GetComponent<TextMeshProUGUI>().text =
+            "USE \"WASD\" KEYS TO MOVE. PRESS SPACE TO JUMP.  THE AMOUNT OF COINS YOU GET WHEN YOU FINISH A LEVEL VARIES BASED ON THE LEVEL AND THE NUMBER OF TIMES YOU'VE COMPLETED IT . COLLECT THE BAG OF SEEDS TO PROCEED TO THE NEXT LEVEL.";
+        }
+#endif
 
         //It's complicated, but I don't want any errors, so only
         //assign it if we find an instance of the find.
@@ -80,18 +98,31 @@ public class GameManager : MonoBehaviour
     {
         if (seedsFoundText != null)
         {
-            seedsFoundText.text = "SEEDS FOUND: " + PlayerPrefs.GetInt("NumOfSeedsCaught") + "/" + seeds.Length;
+            if (SceneManager.GetActiveScene().name != "Infinite")
+            {
+                seedsFoundText.text = "SEEDS FOUND: " + PlayerPrefs.GetInt("NumOfSeedsCaught") + "/" + seeds.Length;
+            } else
+            {
+                seedsFoundText.text = "SCORE: " + PlayerPrefs.GetInt("NumOfSeedsCaught");
+            }
         }
+
+        //if (character.transform.position.y <= -20 && SceneManager.GetActiveScene().name == "Infinite")
+        //{
+        //    Lose();
+        //}
     }
 
 
     public IEnumerator Win()
     {
+        hasEndedGame = true;
         if (enemyCol != null)
         {
             enemyCol.enabled = false;
         }
-        
+
+
 
         winText.SetActive(true);
 
@@ -115,24 +146,30 @@ public class GameManager : MonoBehaviour
         int sceneOn = SceneManager.GetActiveScene().buildIndex - 2;
 
 
-        if (sceneOn - PlayerPrefs.GetInt("numOfTimesFinishedLevel" + sceneOn) < 1)
+        if (sceneOn - PlayerPrefs.GetInt("numOfTimesFinishedLevel" + sceneOn, 0) < 1)
         {
             GiveCoins(1);
         }
         else
         {
-            GiveCoins(sceneOn - PlayerPrefs.GetInt("numOfTimesFinishedLevel" + sceneOn));
+            GiveCoins(sceneOn - PlayerPrefs.GetInt("numOfTimesFinishedLevel" + sceneOn, 0));
         }
+        if (sceneOn == PlayerPrefs.GetInt("LevelOn", 1))
+        {
+            PlayerPrefs.SetInt("LevelOn", PlayerPrefs.GetInt("LevelOn", 1) + 1);
+        }
+
+        Debug.Log("numOfTimesFinishedLevel" + sceneOn + ": " + PlayerPrefs.GetInt("numOfTimesFinishedLevel" + sceneOn, 0));
 
         PlayerPrefs.SetInt("numOfTimesFinishedLevel" + sceneOn, PlayerPrefs.GetInt("numOfTimesFinishedLevel" + sceneOn, 0) + 1);
         PlayerPrefs.SetInt("numOfTimesFinished", numOfTimesFinished + 1);
-        
-
     }
 
 
     public void Lose()
     {
+        hasEndedGame = true;
+        hasLostGame = true;
         loseText.SetActive(true);
         joystick.gameObject.SetActive(false);
         jumpButton.SetActive(false);
