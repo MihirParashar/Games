@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public GameObject winText;
     public GameObject loseText;
     public TextMeshProUGUI seedsFoundText;
+    public TextMeshProUGUI highscoreText;
     //public Texture2D nextLevelMap;
 
 
@@ -56,7 +57,7 @@ public class GameManager : MonoBehaviour
         if (SceneManager.GetActiveScene().buildIndex == 3)
         {
             GameObject.FindGameObjectWithTag("Tutorial").transform.GetChild(0).GetComponent<TextMeshProUGUI>().text =
-            "USE \"WASD\" KEYS TO MOVE. PRESS SPACE TO JUMP.  THE AMOUNT OF COINS YOU GET WHEN YOU FINISH A LEVEL VARIES BASED ON THE LEVEL AND THE NUMBER OF TIMES YOU'VE COMPLETED IT . COLLECT THE BAG OF SEEDS TO PROCEED TO THE NEXT LEVEL.";
+            "USE \"A\" AND \"D\" KEYS TO MOVE. PRESS SPACE TO JUMP.  THE AMOUNT OF COINS YOU GET WHEN YOU FINISH A LEVEL VARIES BASED ON THE LEVEL AND THE NUMBER OF TIMES YOU'VE COMPLETED IT . COLLECT THE BAG OF SEEDS TO PROCEED TO THE NEXT LEVEL.";
         }
 #endif
 
@@ -103,14 +104,21 @@ public class GameManager : MonoBehaviour
                 seedsFoundText.text = "SEEDS FOUND: " + PlayerPrefs.GetInt("NumOfSeedsCaught") + "/" + seeds.Length;
             } else
             {
+                if (PlayerPrefs.GetInt("NumOfSeedsCaught", 0) > PlayerPrefs.GetInt("Highscore", 0))
+                {
+                    PlayerPrefs.SetInt("Highscore", PlayerPrefs.GetInt("NumOfSeedsCaught"));
+                }
                 seedsFoundText.text = "SCORE: " + PlayerPrefs.GetInt("NumOfSeedsCaught");
+                highscoreText.text = "HIGHSCORE: " + PlayerPrefs.GetInt("Highscore", 0);
             }
         }
-
-        //if (character.transform.position.y <= -20 && SceneManager.GetActiveScene().name == "Infinite")
-        //{
-        //    Lose();
-        //}
+        if (character != null)
+        {
+            if (character.transform.position.y <= -50 && SceneManager.GetActiveScene().name == "Infinite")
+            {
+                Lose();
+            }
+        }
     }
 
 

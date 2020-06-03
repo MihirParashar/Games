@@ -78,7 +78,7 @@ SpriteRenderer:
   m_Size: {x: 7.02, y: 1.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &2938186897878209890
@@ -91,7 +91,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1655938015773829221}
   - component: {fileID: 888052310028598771}
-  - component: {fileID: 8515588431048798938}
+  - component: {fileID: 2262841581929762351}
   m_Layer: 0
   m_Name: ChickenCutscene
   m_TagString: Untagged
@@ -164,7 +164,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8515588431048798938
+--- !u!114 &2262841581929762351
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -459,7 +459,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 695193393286613039}
+      - m_Target: {fileID: 0}
         m_MethodName: movetoNextCutscene
         m_Mode: 1
         m_Arguments:
@@ -662,7 +662,7 @@ GameObject:
   - component: {fileID: 9025610521223637470}
   - component: {fileID: 9025610521223637465}
   - component: {fileID: 5184053259024292204}
-  - component: {fileID: 695193393286613039}
+  - component: {fileID: 2555619819214163352}
   m_Layer: 0
   m_Name: LucasWizard
   m_TagString: Untagged
@@ -726,12 +726,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7fc4a085cc6075847973f3f0568a346d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 36317e2dc98e9af4d99122ecb4710571, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.4, y: 0.4}
+  m_Size: {x: 4, y: 4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -755,7 +755,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 4, y: 4}
-    newSize: {x: 0.4, y: 0.4}
+    newSize: {x: 4, y: 4}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -763,7 +763,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 15, y: 4}
   m_EdgeRadius: 0
---- !u!114 &695193393286613039
+--- !u!114 &2555619819214163352
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -772,14 +772,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 9025610521223637464}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aefb5d695099c6d40bac165bcab52de4, type: 3}
+  m_Script: {fileID: 11500000, guid: c29ed75c770bc9d418deab1d63a2c1a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speechBubbleObj: {fileID: 2068596362498695866}
-  chickenInCutscene: {fileID: 2938186897878209890}
   cutscenes:
   - cutsceneBuildIndex: 9
     SpeechBubbles:
-    - {fileID: 21300000, guid: ff1e1b60524327e44b7d6f48fcf25a0e, type: 3}
-    - {fileID: 21300000, guid: 5c210d170f63ba44abb8db86fe1e77d4, type: 3}
-    - {fileID: 21300000, guid: 9d25871c09f266947851c8f92330cd39, type: 3}
+    - {fileID: 21300000, guid: 20bd18fc3b5653d4b92a9e100d3b6009, type: 3}
+    - {fileID: 21300000, guid: 84d88574897f08945b61f09559452711, type: 3}
+    - {fileID: 21300000, guid: d555050c44961b34b87f8345037b40c9, type: 3}
+  speechBubbleObj: {fileID: 2068596362498695866}
+  chickenInCutscene: {fileID: 2938186897878209890}

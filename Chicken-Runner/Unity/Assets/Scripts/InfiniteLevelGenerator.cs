@@ -4,16 +4,27 @@ using UnityEngine;
 
 public class InfiniteLevelGenerator : MonoBehaviour
 {
+    [System.Serializable]
+    public struct LevelStagePlatform
+    {
+        public Stage stage;
+        public Transform[] platformTypes;
+    }
+
     private const float playerDistSpawnLevelPart = 30f;
     private const float playerDistRemoveLevelPart = 200f;
 
-    [SerializeField] private Transform[] platformTypes;
     [SerializeField] private Transform levelStart;
     [SerializeField] private GameObject player;
     [SerializeField] private Transform tileParent;
 
+    [SerializeField] private LevelStagePlatform[] levelStagePlatforms; 
+
     private Vector3 lastEndPosition;
     private Vector3 lastStartPosition;
+
+    public enum Stage { Begin, Cave, Temple }
+    private Stage stageOn = Stage.Begin;
 
     private List<Transform> instantiatedPlatforms = new List<Transform>();
 
@@ -31,6 +42,10 @@ public class InfiniteLevelGenerator : MonoBehaviour
 
     private void Update()
     {
+        if (Mathf.RoundToInt(Time.timeSinceLevelLoad) >= 10)
+        {
+            stageOn = Stage.Cave;
+        }
         for (int i = 0; i < instantiatedPlatforms.Count; i++)
         {
             //Debug.Log("Player Position: " + player.transform.position);
@@ -70,7 +85,12 @@ public class InfiniteLevelGenerator : MonoBehaviour
 
     private Transform SpawnLevelPart(Vector3 pos, bool isRight)
     {
-        Transform randomType = platformTypes[Random.Range(0, platformTypes.Length)];
+        Transform randomType = levelStagePlatforms[0].platformTypes[Random.Range(0, levelStagePlatforms[0].platformTypes.Length)];
+        if (stageOn == Stage.Cave)
+        {
+            randomType = levelStagePlatforms[1].platformTypes[Random.Range(0, levelStagePlatforms[1].platformTypes.Length)];
+
+        }
         Transform levelPartTransform;
 
         if (isRight)
