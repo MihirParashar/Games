@@ -3753,10 +3753,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8272a40ed003ab419945382e6c52834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelStart: {fileID: 2478485659705821719, guid: 5b1aaf6d1bd3d1041974fe66b75cb8c4,
-    type: 3}
-  player: {fileID: 785500958}
-  tileParent: {fileID: 1660740849}
   levelStagePlatforms:
   - stage: 0
     platformTypes:
@@ -3768,9 +3764,15 @@ MonoBehaviour:
     - {fileID: 2478485659705821719, guid: e4f55b0d1fc8ba649821a6d3e43b2c26, type: 3}
     - {fileID: 2478485659705821719, guid: fdbfab93e5143d349a5000d62d21cf45, type: 3}
     - {fileID: 2478485659705821719, guid: 7745555ef78973d4999b4eed865ac27f, type: 3}
+    timeStartStage: 0
   - stage: 1
     platformTypes:
     - {fileID: 2478485659705821719, guid: ca49ed2e1a051f542aff539b6a8dbd6c, type: 3}
+    timeStartStage: 10
+  levelStart: {fileID: 2478485659705821719, guid: 5b1aaf6d1bd3d1041974fe66b75cb8c4,
+    type: 3}
+  player: {fileID: 785500958}
+  tileParent: {fileID: 1660740849}
 --- !u!1 &1763709136
 GameObject:
   m_ObjectHideFlags: 0

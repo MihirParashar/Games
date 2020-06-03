@@ -9,16 +9,18 @@ public class InfiniteLevelGenerator : MonoBehaviour
     {
         public Stage stage;
         public Transform[] platformTypes;
+        //In seonds
+        public float timeStartStage;
     }
 
-    private const float playerDistSpawnLevelPart = 30f;
-    private const float playerDistRemoveLevelPart = 200f;
+    [SerializeField] private LevelStagePlatform[] levelStagePlatforms; 
 
     [SerializeField] private Transform levelStart;
     [SerializeField] private GameObject player;
     [SerializeField] private Transform tileParent;
 
-    [SerializeField] private LevelStagePlatform[] levelStagePlatforms; 
+    private const float playerDistSpawnLevelPart = 30f;
+    private const float playerDistRemoveLevelPart = 200f;
 
     private Vector3 lastEndPosition;
     private Vector3 lastStartPosition;
@@ -32,24 +34,29 @@ public class InfiniteLevelGenerator : MonoBehaviour
     {
         lastEndPosition = levelStart.Find("EndPosition").position;
         lastStartPosition = levelStart.Find("StartPosition").position;
+
         int startingSpawnLevelParts = 5;
+
         for (int i = 0; i < startingSpawnLevelParts; i++)   
         {
             SpawnLevelPart(true);
             SpawnLevelPart(false);
         }
+
     }
 
     private void Update()
     {
-        if (Mathf.RoundToInt(Time.timeSinceLevelLoad) >= 10)
+        for (int i = 0; i < levelStagePlatforms.Length; i++)
         {
-            stageOn = Stage.Cave;
+        if (Mathf.RoundToInt(Time.timeSinceLevelLoad) >= levelStagePlatforms[i].timeStartStage)
+        {
+            stageOn = levelStagePlatforms[i].stage;
+        }
+
         }
         for (int i = 0; i < instantiatedPlatforms.Count; i++)
         {
-            //Debug.Log("Player Position: " + player.transform.position);
-            //Debug.Log("Platform " + i + " Position:" + instantiatedPlatforms[i].position);
             //If it's out of range
             if (Vector3.Distance(instantiatedPlatforms[i].position, player.transform.position) > playerDistRemoveLevelPart)
             {
@@ -85,12 +92,7 @@ public class InfiniteLevelGenerator : MonoBehaviour
 
     private Transform SpawnLevelPart(Vector3 pos, bool isRight)
     {
-        Transform randomType = levelStagePlatforms[0].platformTypes[Random.Range(0, levelStagePlatforms[0].platformTypes.Length)];
-        if (stageOn == Stage.Cave)
-        {
-            randomType = levelStagePlatforms[1].platformTypes[Random.Range(0, levelStagePlatforms[1].platformTypes.Length)];
-
-        }
+        Transform randomType = levelStagePlatforms[(int)stageOn].platformTypes[Random.Range(0, levelStagePlatforms[(int)stageOn].platformTypes.Length - 1)];
         Transform levelPartTransform;
 
         if (isRight)
