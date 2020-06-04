@@ -21,7 +21,7 @@ public class CutsceneCharacter : MonoBehaviour
 
     bool hasCompletedCutscene = false;
 
-    int cutsceneOn;
+    int cutsceneOn = 0;
     int speechBubbleOn = 0;
     int collisions = 0;
 
@@ -32,15 +32,13 @@ public class CutsceneCharacter : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-
-
-        //Debug.Log("Working");
         if (collision.tag == "Player" && !hasCompletedCutscene)
         {
             if (collisions < 1)
             {
                 collisions++;
                 speechBubbleObj.SetActive(true);
+
                 for (int i = 0; i < cutscenes.Length; i++)
                 {
                     if (cutscenes[i].cutsceneBuildIndex == SceneManager.GetActiveScene().buildIndex)
@@ -49,10 +47,14 @@ public class CutsceneCharacter : MonoBehaviour
                         break;
                     }
                 }
+
                 character.GetComponent<SpriteRenderer>().enabled = false;
                 character.transform.GetChild(2).GetComponent<SpriteRenderer>().enabled = false;
+
                 chickenInCutscene.SetActive(true);
+
                 Time.timeScale = 0.0f;
+
                 speechBubbleObj.GetComponent<SpriteRenderer>().sprite = cutscenes[cutsceneOn].SpeechBubbles[speechBubbleOn];
                 speechBubbleOn++;
             }
@@ -69,6 +71,7 @@ public class CutsceneCharacter : MonoBehaviour
             character.GetComponent<SpriteRenderer>().enabled = true;
             character.transform.GetChild(2).GetComponent<SpriteRenderer>().enabled = true;
         }
+
         if (!hasCompletedCutscene)
         {
             speechBubbleObj.GetComponent<SpriteRenderer>().sprite = cutscenes[cutsceneOn].SpeechBubbles[speechBubbleOn];
