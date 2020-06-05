@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.32159805, g: 0.6520548, b: 0.9563213, a: 1}
+  m_IndirectSpecularColor: {r: 0.31723693, g: 0.64690727, b: 0.95682746, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3768,6 +3768,9 @@ MonoBehaviour:
   - stage: 1
     platformTypes:
     - {fileID: 2478485659705821719, guid: ca49ed2e1a051f542aff539b6a8dbd6c, type: 3}
+    - {fileID: 2478485659705821719, guid: 136afd0b0d031b646a28f743ba07e2e1, type: 3}
+    - {fileID: 2478485659705821719, guid: 136afd0b0d031b646a28f743ba07e2e1, type: 3}
+    - {fileID: 2478485659705821719, guid: 9da8b782f4e4c304b98d2953838e6ce7, type: 3}
     timeStartStage: 10
   levelStart: {fileID: 2478485659705821719, guid: 5b1aaf6d1bd3d1041974fe66b75cb8c4,
     type: 3}
@@ -4850,6 +4853,7 @@ GameObject:
   - component: {fileID: 2070139971}
   - component: {fileID: 2070139973}
   - component: {fileID: 2070139974}
+  - component: {fileID: 2070139975}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameController
@@ -4917,3 +4921,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   adButton: {fileID: 0}
   adLimitText: {fileID: 0}
+--- !u!114 &2070139975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2070139970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57f2a831f23c97c41a50b661e44d2238, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

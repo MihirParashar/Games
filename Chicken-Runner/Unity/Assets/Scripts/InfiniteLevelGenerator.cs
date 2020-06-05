@@ -92,7 +92,7 @@ public class InfiniteLevelGenerator : MonoBehaviour
 
     private Transform SpawnLevelPart(Vector3 pos, bool isRight)
     {
-        Transform randomType = levelStagePlatforms[(int)stageOn].platformTypes[Random.Range(0, levelStagePlatforms[(int)stageOn].platformTypes.Length - 1)];
+        Transform randomType = levelStagePlatforms[(int)stageOn].platformTypes[Random.Range(0, levelStagePlatforms[(int)stageOn].platformTypes.Length)];
         Transform levelPartTransform;
 
         if (isRight)
