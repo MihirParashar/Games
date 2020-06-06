@@ -2008,7 +2008,7 @@ MonoBehaviour:
     prefab: {fileID: 7599296451535522821, guid: 44947660d201609499033a170a9f7808,
       type: 3}
   - color: {r: 1, g: 0.5019608, b: 0, a: 1}
-    prefab: {fileID: 2973038482872604587, guid: 7ad4cb346fc2b5447b9e544d222a252f,
+    prefab: {fileID: 2142938335959236934, guid: 3080211fd25a32a4ab867c104619f529,
       type: 3}
   - color: {r: 1, g: 0, b: 1, a: 1}
     prefab: {fileID: 9025610521223637464, guid: 17150d09c3d96ab4ab210f5f16546829,

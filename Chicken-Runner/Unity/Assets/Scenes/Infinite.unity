@@ -3771,7 +3771,8 @@ MonoBehaviour:
     - {fileID: 2478485659705821719, guid: 136afd0b0d031b646a28f743ba07e2e1, type: 3}
     - {fileID: 2478485659705821719, guid: 136afd0b0d031b646a28f743ba07e2e1, type: 3}
     - {fileID: 2478485659705821719, guid: 9da8b782f4e4c304b98d2953838e6ce7, type: 3}
-    timeStartStage: 10
+    - {fileID: 2478485659705821719, guid: b8c6f700e46800d40a7084f92d201601, type: 3}
+    timeStartStage: 3
   levelStart: {fileID: 2478485659705821719, guid: 5b1aaf6d1bd3d1041974fe66b75cb8c4,
     type: 3}
   player: {fileID: 785500958}

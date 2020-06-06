@@ -210,7 +210,6 @@ GameObject:
   - component: {fileID: 34188646}
   - component: {fileID: 34188645}
   - component: {fileID: 34188648}
-  - component: {fileID: 34188649}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameController
@@ -278,18 +277,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   adButton: {fileID: 0}
   adLimitText: {fileID: 0}
---- !u!114 &34188649
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 34188644}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57f2a831f23c97c41a50b661e44d2238, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &78371833
 GameObject:
   m_ObjectHideFlags: 0
@@ -2137,7 +2124,7 @@ MonoBehaviour:
     prefab: {fileID: 7599296451535522821, guid: 44947660d201609499033a170a9f7808,
       type: 3}
   - color: {r: 1, g: 0.5019608, b: 0, a: 1}
-    prefab: {fileID: 2973038482872604587, guid: 7ad4cb346fc2b5447b9e544d222a252f,
+    prefab: {fileID: 2142938335959236934, guid: 3080211fd25a32a4ab867c104619f529,
       type: 3}
   - color: {r: 1, g: 0, b: 1, a: 1}
     prefab: {fileID: 9025610521223637464, guid: 17150d09c3d96ab4ab210f5f16546829,
@@ -2164,7 +2151,7 @@ MonoBehaviour:
     prefab: {fileID: 2186672243439973931, guid: a3cf6da17b827304dbc6b521efd03792,
       type: 3}
   - color: {r: 1, g: 0.2509804, b: 0, a: 1}
-    prefab: {fileID: 2973038482872604587, guid: 108ae1785e7fda24d94cd9a9aa3939b1,
+    prefab: {fileID: 8614360651622132682, guid: 85b5342a6d005864bb56f23c9007939f,
       type: 3}
 --- !u!4 &1318917459
 Transform:

@@ -44,7 +44,7 @@ public class Potions : MonoBehaviour
             Destroy(gameObject);
         } else if (name == "SpeedPotion(Clone)")
         {
-            movement.moveSpeed *= 1.75f;
+            movement.moveSpeed = betterForce;
             GetComponent<Collider2D>().enabled = false;
             GetComponent<SpriteRenderer>().enabled = false;
             yield return new WaitForSeconds(30f);

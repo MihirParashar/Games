@@ -7,12 +7,6 @@ public class LevelGenerator : MonoBehaviour
 
 	public ColorToPrefab[] colorMappings;
 
-	// Use this for initialization
-	void Start()
-	{
-		
-	}
-
 	void Awake()
 	{
 		GenerateLevel();
