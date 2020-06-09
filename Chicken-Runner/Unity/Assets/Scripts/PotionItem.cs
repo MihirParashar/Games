@@ -10,6 +10,8 @@ public class PotionItem : MonoBehaviour
     private PlayerMovement movement;
 
     private bool hasTouchedPotion;
+    private bool hasJumpBoostPotionEffect = false;
+    private bool hasSpeedBoostPotionEffect = false;
 
     void Start()
     {
@@ -20,18 +22,32 @@ public class PotionItem : MonoBehaviour
 
     public IEnumerator PotionEffect()
     {
-        if (potionStats.potionType == Potion.PotionTypes.jumpBoost)
-        {
-            controller.m_JumpForce *= potionStats.effectMultiplier;
-            yield return new WaitForSeconds(potionStats.effectTime);
 
-        }
-        else if (potionStats.potionType == Potion.PotionTypes.speed)
+        if (!hasJumpBoostPotionEffect)
         {
-            movement.moveSpeed *= potionStats.effectMultiplier;
-            yield return new WaitForSeconds(potionStats.effectTime);
-            movement.moveSpeed /= potionStats.effectMultiplier;
+            if (potionStats.potionType == Potion.PotionTypes.jumpBoost)
+            {
+                if (!hasJumpBoostPotionEffect)
+                {
+                    hasJumpBoostPotionEffect = true;
+                    controller.m_JumpForce *= potionStats.effectMultiplier;
+                    yield return new WaitForSeconds(potionStats.effectTime);
+                    controller.m_JumpForce /= potionStats.effectMultiplier;
+                }
 
+
+            }
+            else if (potionStats.potionType == Potion.PotionTypes.speed)
+            {
+                if (!hasSpeedBoostPotionEffect)
+                {
+                    hasSpeedBoostPotionEffect = true;
+                    movement.moveSpeed *= potionStats.effectMultiplier;
+                    yield return new WaitForSeconds(potionStats.effectTime);
+                    movement.moveSpeed /= potionStats.effectMultiplier;
+                }
+
+            }
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)

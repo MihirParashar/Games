@@ -3769,10 +3769,10 @@ MonoBehaviour:
     platformTypes:
     - {fileID: 2478485659705821719, guid: ca49ed2e1a051f542aff539b6a8dbd6c, type: 3}
     - {fileID: 2478485659705821719, guid: 136afd0b0d031b646a28f743ba07e2e1, type: 3}
-    - {fileID: 2478485659705821719, guid: 136afd0b0d031b646a28f743ba07e2e1, type: 3}
     - {fileID: 2478485659705821719, guid: 9da8b782f4e4c304b98d2953838e6ce7, type: 3}
     - {fileID: 2478485659705821719, guid: b8c6f700e46800d40a7084f92d201601, type: 3}
-    timeStartStage: 3
+    - {fileID: 2478485659705821719, guid: b73ebc27296bd464eb309161934239c4, type: 3}
+    timeStartStage: 10
   levelStart: {fileID: 2478485659705821719, guid: 5b1aaf6d1bd3d1041974fe66b75cb8c4,
     type: 3}
   player: {fileID: 785500958}
