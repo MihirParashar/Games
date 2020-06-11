@@ -27,25 +27,32 @@ public class PotionItem : MonoBehaviour
         {
             if (potionStats.potionType == Potion.PotionTypes.jumpBoost)
             {
-                if (!hasJumpBoostPotionEffect)
+                PlayerPrefs.SetInt("HasJumpBoostPotionEffect", 1);
+
+                if (PlayerPrefs.GetInt("HasJumpBoostPotionEffect", 0) == 0)
                 {
-                    hasJumpBoostPotionEffect = true;
                     controller.m_JumpForce *= potionStats.effectMultiplier;
-                    yield return new WaitForSeconds(potionStats.effectTime);
+                }
+                yield return new WaitForSeconds(potionStats.effectTime);
+
+                if (PlayerPrefs.GetInt("HasJumpBoostPotionEffect", 0) == 0)
+                {
                     controller.m_JumpForce /= potionStats.effectMultiplier;
                 }
 
+                PlayerPrefs.SetInt("HasJumpBoostPotionEffect", 0);
 
             }
             else if (potionStats.potionType == Potion.PotionTypes.speed)
             {
-                if (!hasSpeedBoostPotionEffect)
+                if (PlayerPrefs.GetInt("HasSpeedBoostPotionEffect", 0) == 0)
                 {
-                    hasSpeedBoostPotionEffect = true;
                     movement.moveSpeed *= potionStats.effectMultiplier;
-                    yield return new WaitForSeconds(potionStats.effectTime);
-                    movement.moveSpeed /= potionStats.effectMultiplier;
+                    PlayerPrefs.SetInt("HasSpeedBoostPotionEffect", 1);
                 }
+                    yield return new WaitForSeconds(potionStats.effectTime);
+                    PlayerPrefs.SetInt("HasSpeedBoostPotionEffect", 0);
+                    movement.moveSpeed /= potionStats.effectMultiplier;
 
             }
         }

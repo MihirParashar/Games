@@ -49,6 +49,8 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         PlayerPrefs.SetInt("NumOfSeedsCaught", 0);
+        PlayerPrefs.SetInt("HasJumpBoostPotionEffect", 0);
+        PlayerPrefs.SetInt("HasSpeedBoostPotionEffect", 0);
 
 
         //Change tutorial based on platform you are on
