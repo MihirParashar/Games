@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: JumpBoost
   m_EditorClassIdentifier: 
   potionType: 0
-  effectTime: 5
+  effectTime: 30
   effectMultiplier: 1.75
+  hasAppliedEffects: 1

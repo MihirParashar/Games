@@ -33,17 +33,28 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public bool hasLostGame = false;
 
+    public static List<PotionItem> potionsInEffect = new List<PotionItem>();
+
     //How much money we earn when we complete a level
     const int moneyWinAmount = 10;
-    int levelsCompleted;
+    float timeUntilPotionEnds;
+
+    float originalJumpAmount;
+
+    int potionIndex;
 
     LevelGenerator levelGen;
     PlayerController controller;
+    PlayerMovement movement;
+    private bool potionEffectGiven;
 
     void Awake()
     {
         gameObject.tag = "GameController";
         numOfTimesFinished = PlayerPrefs.GetInt("numOfTimesFinished", 0);
+
+        controller = FindObjectOfType<PlayerController>();
+        movement = FindObjectOfType<PlayerMovement>();
     }
 
     private void Start()
@@ -62,7 +73,7 @@ public class GameManager : MonoBehaviour
             "USE \"A\" AND \"D\" KEYS TO MOVE. PRESS SPACE TO JUMP.  THE AMOUNT OF COINS YOU GET WHEN YOU FINISH A LEVEL VARIES BASED ON THE LEVEL AND THE NUMBER OF TIMES YOU'VE COMPLETED IT . COLLECT THE BAG OF SEEDS TO PROCEED TO THE NEXT LEVEL.";
         }
 #endif
-
+        #region Initializing Variables
         //It's complicated, but I don't want any errors, so only
         //assign it if we find an instance of the find.
         if (GameObject.FindGameObjectWithTag("LevelGen") != null)
@@ -88,6 +99,8 @@ public class GameManager : MonoBehaviour
             jumpButton = GameObject.FindGameObjectWithTag("JumpButton");
         }
         seeds = GameObject.FindGameObjectsWithTag("Finish");
+
+        #endregion
 #if UNITY_EDITOR || UNITY_STANDALONE
         if (joystick != null)
         {
@@ -99,6 +112,11 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        while (originalJumpAmount == 0f)
+        {
+            originalJumpAmount = controller.m_JumpForce;
+        }
+
         if (seedsFoundText != null)
         {
             if (SceneManager.GetActiveScene().name != "Infinite")
@@ -121,6 +139,52 @@ public class GameManager : MonoBehaviour
                 Lose();
             }
         }
+
+
+
+        #region Potions
+
+        for (int i = 0; i < potionsInEffect.Count; i++)
+        {
+            if (potionsInEffect[i].potionStats.potionType == Potion.PotionTypes.jumpBoost)
+            {
+                //So it only runs if potion is in effect and we have not already applied extra force.
+                if (originalJumpAmount == controller.m_JumpForce)
+                {
+                    if (!potionsInEffect[i].hasAppliedEffects)
+                    {
+                        potionsInEffect[i].hasAppliedEffects = true;
+                        timeUntilPotionEnds = potionsInEffect[i].potionStats.effectTime;
+                        controller.m_JumpForce *= potionsInEffect[i].potionStats.effectMultiplier;
+                        //So we know what index to use when de-applying force.
+                        potionIndex = i;
+                    }
+
+                } else
+                {   
+                    if (!potionsInEffect[i].hasAppliedEffects)
+                    {
+                        potionsInEffect[i].hasAppliedEffects = true;
+                        //If potion is added but we have already applied extra force.
+                        timeUntilPotionEnds += potionsInEffect[i].potionStats.effectTime;
+                    }
+                }
+            }
+        }
+
+        if (timeUntilPotionEnds > 0f)
+        {
+            timeUntilPotionEnds -= Time.deltaTime;
+            if (timeUntilPotionEnds <= 0f)
+            {
+                //Potion ended.
+                controller.m_JumpForce /= potionsInEffect[potionIndex].potionStats.effectMultiplier;
+                potionsInEffect.RemoveAt(potionIndex);
+            }
+        }
+
+
+        #endregion
     }
 
 

@@ -16,5 +16,6 @@ public class Potion : ScriptableObject
 
     public float effectTime;
     public float effectMultiplier;
+    public bool hasAppliedEffects = false;
 
 }
