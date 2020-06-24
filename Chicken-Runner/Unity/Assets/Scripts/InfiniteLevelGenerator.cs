@@ -19,8 +19,8 @@ public class InfiniteLevelGenerator : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private Transform tileParent;
 
-    private const float playerDistSpawnLevelPart = 30f;
-    private const float playerDistRemoveLevelPart = 200f;
+    private const float playerDistSpawnLevelPart = 100f;
+    private const float playerDistRemoveLevelPart = 250f;
 
     private Vector3 lastEndPosition;
     private Vector3 lastStartPosition;
