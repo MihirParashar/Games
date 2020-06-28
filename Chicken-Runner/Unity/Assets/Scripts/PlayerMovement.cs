@@ -22,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector]
     public bool controlsEnabled = true;
 
+    public float speedMultiplier = 1f;
+
     
     bool isJumping = false;
     bool isCrouching = false;
@@ -100,7 +102,7 @@ public class PlayerMovement : MonoBehaviour
         //Move character
         if (controlsEnabled)
         {
-            controller.Move(xMove * Time.fixedDeltaTime, isCrouching, isJumping);
+            controller.Move(xMove * speedMultiplier * Time.fixedDeltaTime, isCrouching, isJumping);
             //Debug.Log(gameObject.GetComponent<Rigidbody2D>().velocity.x);
             if (gameObject.GetComponent<Rigidbody2D>().velocity.x > 0.1f 
              || gameObject.GetComponent<Rigidbody2D>().velocity.x < -0.1f) 

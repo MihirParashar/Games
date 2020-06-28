@@ -10,7 +10,7 @@ public class InfiniteLevelGenerator : MonoBehaviour
         public Stage stage;
         public Transform[] platformTypes;
         //In seonds
-        public float timeStartStage;
+        public int numOfPlatformsToStartStage;
     }
 
     [SerializeField] private LevelStagePlatform[] levelStagePlatforms; 
@@ -29,6 +29,8 @@ public class InfiniteLevelGenerator : MonoBehaviour
     private Stage stageOn = Stage.Begin;
 
     private List<Transform> instantiatedPlatforms = new List<Transform>();
+
+    int numOfPlatformsSpawned = 0;
 
     private void Awake()
     {
@@ -49,7 +51,7 @@ public class InfiniteLevelGenerator : MonoBehaviour
     {
         for (int i = 0; i < levelStagePlatforms.Length; i++)
         {
-        if (Mathf.RoundToInt(Time.timeSinceLevelLoad) >= levelStagePlatforms[i].timeStartStage)
+        if (numOfPlatformsSpawned > levelStagePlatforms[i].numOfPlatformsToStartStage)
         {
             stageOn = levelStagePlatforms[i].stage;
         }
@@ -87,7 +89,7 @@ public class InfiniteLevelGenerator : MonoBehaviour
             lastStartPosition = lastLevelPartTransform.Find("EndPosition").position;
         }
 
-
+        numOfPlatformsSpawned++;
     }
 
     private Transform SpawnLevelPart(Vector3 pos, bool isRight)

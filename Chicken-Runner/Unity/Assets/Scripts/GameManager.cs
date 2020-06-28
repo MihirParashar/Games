@@ -53,8 +53,8 @@ public class GameManager : MonoBehaviour
         gameObject.tag = "GameController";
         numOfTimesFinished = PlayerPrefs.GetInt("numOfTimesFinished", 0);
 
-        controller = FindObjectOfType<PlayerController>();
-        movement = FindObjectOfType<PlayerMovement>();
+        controller = FindObjectOfType<PlayerController>().GetComponent<PlayerController>();
+        movement = FindObjectOfType<PlayerMovement>().GetComponent<PlayerMovement>();
     }
 
     private void Start()
@@ -134,7 +134,7 @@ public class GameManager : MonoBehaviour
         }
         if (character != null)
         {
-            if (character.transform.position.y <= -50 && SceneManager.GetActiveScene().name == "Infinite")
+            if (character.GetComponent<Rigidbody2D>().velocity.y < -30 && character.transform.position.y < 0 && SceneManager.GetActiveScene().name == "Infinite")
             {
                 Lose();
             }

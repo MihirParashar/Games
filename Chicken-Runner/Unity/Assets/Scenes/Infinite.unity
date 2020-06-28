@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.31709677, g: 0.6468636, b: 0.95683235, a: 1}
+  m_IndirectSpecularColor: {r: 0.31873122, g: 0.6487008, b: 0.9566615, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -186,7 +186,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &128939426
 GameObject:
@@ -2318,6 +2318,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Chicken
       objectReference: {fileID: 0}
+    - target: {fileID: 3326427662497770505, guid: 0bafad636df6aec498ecaec92ec928b2,
+        type: 3}
+      propertyPath: speedMultiplier
+      value: 1.25
+      objectReference: {fileID: 0}
     - target: {fileID: 3326427662497770509, guid: 0bafad636df6aec498ecaec92ec928b2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2356,7 +2361,7 @@ PrefabInstance:
     - target: {fileID: 3326427662497770509, guid: 0bafad636df6aec498ecaec92ec928b2,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3326427662497770509, guid: 0bafad636df6aec498ecaec92ec928b2,
         type: 3}
@@ -3764,7 +3769,7 @@ MonoBehaviour:
     - {fileID: 2478485659705821719, guid: e4f55b0d1fc8ba649821a6d3e43b2c26, type: 3}
     - {fileID: 2478485659705821719, guid: fdbfab93e5143d349a5000d62d21cf45, type: 3}
     - {fileID: 2478485659705821719, guid: 7745555ef78973d4999b4eed865ac27f, type: 3}
-    timeStartStage: 0
+    numOfPlatformsToStartStage: 0
   - stage: 1
     platformTypes:
     - {fileID: 2478485659705821719, guid: ca49ed2e1a051f542aff539b6a8dbd6c, type: 3}
@@ -3772,7 +3777,12 @@ MonoBehaviour:
     - {fileID: 2478485659705821719, guid: 9da8b782f4e4c304b98d2953838e6ce7, type: 3}
     - {fileID: 2478485659705821719, guid: b8c6f700e46800d40a7084f92d201601, type: 3}
     - {fileID: 2478485659705821719, guid: b73ebc27296bd464eb309161934239c4, type: 3}
-    timeStartStage: 10
+    numOfPlatformsToStartStage: 6
+  - stage: 2
+    platformTypes:
+    - {fileID: 2478485659705821719, guid: 71c00f34f7f37db45956cae69eb8d607, type: 3}
+    - {fileID: 2478485659705821719, guid: dfe48ea9de4ce764899bd55c36f8b0d4, type: 3}
+    numOfPlatformsToStartStage: 1
   levelStart: {fileID: 2478485659705821719, guid: 5b1aaf6d1bd3d1041974fe66b75cb8c4,
     type: 3}
   player: {fileID: 785500958}

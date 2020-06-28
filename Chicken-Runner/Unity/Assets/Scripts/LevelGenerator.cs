@@ -9,11 +9,15 @@ public class LevelGenerator : MonoBehaviour
 
 	void Awake()
 	{
-		GenerateLevel();
+		//If we haven't already spawned objects
+		if (GameObject.FindGameObjectWithTag("Player") == null)
+		{
+			GenerateLevel();
+		}
 	}
 
 
-	void GenerateLevel()
+	public void GenerateLevel()
 	{
 		for (int x = 0; x < map.width; x++)
 		{

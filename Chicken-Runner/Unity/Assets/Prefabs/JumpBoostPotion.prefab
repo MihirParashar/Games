@@ -222,6 +222,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   potionStats: {fileID: 11400000, guid: bbc4798b50430e9429ba49fcb3f7f122, type: 2}
+  hasTouchedPotion: 0
+  hasAppliedEffects: 0
 --- !u!1 &9158276441152060923
 GameObject:
   m_ObjectHideFlags: 0
