@@ -5,11 +5,15 @@ using UnityEngine;
 
 public class Music : MonoBehaviour
 {
-    public AudioClip caveCutsceneSound;
     public AudioClip normalSound;
+    public AudioClip caveCutsceneSound;
+    public AudioClip templeMusicSound;
+
+    private int sceneOn = 0;
 
     private void Awake()
     {   
+
         DontDestroyOnLoad(this);
         int numOfMusicInstances = GameObject.FindGameObjectsWithTag("Music").Length;
 
@@ -22,15 +26,25 @@ public class Music : MonoBehaviour
 
     private void Update()
     {
-        if (SceneManager.GetActiveScene().buildIndex - 2 >= 7)
+        sceneOn = SceneManager.GetActiveScene().buildIndex - 2;
+
+        if (sceneOn >= 13)
+        {
+            GetComponent<AudioSource>().clip = templeMusicSound;
+            if (!GetComponent<AudioSource>().isPlaying)
+            {
+                GetComponent<AudioSource>().Play();
+            }
+
+        } else if (sceneOn >= 7)
         {
             GetComponent<AudioSource>().clip = caveCutsceneSound;
             if (!GetComponent<AudioSource>().isPlaying)
             {
                 GetComponent<AudioSource>().Play();
             }
-        }
-        else
+
+        } else
         {
             GetComponent<AudioSource>().clip = normalSound;
             if (!GetComponent<AudioSource>().isPlaying)

@@ -344,8 +344,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b89ca59fe189564da254ec04fb12afb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  caveCutsceneSound: {fileID: 8300000, guid: b5aa8a47c78a1ca479af90a0436faebe, type: 3}
   normalSound: {fileID: 8300000, guid: 9636b424cbbe5ef4e9244f76da75848b, type: 3}
+  caveCutsceneSound: {fileID: 8300000, guid: b5aa8a47c78a1ca479af90a0436faebe, type: 3}
+  templeMusicSound: {fileID: 8300000, guid: 5179a8ae7628fe44c9a1379d3e00dde5, type: 3}
 --- !u!1 &667653685
 GameObject:
   m_ObjectHideFlags: 0

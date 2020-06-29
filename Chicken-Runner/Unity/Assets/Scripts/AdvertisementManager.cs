@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class AdvertisementManager : MonoBehaviour
 {
     GameManager gameManager;
+    
     public GameObject adButton;
     public GameObject adLimitText;
     int numOfTimesAdWatched;
