@@ -16,17 +16,18 @@ namespace Pathfinding {
 	public class AIDestinationSetter : VersionedMonoBehaviour {
 		/// <summary>The object that the AI should move to</summary>
 		public Transform target;
+
+        //Some code was edited by me (Mihir Parashar), because I needed to initialize the target through script.
+
 		IAstarAI ai;
 
-		//This is a little bit of my own code, since I can't assign objects through the inspector.
-		//I can't do so because objects are loaded at runtime.
-		//(Mihir Parashar)
-		private void Start()
-		{
-			target = GameObject.FindGameObjectWithTag("Player").transform;
-		}
-
-		
+        void Start () {
+            //Initializing the target dynamically.
+            if (target == null)
+            {
+                target = GameObject.FindGameObjectWithTag("Player").transform;
+            }
+        }
 
 		void OnEnable () {
 			ai = GetComponent<IAstarAI>();

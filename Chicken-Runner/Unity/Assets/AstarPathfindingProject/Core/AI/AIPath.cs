@@ -237,6 +237,19 @@ namespace Pathfinding {
 
 		#endregion
 
+		/// <summary>\copydoc Pathfinding::IAstarAI::GetRemainingPath</summary>
+		public void GetRemainingPath (List<Vector3> buffer, out bool stale) {
+			buffer.Clear();
+			buffer.Add(position);
+			if (!interpolator.valid) {
+				stale = true;
+				return;
+			}
+
+			stale = false;
+			interpolator.GetRemainingPath(buffer);
+		}
+
 		protected override void OnDisable () {
 			base.OnDisable();
 

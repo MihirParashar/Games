@@ -1,3 +1,8 @@
+## 4.2.15 (2020-03-30)
+- Added \link Pathfinding.IAstarAI.GetRemainingPath ai.GetRemainingPath\endlink.
+- Fixed importing the package using the unity package manager would cause the A* inspector to not be able to load since it couldn't find the editor resources folder.
+- Fixed the package would report the wrong version number. This could cause the "New Update Available" window to show up unnecessarily.
+
 ## 4.2.14 (2020-03-23)
 - Fixed DynamicGridObstacle throwing an exception when scanning sometimes. This bug was introduced in 4.2.13.
 

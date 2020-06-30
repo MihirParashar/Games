@@ -94,7 +94,21 @@ public class InfiniteLevelGenerator : MonoBehaviour
 
     private Transform SpawnLevelPart(Vector3 pos, bool isRight)
     {
-        Transform randomType = levelStagePlatforms[(int)stageOn].platformTypes[Random.Range(0, levelStagePlatforms[(int)stageOn].platformTypes.Length)];
+        Transform randomType;
+
+        //If we have completed all stages, then spawn completely random ones.
+        if (numOfPlatformsSpawned > levelStagePlatforms[(int)Stage.Temple].numOfPlatformsToStartStage + 7)
+        {
+            int randStageIndex = Random.Range(0, levelStagePlatforms.Length);
+            Debug.Log("Random Stage Index: " + randStageIndex);
+            int randTypeIndex = Random.Range(0, levelStagePlatforms[randStageIndex].platformTypes.Length);
+            Debug.Log("Random Type Index: " + randTypeIndex);
+            randomType = levelStagePlatforms[randStageIndex].platformTypes[randTypeIndex];
+        }
+        else
+        {
+            randomType = levelStagePlatforms[(int)stageOn].platformTypes[Random.Range(0, levelStagePlatforms[(int)stageOn].platformTypes.Length)];
+        }
         Transform levelPartTransform;
 
         if (isRight)

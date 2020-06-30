@@ -8,18 +8,20 @@ public class GameManager : MonoBehaviour
 {
     public GameObject winText;
     public GameObject loseText;
+    public GameObject fallingTooFastText;
+
     public TextMeshProUGUI seedsFoundText;
     public TextMeshProUGUI highscoreText;
-    //public Texture2D nextLevelMap;
-
 
     Joystick joystick;
+
     GameObject character;
-    GameObject objective;
     GameObject jumpButton;
+    GameObject nextLevelText;
+
     GameObject[] seeds;
     BoxCollider2D enemyCol;
-    GameObject nextLevelText;
+
 
     [HideInInspector]
     public int numOfTimesFinished;
@@ -35,26 +37,22 @@ public class GameManager : MonoBehaviour
 
     public static List<PotionItem> potionsInEffect = new List<PotionItem>();
 
-    //How much money we earn when we complete a level
-    const int moneyWinAmount = 10;
     float timeUntilPotionEnds;
-
     float originalJumpAmount;
 
     int potionIndex;
-
-    LevelGenerator levelGen;
+    
     PlayerController controller;
-    PlayerMovement movement;
-    private bool potionEffectGiven;
 
     void Awake()
     {
         gameObject.tag = "GameController";
         numOfTimesFinished = PlayerPrefs.GetInt("numOfTimesFinished", 0);
 
-        controller = FindObjectOfType<PlayerController>().GetComponent<PlayerController>();
-        movement = FindObjectOfType<PlayerMovement>().GetComponent<PlayerMovement>();
+        if (FindObjectOfType<PlayerController>() != null)
+        {
+            controller = FindObjectOfType<PlayerController>().GetComponent<PlayerController>();
+        }
     }
 
     private void Start()
@@ -76,15 +74,10 @@ public class GameManager : MonoBehaviour
         #region Initializing Variables
         //It's complicated, but I don't want any errors, so only
         //assign it if we find an instance of the find.
-        if (GameObject.FindGameObjectWithTag("LevelGen") != null)
-        {
-            levelGen = GameObject.FindGameObjectWithTag("LevelGen").GetComponent<LevelGenerator>();
-        }
         if (GameObject.FindGameObjectWithTag("Enemy") != null)
         {
             enemyCol = GameObject.FindGameObjectWithTag("Enemy").GetComponent<BoxCollider2D>();
         }
-        objective = GameObject.FindGameObjectWithTag("Finish");
         if (GameObject.FindGameObjectWithTag("Player") != null)
         {
             character = GameObject.FindGameObjectWithTag("Player");
@@ -112,9 +105,12 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        while (originalJumpAmount == 0f)
+        if (controller != null)
         {
-            originalJumpAmount = controller.m_JumpForce;
+            while (originalJumpAmount == 0f)
+            {
+                originalJumpAmount = controller.m_JumpForce;
+            }
         }
 
         if (seedsFoundText != null)
@@ -134,9 +130,18 @@ public class GameManager : MonoBehaviour
         }
         if (character != null)
         {
-            if (character.GetComponent<Rigidbody2D>().velocity.y < -30 && character.transform.position.y < 0 && SceneManager.GetActiveScene().name == "Infinite")
+            if (character.GetComponent<Rigidbody2D>().velocity.y < -50 && character.transform.position.y < 0 && SceneManager.GetActiveScene().name == "Infinite")
             {
+                //The player is falling too fast, and their position is too low, so make them lose.
                 Lose();
+            }
+            else if (character.GetComponent<Rigidbody2D>().velocity.y < -30 && SceneManager.GetActiveScene().name == "Infinite")
+            {
+                //Send a warning to the player.
+                fallingTooFastText.SetActive(true);
+            } else
+            {
+                fallingTooFastText.SetActive(false);
             }
         }
 
