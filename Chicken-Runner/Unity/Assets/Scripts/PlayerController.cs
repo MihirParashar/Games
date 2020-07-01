@@ -17,6 +17,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Collider2D m_CrouchDisableCollider;                // A collider that will be disabled when crouching
     [HideInInspector] public bool m_Crouch;
 
+    //Make it public so we can reset velocity for reviving.
+    [HideInInspector] public Vector3 targetVelocity;
+
     const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
     [HideInInspector] public bool m_Grounded; // Whether or not the player is grounded.
     const float k_CeilingRadius = .2f; // Radius of the overlap circle to determine if the player can stand up
@@ -113,7 +116,7 @@ public class PlayerController : MonoBehaviour
             }*/
 
             // Move the character by finding the target velocity
-            Vector3 targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y);
+            targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y);
             // And then smoothing it out and applying it to the character
             m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
 

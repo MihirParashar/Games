@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -9,6 +10,7 @@ public class GameManager : MonoBehaviour
     public GameObject winText;
     public GameObject loseText;
     public GameObject fallingTooFastText;
+    public GameObject reviveButton;
 
     public TextMeshProUGUI seedsFoundText;
     public TextMeshProUGUI highscoreText;
@@ -247,6 +249,17 @@ public class GameManager : MonoBehaviour
 
     public void Lose()
     {
+        if (reviveButton != null)
+        {
+            //1 in 3 chance
+            var randomInt = Random.Range(0, 3);
+            if (randomInt == 0)
+            {
+                reviveButton.SetActive(true);
+            }
+        }
+        //Reset player velocity, rotation, etc.
+        character.transform.rotation = Quaternion.identity;
         hasEndedGame = true;
         hasLostGame = true;
         loseText.SetActive(true);
@@ -255,6 +268,30 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0.0f;
         PlayerPrefs.SetInt("numOfTimesFinished", numOfTimesFinished + 1);
     }
+
+
+    public void Revive()
+    {
+        //Watch ad
+        AdvertisementManager.PlayRewardedVideo();
+
+        //Reset input
+        Input.ResetInputAxes();
+
+        hasEndedGame = false;
+        hasLostGame = false;
+
+        loseText.SetActive(false);
+        joystick.gameObject.SetActive(true);
+        jumpButton.SetActive(true);
+
+        PlayerPrefs.SetInt("numOfTimesFinished", numOfTimesFinished - 1);
+        Time.timeScale = 1.0f;
+
+        //Set player's position back to last time they jumped.
+        character.transform.position = PlayerMovement.lastPlayerPosition;
+    }
+
 
     public void GiveCoins(int amount)
     {

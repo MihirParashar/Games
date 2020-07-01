@@ -16,11 +16,9 @@ public class PlayerMovement : MonoBehaviour
 
     float xMove = 0;
 
-    [HideInInspector]
-    public float moveSpeed = 40f;
-
-    [HideInInspector]
-    public bool controlsEnabled = true;
+    [HideInInspector] public float moveSpeed = 40f;
+    [HideInInspector] public static bool controlsEnabled = true;
+    [HideInInspector] public static Vector2 lastPlayerPosition; 
 
     public float speedMultiplier = 1f;
 
@@ -29,6 +27,8 @@ public class PlayerMovement : MonoBehaviour
     bool isCrouching = false;
     void Start()
     {
+        lastPlayerPosition = gameObject.transform.position;
+
         //Debug.Log(GameObject.FindGameObjectWithTag("Player"));
         characterClone = GameObject.FindGameObjectWithTag("Player");
 
@@ -38,13 +38,6 @@ public class PlayerMovement : MonoBehaviour
             joystick = GameObject.FindGameObjectWithTag("Joystick").GetComponent<Joystick>();
         }
         levelGen = GameObject.FindGameObjectWithTag("LevelGen");
-    }
-
-    public void Jump()
-    {
-        characterClone = GameObject.FindGameObjectWithTag("Player");
-        
-        characterClone.GetComponent<PlayerMovement>().isJumping = true;
     }
 
     // Update is called once per frame
@@ -63,6 +56,11 @@ public class PlayerMovement : MonoBehaviour
     xMove = Input.GetAxis("Horizontal") * moveSpeed;
     if (Input.GetButtonDown("Jump"))
     {
+                //Save player's position, for reviving.
+                if (GetComponent<PlayerController>().m_Grounded)
+                {
+                    lastPlayerPosition = gameObject.transform.position;
+                }
         isJumping = true;
     }
 
@@ -98,21 +96,26 @@ public class PlayerMovement : MonoBehaviour
     }
     void FixedUpdate()
     {
-        
+
         //Move character
         if (controlsEnabled)
         {
             controller.Move(xMove * speedMultiplier * Time.fixedDeltaTime, isCrouching, isJumping);
             //Debug.Log(gameObject.GetComponent<Rigidbody2D>().velocity.x);
-            if (gameObject.GetComponent<Rigidbody2D>().velocity.x > 0.1f 
-             || gameObject.GetComponent<Rigidbody2D>().velocity.x < -0.1f) 
+            if (gameObject.GetComponent<Rigidbody2D>().velocity.x > 0.1f
+             || gameObject.GetComponent<Rigidbody2D>().velocity.x < -0.1f)
             {
                 animator.SetBool("isWalking", true);
-            } else
+            }
+            else
             {
                 animator.SetBool("isWalking", false);
             }
             isJumping = false;
+        } else
+        {
+            //So, if controls are not enabled, make sure there are no animations playing.
+            animator.SetBool("isWalking", false);
         }
     }
 

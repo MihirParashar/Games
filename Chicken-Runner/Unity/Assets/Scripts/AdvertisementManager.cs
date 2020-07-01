@@ -137,4 +137,13 @@ public class AdvertisementManager : MonoBehaviour
             }
         }
     }
+
+    //If we just want to play a rewarded video, without giving the coins.
+    public static void PlayRewardedVideo()
+    {
+        if (Advertisement.IsReady("rewardedVideo"))
+        {
+            Advertisement.Show("rewardedVideo");
+        }
+    }
 }
