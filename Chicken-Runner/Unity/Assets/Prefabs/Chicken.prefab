@@ -135,6 +135,7 @@ MonoBehaviour:
   m_CeilingCheck: {fileID: 3326427663333907338}
   m_CrouchDisableCollider: {fileID: 674760682506006234}
   m_Crouch: 0
+  targetVelocity: {x: 0, y: 0, z: 0}
   m_Grounded: 0
   OnLandEvent:
     m_PersistentCalls:
@@ -156,7 +157,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 8692869454392283697}
   moveSpeed: 40
-  controlsEnabled: 1
+  speedMultiplier: 1
 --- !u!61 &3764722932390363353
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -235,6 +236,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 71d5cca2a7ce6d34e87bd2115bb3c7ab, type: 3}
   - {fileID: 21300000, guid: 255e094d145f41940b9fe736ce4bb4d5, type: 3}
   - {fileID: 21300000, guid: 5b8ef57f38b74544db5a85d0e12d8a31, type: 3}
+  - {fileID: 21300000, guid: 8c8d0467820cc764582bd2784bd5a1a3, type: 3}
 --- !u!1 &3326427663273539524
 GameObject:
   m_ObjectHideFlags: 0

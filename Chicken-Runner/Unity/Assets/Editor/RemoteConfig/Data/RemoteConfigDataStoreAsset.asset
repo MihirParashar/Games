@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 469c24fdb3bd6431b92cc1465bd9166b, type: 3}
+  m_Name: RemoteConfigDataStoreAsset
+  m_EditorClassIdentifier: 
+  rsKeyList:
+  - metadata:
+      entityId: 8d5d9ac3-d3a1-4965-8a54-718d4ec5fe0f
+    rs:
+      key: IsJulyHoliday
+      type: bool
+      value: False
+  rsLastCachedKeyList:
+  - metadata:
+      entityId: 8d5d9ac3-d3a1-4965-8a54-718d4ec5fe0f
+    rs:
+      key: IsJulyHoliday
+      type: bool
+      value: False
+  configId: 951c051a-7e4a-44bf-87d9-3a96cde0abf3
+  currentEnvironmentId: 1d760770-a14f-4203-9f36-2fbffa6751e2
+  environments:
+  - id: 79ba975d-3479-4168-9f5c-d082dd8602bd
+    appId: 
+    name: Release (Default)
+    description: 
+    createdAt: 2020-07-01T23:08:26Z
+    updatedAt: 2020-07-01T23:08:26Z
+  - id: 1d760770-a14f-4203-9f36-2fbffa6751e2
+    appId: 
+    name: Development
+    description: 
+    createdAt: 2020-07-01T23:08:26Z
+    updatedAt: 2020-07-01T23:08:26Z
+  rulesList:
+  - id: 30c80964-3e12-415d-9949-6453fbd59684
+    name: Is4thOfJuly
+    enabled: 1
+    priority: 1000
+    type: 
+    condition: true
+    rolloutPercentage: 100
+    value:
+    - metadata:
+        entityId: 8d5d9ac3-d3a1-4965-8a54-718d4ec5fe0f
+      rs:
+        key: IsJulyHoliday
+        type: bool
+        value: false
+    startDate: 2020-07-04T00:00:00Z
+    endDate: 2020-07-10T23:59:00Z
+  lastCachedRulesList:
+  - id: 30c80964-3e12-415d-9949-6453fbd59684
+    name: Is4thOfJuly
+    enabled: 1
+    priority: 1000
+    type: 
+    condition: true
+    rolloutPercentage: 100
+    value:
+    - metadata:
+        entityId: 8d5d9ac3-d3a1-4965-8a54-718d4ec5fe0f
+      rs:
+        key: IsJulyHoliday
+        type: bool
+        value: false
+    startDate: 2020-07-04T00:00:00Z
+    endDate: 2020-07-10T23:59:00Z
+  addedRulesIDs: []
+  updatedRulesIDs: []
+  deletedRulesIDs: []

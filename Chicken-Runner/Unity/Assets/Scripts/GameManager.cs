@@ -132,18 +132,22 @@ public class GameManager : MonoBehaviour
         }
         if (character != null)
         {
-            if (character.GetComponent<Rigidbody2D>().velocity.y < -50 && character.transform.position.y < 0 && SceneManager.GetActiveScene().name == "Infinite")
+            if (SceneManager.GetActiveScene().name == "Infinite")
             {
-                //The player is falling too fast, and their position is too low, so make them lose.
-                Lose();
-            }
-            else if (character.GetComponent<Rigidbody2D>().velocity.y < -30 && SceneManager.GetActiveScene().name == "Infinite")
-            {
-                //Send a warning to the player.
-                fallingTooFastText.SetActive(true);
-            } else
-            {
-                fallingTooFastText.SetActive(false);
+                if (character.GetComponent<Rigidbody2D>().velocity.y < -50 && character.transform.position.y < 0)
+                {
+                    //The player is falling too fast, and their position is too low, so make them lose.
+                    Lose();
+                }
+                else if (character.GetComponent<Rigidbody2D>().velocity.y < -30)
+                {
+                    //Send a warning to the player.
+                    fallingTooFastText.SetActive(true);
+                }
+                else
+                {
+                    fallingTooFastText.SetActive(false);
+                }
             }
         }
 
@@ -249,29 +253,39 @@ public class GameManager : MonoBehaviour
 
     public void Lose()
     {
-        if (reviveButton != null)
+        if (!hasLostGame)
         {
-            //1 in 3 chance
-            var randomInt = Random.Range(0, 3);
-            if (randomInt == 0)
+            if (reviveButton != null)
             {
-                reviveButton.SetActive(true);
+                //1 in 3 chance
+                int randomInt = Random.Range(0, 3);
+                Debug.Log(randomInt);
+                if (randomInt == 0)
+                {
+                    reviveButton.SetActive(true);
+                }
             }
+            //Reset player velocity, rotation, etc.
+            character.transform.rotation = Quaternion.identity;
+            hasEndedGame = true;
+            hasLostGame = true;
+            loseText.SetActive(true);
+            joystick.gameObject.SetActive(false);
+            jumpButton.SetActive(false);
+            Input.ResetInputAxes();
+            controller.targetVelocity = Vector3.zero;
+            character.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+            character.GetComponent<Rigidbody2D>().angularVelocity = 0f;
+            Time.timeScale = 0.0f;
+            Input.ResetInputAxes();
+            PlayerPrefs.SetInt("numOfTimesFinished", numOfTimesFinished + 1);
         }
-        //Reset player velocity, rotation, etc.
-        character.transform.rotation = Quaternion.identity;
-        hasEndedGame = true;
-        hasLostGame = true;
-        loseText.SetActive(true);
-        joystick.gameObject.SetActive(false);
-        jumpButton.SetActive(false);
-        Time.timeScale = 0.0f;
-        PlayerPrefs.SetInt("numOfTimesFinished", numOfTimesFinished + 1);
     }
 
 
     public void Revive()
     {
+        reviveButton.SetActive(false);
         //Watch ad
         AdvertisementManager.PlayRewardedVideo();
 

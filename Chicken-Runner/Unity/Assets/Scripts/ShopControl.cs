@@ -8,6 +8,9 @@ public class ShopControl : MonoBehaviour
 
     public Button[] buyButtons;
 
+    public GameObject julyHolidaySkinBuy;
+    public GameObject julyHolidaySkinEquip;
+
     public TextMeshProUGUI moneyAmountText;
 
     public LevelLoader levelLoader;
@@ -33,6 +36,23 @@ public class ShopControl : MonoBehaviour
         //PlayerPrefs.SetInt("MoneyAmount", 100);
         //The default skin should always be available.
         PlayerPrefs.SetInt("IsItem0Sold", 1);
+
+        #region Seasonal Items
+        if (julyHolidaySkinBuy != null)
+        {
+            if (RemoteConfig.isJulyHoliday)
+            {
+                julyHolidaySkinBuy.SetActive(true);
+                julyHolidaySkinEquip.SetActive(true);
+            }
+            else
+            {
+                julyHolidaySkinBuy.SetActive(false);
+                julyHolidaySkinEquip.SetActive(false);
+            }
+        }
+        #endregion
+
     }
     private void Update()
     {
@@ -43,9 +63,12 @@ public class ShopControl : MonoBehaviour
     public void BuySkin(int costIndex)
     {
         float costIndexSplit = costIndex / 1000f;
-        Debug.Log("costIndexSplit: " + costIndexSplit);
-        Debug.Log("costIndexSplit[0]: " + costIndexSplit.ToString("").Split('.')[0]);
-        Debug.Log("costIndexSplit[1]: " + costIndexSplit.ToString("0.000").Split('.')[1]);
+
+        //Logs in case cost index split does not work.
+        //Debug.Log("costIndexSplit: " + costIndexSplit);
+        //Debug.Log("costIndexSplit[0]: " + costIndexSplit.ToString("").Split('.')[0]);
+        //Debug.Log("costIndexSplit[1]: " + costIndexSplit.ToString("0.000").Split('.')[1]);
+        
         int cost = int.Parse(costIndexSplit.ToString("").Split('.')[0]);
         int index = int.Parse(costIndexSplit.ToString("0.000").Split('.')[1]);
         bool hasGivenError = false;
