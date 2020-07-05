@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class KillOnTouch : MonoBehaviour
 {
-    GameManager gameManager;
+    GameManager gameManager;    
     GameObject[] objectsArePlayer;
 
     void Start()

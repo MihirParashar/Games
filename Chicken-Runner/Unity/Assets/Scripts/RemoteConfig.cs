@@ -12,7 +12,7 @@ public class RemoteConfig : MonoBehaviour
     public static bool isJulyHoliday = false;
 
 
-    private void Awake()
+    private void Start()
     {
         ConfigManager.FetchCompleted += SetConfigInfo;
         ConfigManager.FetchConfigs<userAttributes, appAttributes>(new userAttributes(), new appAttributes());
