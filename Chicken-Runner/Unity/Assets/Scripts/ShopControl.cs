@@ -44,8 +44,7 @@ public class ShopControl : MonoBehaviour
             {
                 julyHolidaySkinBuy.SetActive(true);
                 julyHolidaySkinEquip.SetActive(true);
-            }
-            else
+            } else
             {
                 julyHolidaySkinBuy.SetActive(false);
                 julyHolidaySkinEquip.SetActive(false);

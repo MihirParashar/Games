@@ -13,7 +13,8 @@ public class PlayerSkins : MonoBehaviour
     {
 
         //Debug.Log("Skin Selected: " + PlayerPrefs.GetInt("SkinSelected", 999));
-        playerSprite = GetComponent<SpriteRenderer>();        
+        playerSprite = GetComponent<SpriteRenderer>();
+        Debug.Log(PlayerPrefs.GetInt("SkinSelected", 0));
         playerSprite.sprite = skinSprites[PlayerPrefs.GetInt("SkinSelected", 0)];
         //Debug.Log("Current sprite is: " + playerSprite.sprite);
         

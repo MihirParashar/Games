@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rsKeyList:
   - metadata:
-      entityId: 77a465f4-f176-459d-b94a-6d134e8984c5
+      entityId: 0b71d60a-d52f-47b0-a690-a01c9b546d8c
     rs:
       key: IsJulyHoliday
       type: bool
       value: false
   rsLastCachedKeyList:
   - metadata:
-      entityId: 77a465f4-f176-459d-b94a-6d134e8984c5
+      entityId: 0b71d60a-d52f-47b0-a690-a01c9b546d8c
     rs:
       key: IsJulyHoliday
       type: bool
@@ -42,39 +42,39 @@ MonoBehaviour:
     createdAt: 2020-07-01T23:08:26Z
     updatedAt: 2020-07-01T23:08:26Z
   rulesList:
-  - id: 8935b1ad-82e0-4256-829c-6d297a1af6b8
+  - id: 5d6650d5-3e04-45d0-9783-4468d6668101
     name: Is4thOfJuly
     enabled: 1
-    priority: 1000
+    priority: 1
     type: 
     condition: true
     rolloutPercentage: 100
     value:
     - metadata:
-        entityId: 77a465f4-f176-459d-b94a-6d134e8984c5
+        entityId: 0b71d60a-d52f-47b0-a690-a01c9b546d8c
       rs:
         key: IsJulyHoliday
         type: bool
         value: true
-    startDate: 2020-07-04T00:00:00Z
-    endDate: 2020-07-10T23:59:00Z
+    startDate: 2020-07-04T00:01:00Z
+    endDate: 2020-07-12T23:59:00Z
   lastCachedRulesList:
-  - id: 8935b1ad-82e0-4256-829c-6d297a1af6b8
+  - id: 5d6650d5-3e04-45d0-9783-4468d6668101
     name: Is4thOfJuly
     enabled: 1
-    priority: 1000
+    priority: 1
     type: 
     condition: true
     rolloutPercentage: 100
     value:
     - metadata:
-        entityId: 77a465f4-f176-459d-b94a-6d134e8984c5
+        entityId: 0b71d60a-d52f-47b0-a690-a01c9b546d8c
       rs:
         key: IsJulyHoliday
         type: bool
         value: true
-    startDate: 2020-07-04T00:00:00Z
-    endDate: 2020-07-10T23:59:00Z
+    startDate: 2020-07-04T00:01:00Z
+    endDate: 2020-07-12T23:59:00Z
   addedRulesIDs: []
   updatedRulesIDs: []
   deletedRulesIDs: []

@@ -42,7 +42,7 @@ PlayerSettings:
   m_SplashScreenLogos:
   - logo: {fileID: 10404, guid: 0000000000000000e000000000000000, type: 0}
     duration: 2
-  - logo: {fileID: 21300000, guid: 8b0521823a6a8ee4483ff83e2d43c685, type: 3}
+  - logo: {fileID: 21300000, guid: cf33cfb576fde1d4faab22079aa88dec, type: 3}
     duration: 2
   m_VirtualRealitySplashScreen: {fileID: 0}
   m_HolographicTrackingLossScreen: {fileID: 0}
@@ -115,6 +115,8 @@ PlayerSettings:
   switchNVNShaderPoolsGranularity: 33554432
   switchNVNDefaultPoolsGranularity: 16777216
   switchNVNOtherPoolsGranularity: 16777216
+  stadiaPresentMode: 0
+  stadiaTargetFramerate: 0
   vulkanNumSwapchainBuffers: 3
   vulkanEnableSetSRGBWrite: 0
   m_SupportedAspectRatios:
@@ -123,7 +125,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 0.6
+  bundleVersion: 0.7
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -167,10 +169,10 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Standalone: com.Company.ProductName
+    Standalone: com.meeruTheCoder.ChickenRunner
   buildNumber:
-    iPhone: 4
-  AndroidBundleVersionCode: 9
+    iPhone: 1
+  AndroidBundleVersionCode: 10
   AndroidMinSdkVersion: 20
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 0
