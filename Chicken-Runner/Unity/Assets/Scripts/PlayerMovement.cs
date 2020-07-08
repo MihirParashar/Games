@@ -94,6 +94,14 @@ public class PlayerMovement : MonoBehaviour
 
        
     }
+
+    public void Jump()
+    {
+        characterClone = GameObject.FindGameObjectWithTag("Player");
+
+        characterClone.GetComponent<PlayerMovement>().isJumping = true;
+    }
+
     void FixedUpdate()
     {
 

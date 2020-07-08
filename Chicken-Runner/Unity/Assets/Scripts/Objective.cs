@@ -46,6 +46,12 @@ public class Objective : MonoBehaviour
                 gameObject.GetComponent<SpriteRenderer>().enabled = false;
                 isSeedCaught = true;
                 PlayerPrefs.SetInt("NumOfSeedsCaught", PlayerPrefs.GetInt("NumOfSeedsCaught", 0) + 1);
+
+                //If on infinite mode, give coins.
+                if (SceneManager.GetActiveScene().name == "Infinite")
+                {
+                    gameManager.GiveCoins(1);
+                }
             }
         }
     }

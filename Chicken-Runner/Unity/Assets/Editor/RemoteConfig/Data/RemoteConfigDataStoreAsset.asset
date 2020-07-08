@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rsKeyList:
   - metadata:
-      entityId: 0b71d60a-d52f-47b0-a690-a01c9b546d8c
+      entityId: 26ef8cf6-9bd3-4720-b1f6-8b1317eb5eee
     rs:
       key: IsJulyHoliday
       type: bool
       value: false
   rsLastCachedKeyList:
   - metadata:
-      entityId: 0b71d60a-d52f-47b0-a690-a01c9b546d8c
+      entityId: 26ef8cf6-9bd3-4720-b1f6-8b1317eb5eee
     rs:
       key: IsJulyHoliday
       type: bool
@@ -51,7 +51,7 @@ MonoBehaviour:
     rolloutPercentage: 100
     value:
     - metadata:
-        entityId: 0b71d60a-d52f-47b0-a690-a01c9b546d8c
+        entityId: 26ef8cf6-9bd3-4720-b1f6-8b1317eb5eee
       rs:
         key: IsJulyHoliday
         type: bool
@@ -68,7 +68,7 @@ MonoBehaviour:
     rolloutPercentage: 100
     value:
     - metadata:
-        entityId: 0b71d60a-d52f-47b0-a690-a01c9b546d8c
+        entityId: 26ef8cf6-9bd3-4720-b1f6-8b1317eb5eee
       rs:
         key: IsJulyHoliday
         type: bool

@@ -21,8 +21,10 @@ public class RemoteConfig : MonoBehaviour
 
     void SetConfigInfo(ConfigResponse response)
     {
+
+        //Only if we get it from remote.
         isJulyHoliday = ConfigManager.appConfig.GetBool("IsJulyHoliday");
-        Debug.Log(response.requestOrigin + " " + isJulyHoliday);
+        Debug.Log(response.requestOrigin + " " + ConfigManager.appConfig.GetBool("IsJulyHoliday"));
     }
 
 

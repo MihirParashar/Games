@@ -125,7 +125,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 0.7
+  bundleVersion: 0.8
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -171,8 +171,9 @@ PlayerSettings:
   applicationIdentifier:
     Standalone: com.meeruTheCoder.ChickenRunner
   buildNumber:
-    iPhone: 1
-  AndroidBundleVersionCode: 10
+    Standalone: 1
+    iPhone: 2
+  AndroidBundleVersionCode: 11
   AndroidMinSdkVersion: 20
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 0

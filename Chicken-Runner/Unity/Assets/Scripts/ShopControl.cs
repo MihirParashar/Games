@@ -37,6 +37,10 @@ public class ShopControl : MonoBehaviour
         //The default skin should always be available.
         PlayerPrefs.SetInt("IsItem0Sold", 1);
 
+
+    }
+    private void Update()
+    {
         #region Seasonal Items
         if (julyHolidaySkinBuy != null)
         {
@@ -51,10 +55,6 @@ public class ShopControl : MonoBehaviour
             }
         }
         #endregion
-
-    }
-    private void Update()
-    {
         moneyAmountText.text = "COINS: " + PlayerPrefs.GetInt("MoneyAmount", 0).ToString();
     }
     //Mashing cost and index into one integer, because Unity does not support multiple
@@ -75,7 +75,7 @@ public class ShopControl : MonoBehaviour
             //So we don't display 2 errors at once
             if (PlayerPrefs.GetInt("IsItem" + index + "Sold") == 1 && !hasGivenError)
             {
-                Debug.Log("Already bought item!");
+                //Debug.Log("Already bought item!");
                 hasGivenError = true;
                 buyButtons[index].transform.parent.GetChild(3).gameObject.SetActive(true);
             }
@@ -89,7 +89,7 @@ public class ShopControl : MonoBehaviour
 
         if (!hasGivenError)
         {
-            Debug.Log("Item bought!");
+            //Debug.Log("Item bought!");
             PlayerPrefs.SetInt("IsItem" + index + "Sold", 1);
             PlayerPrefs.SetInt("SkinSelected", index);
             PlayerPrefs.SetInt("MoneyAmount", PlayerPrefs.GetInt("MoneyAmount", 0) - cost);
