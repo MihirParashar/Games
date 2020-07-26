@@ -255,6 +255,7 @@ public class GameManager : MonoBehaviour
     {
         if (!hasLostGame)
         {
+#if !UNITY_STANDALONE
             if (reviveButton != null)
             {
                 //1 in 3 chance
@@ -265,6 +266,7 @@ public class GameManager : MonoBehaviour
                     reviveButton.SetActive(true);
                 }
             }
+#endif
             //Reset player velocity, rotation, etc.
             character.transform.rotation = Quaternion.identity;
             hasEndedGame = true;

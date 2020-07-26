@@ -58,27 +58,31 @@ public class AdvertisementManager : MonoBehaviour
 
         gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
 #region A lot of "if" statements...
-        
-            //So that we don't show ads in the shop
-            if (SceneManager.GetActiveScene().buildIndex != 2)
-            {
-                //Every 10 times we win or lose game
-                if (gameManager.numOfTimesFinished % 10 == 0)
-                {
-                    if (Advertisement.IsReady("rewardedVideo"))
-                    {
+            
+            //Temporarily removing ads since not many people play my game yet :(
 
-                        Advertisement.Show("rewardedVideo");
-                    }
-                } //Every 5 times we lose game
-                else if (gameManager.numOfTimesFinished % 5 == 0)
-                {
-                    if (Advertisement.IsReady("video"))
-                    {
-                        Advertisement.Show("video");
-                    }
-                }
-            }
+            //So that we don't show ads in the shop
+
+            
+            //if (SceneManager.GetActiveScene().buildIndex != 2)
+            //{
+            //    //Every 10 times we win or lose game
+            //    if (gameManager.numOfTimesFinished % 10 == 0)
+            //    {
+            //        if (Advertisement.IsReady("rewardedVideo"))
+            //        {
+
+            //            Advertisement.Show("rewardedVideo");
+            //        }
+            //    } //Every 5 times we lose game
+            //    else if (gameManager.numOfTimesFinished % 5 == 0)
+            //    {
+            //        if (Advertisement.IsReady("video"))
+            //        {
+            //            Advertisement.Show("video");
+            //        }
+            //    }
+            // }
             
 #endregion
     }
