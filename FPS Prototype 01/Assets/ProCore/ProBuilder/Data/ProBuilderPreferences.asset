@@ -14,20 +14,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Bool_keys:
   - pbIconGUI
+  - pbDefaultOpenInDockableWindow
+  - pbStripProBuilderOnBuild
+  - pbDisableAutoUV2Generation
+  - pbForceConvex
+  - pbMeshesAreAssets
   m_Int_keys:
   - pbHandleAlignment
   - pbDefaultEditLevel
+  - pbDefaultEntity
+  - pbDefaultCollider
+  - pbShadowCastingMode
+  - pbDefaultSelectionMode
   m_Float_keys:
   - pbEditorScroll.x
   - pbEditorScroll.y
   m_String_keys: []
   m_Color_keys: []
-  m_Material_keys: []
-  m_Bool_values: 01
-  m_Int_values: 0000000004000000
+  m_Material_keys:
+  - pbDefaultMaterial
+  m_Bool_values: 000001000000
+  m_Int_values: 000000000100000004000000010000000200000002000000
   m_Float_values:
   - 0
   - 0
   m_String_values: []
   m_Color_values: []
-  m_Material_values: []
+  m_Material_values:
+  - {fileID: 2100000, guid: b0b4de3bd6e976e4f8b3adc6e72377ed, type: 2}

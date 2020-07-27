@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -26,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
 
     #region Ground Check
     [Header("Ground Check")]
+
     [SerializeField] private Transform groundCheck;
 
     [SerializeField] private LayerMask groundMask;
@@ -37,22 +36,40 @@ public class PlayerMovement : MonoBehaviour
 
     #region Movement
     [Header("Movement")]
+
     [SerializeField] private float moveSpeed = 12f;
     [SerializeField] private float jumpHeight = 3f;
+    [SerializeField] private float crouchMultiplier = 0.8f;
+
+    [SerializeField] private Transform GFX;
 
     private float xMove;
     private float zMove;
+
+    private float normalHeight;
+    private float crouchingHeight;
 
     private Vector3 movement;
     #endregion
 
     #region Gravity
-    private Vector3 downwardsVelocity;
-    private const float gravity = -9.81f;
+    private Vector3 playerVelocity;
+
+    //Normal gravity speed, multiplied by 2.5.
+    //I found this to work better.
+    private const float gravity = -9.81f * 2.5f;
     #endregion
 
-
     #endregion
+
+    private void Awake()
+    {
+        //Defining the normal player height, as well as
+        //the crouching height, for our crouch and uncrouch
+        //methods to use.
+        normalHeight = controller.height;
+        crouchingHeight = controller.height * crouchMultiplier;
+    }
 
     private void Update()
     {
@@ -61,9 +78,9 @@ public class PlayerMovement : MonoBehaviour
         //collides with a sphere with the position given, and the radius given.
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDist, groundMask);
 
-        if (isGrounded && downwardsVelocity.y < 0)
+        if (isGrounded && playerVelocity.y < 0)
         {
-            downwardsVelocity.y = -2f;
+            playerVelocity.y = -2f;
         }
         #endregion
 
@@ -82,18 +99,47 @@ public class PlayerMovement : MonoBehaviour
         //then jump.
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
-            downwardsVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            Jump();
+        }
+
+        //If crouch button is pressed, crouch.
+        if (Input.GetButton("Crouch"))
+        {
+            Crouch();
+        } else
+        {
+            Uncrouch();
         }
         #endregion
 
         #region Gravity
         //Adding the speed of gravity (-9.81 meters) to our downwards velocity.
-        downwardsVelocity.y += gravity * Time.deltaTime;
+        playerVelocity.y += gravity * Time.deltaTime;
 
         //Applying the downwards velocity.
-        controller.Move(downwardsVelocity * Time.deltaTime);
+        controller.Move(playerVelocity * Time.deltaTime);
         #endregion
 
     }
 
+    #region Movement Methods
+    private void Jump()
+    {
+        //Using a formula to calculate force needed to jump, then
+        //applying it to our Y velocity.
+        playerVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+    }
+
+    private void Crouch()
+    {
+        //Changing height of character controller to
+        //give the effect of the player crouching.
+        controller.height = crouchingHeight;
+    }
+    private void Uncrouch()
+    {
+        //Restoring player's height back to the original.
+        controller.height = normalHeight;
+    }
+    #endregion
 }
