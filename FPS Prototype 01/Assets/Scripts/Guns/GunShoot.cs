@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class GunShoot : MonoBehaviour
 {
@@ -15,12 +16,14 @@ public class GunShoot : MonoBehaviour
      * 
      * Thanks to Brackeys for the tutorial!
      * Link to video here: https://www.youtube.com/watch?v=THnivyG0Mvo
+     * Link to video 2 here: https://www.youtube.com/watch?v=kAx5g9V5bcM
      * 
      */
     #endregion
 
     #region Defining Variables
     [SerializeField] private Camera fpsCam;
+    [SerializeField] private Animator animator;
 
     #region Gun Stats
     [Header("Gun Stats")]
@@ -28,6 +31,8 @@ public class GunShoot : MonoBehaviour
     [SerializeField] private Gun gun;
 
     private float nextTimeToFire = 0f;
+    private int currentAmmo;
+    private bool isReloading = false;
     #endregion
 
     #region Effects
@@ -39,8 +44,35 @@ public class GunShoot : MonoBehaviour
 
     #endregion
 
+    private void Start()
+    {
+        //Setting our ammo to our max ammo at the start.
+        currentAmmo = gun.maxAmmo;
+
+    }
+
+    private void OnEnable()
+    {
+        isReloading = false;
+        animator.SetBool("isReloading", false);
+    }
+
     private void Update()
     {
+        //If we are reloading, don't do anything else in the rest of the function.
+        if (isReloading)
+        {
+            return;
+        }
+
+        //If we have 0 or less ammo left, we have to reload.
+        if (currentAmmo <= 0)
+        {
+            StartCoroutine(Reload());
+            return;
+        }
+
+        #region Detecting Input For Shooting
         //If our gun is automatic, allow the user to press and hold the mouse to rapid fire the gun.
         //Otherwise, make the player have to click every time.
         if (gun.isAutomatic)
@@ -63,18 +95,26 @@ public class GunShoot : MonoBehaviour
                 Shoot();
             }
         }
+        #endregion
     }
+
 
     private void Shoot()
     {
         //Play the muzzle flash particle effect.
         muzzleFlash.Play();
 
+        //Subtracting 1 from our current ammo, because every time we shoot,
+        //we should have one less ammo.
+        currentAmmo--;
+
         RaycastHit hit;
 
         //Physics raycast returns a boolean on whether or not our ray hit something in that layer mask
         //with the given details, such as the range, the position of the ray, and the direction.
         bool hasShotObject = Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, gun.range);
+
+        #region Making Target Take Damage, And Impact Effect
 
         //If we shot an object, then check if the object is a target.
         if (hasShotObject)
@@ -99,5 +139,27 @@ public class GunShoot : MonoBehaviour
             //Destroying our impact effect GameObject after 1.5 seconds.
             Destroy(impactEffectGO, 1.5f);
         }
+        #endregion
+    }
+    private IEnumerator Reload()
+    {
+        //Set is reloading true, and set the animator parameter is reloading true, as well.
+        isReloading = true;
+        animator.SetBool("isReloading", true);
+
+        //Waiting for the reload time in seconds minus 0.25 seconds, because of transition time.
+        yield return new WaitForSeconds(gun.reloadTime - .25f);
+
+        //Set the animator parameter is reloading false.
+        animator.SetBool("isReloading", false);
+
+        //Waiting the extra 0.25 seconds for transition time.
+        yield return new WaitForSeconds(.25f);
+
+        //Setting our current ammo back to our max ammo because we reloaded.
+        currentAmmo = gun.maxAmmo;
+
+        //Set is reloading false.
+        isReloading = false;
     }
 }
