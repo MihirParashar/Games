@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 10
   range: 100
-  fireRate: 10
+  fireRate: 15
   impactForce: 120
   isAutomatic: 1
   maxAmmo: 30

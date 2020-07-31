@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class WeaponSwitching : MonoBehaviour
 {
@@ -35,7 +36,7 @@ public class WeaponSwitching : MonoBehaviour
         #region Scroll Wheel Logic
         //If we move the scroll wheel down, change the selected
         //weapon to the next one. 
-        if (Input.GetAxis("Mouse ScrollWheel") > 0)
+        if (Input.GetAxis("Mouse ScrollWheel") < 0)
         {
             //If we are at the max selected weapon, reset it back to 0.
             if (selectedWeapon >= transform.childCount - 1)
@@ -49,7 +50,7 @@ public class WeaponSwitching : MonoBehaviour
 
         //If we move the scroll wheel up, change the selected
         //weapon to the previous one. 
-        if (Input.GetAxis("Mouse ScrollWheel") < 0)
+        if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
             //If we are at the 0th selected weapon, reset it back to the maximum.
             if (selectedWeapon <= 0)

@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using TMPro;
 
 public class GunShoot : MonoBehaviour
 {
     #region Full Script Summary
     /*
-     * Gun Script - Created on July 26th, 2020 by Mihir Parashar
+     * GunShoot Script - Created on July 26th, 2020 by Mihir Parashar
      * 
      * SUMMARY START
      * This script controls gun shooting. To shoot, it shoots out a raycast
@@ -30,16 +31,18 @@ public class GunShoot : MonoBehaviour
 
     [SerializeField] private Gun gun;
 
-    private float nextTimeToFire = 0f;
+    private float nextTimeToFire = 0.25f;
     private int currentAmmo;
     private bool isReloading = false;
     #endregion
 
-    #region Effects
-    [Header("Effects")]
+    #region Effects And UI
+    [Header("Effects And UI")]
 
     [SerializeField] private ParticleSystem muzzleFlash;
     [SerializeField] private GameObject impactEffect;
+
+    [SerializeField] private TextMeshProUGUI ammoText;
     #endregion
 
     #endregion
@@ -72,7 +75,7 @@ public class GunShoot : MonoBehaviour
             return;
         }
 
-        #region Detecting Input For Shooting
+        #region Detecting Input For Shooting and Reloading
         //If our gun is automatic, allow the user to press and hold the mouse to rapid fire the gun.
         //Otherwise, make the player have to click every time.
         if (gun.isAutomatic)
@@ -95,7 +98,18 @@ public class GunShoot : MonoBehaviour
                 Shoot();
             }
         }
+
+        //If we press "R", we are not already reloading, and we have less ammo then our max ammo, then reload.
+        if (Input.GetKeyDown(KeyCode.R) && !isReloading && currentAmmo < gun.maxAmmo)
+        {
+            StartCoroutine(Reload());
+        }
+
         #endregion
+
+        //Setting our ammo text to the current ammo out of
+        //the gun's max ammo.
+        ammoText.text = currentAmmo + " / " + gun.maxAmmo;
     }
 
 
