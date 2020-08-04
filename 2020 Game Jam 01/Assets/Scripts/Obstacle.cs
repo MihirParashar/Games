@@ -19,6 +19,11 @@ public class Obstacle : MonoBehaviour
 
             //Make the player lose one health.
             PlayerHealth.health--;
+
+            //Change the player ability to it's current ability
+            //plus 1.
+            PlayerAbilities.ChangeAbility(PlayerAbilities.abilityType + 1);
+
             StartCoroutine(gameManager.RewindBack(3f));
         }
     }
