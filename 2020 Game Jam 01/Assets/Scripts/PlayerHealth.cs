@@ -12,10 +12,15 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private Sprite fullHeart;
     [SerializeField] private Sprite emptyHeart;
 
+    private GameManager gameManager;
+
     private void Start()
     {
         health = 5;
         numOfHearts = 5;
+
+        //Initialize the game manager.
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     private void Update()
@@ -52,10 +57,10 @@ public class PlayerHealth : MonoBehaviour
             }
         }
 
-        //If our health is less than or 0, die.
-        if (health <= 0)
+        //If our health is less than or 0, and our time scale is not 0, then die.
+        if (health <= 0 && Time.timeSinceLevelLoad > 1 && Time.timeScale != 0)
         {
-            GameManager.Die();
+            gameManager.Die();
         }
     }
 }

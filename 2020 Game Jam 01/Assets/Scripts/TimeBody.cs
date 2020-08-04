@@ -45,7 +45,7 @@ public class TimeBody : MonoBehaviour
         }
 
         //Add our current position to the list.
-        pointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation));
+        pointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation, animator.GetBool("crouching")));
     }
 
     public void Rewind()
@@ -59,6 +59,7 @@ public class TimeBody : MonoBehaviour
             //Settting the values to the values in that point in time.
             transform.position = pointInTime.position;
             transform.rotation = pointInTime.rotation;
+            animator.SetBool("crouching", pointInTime.isCrouching);
 
             //Remove that position because we already used it.
             pointsInTime.RemoveAt(0);
