@@ -490,12 +490,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1970e8c99de8aa64d9342e818e1ea627, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4455d31d65f08a5418beba0ef54efed4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2, y: 4}
+  m_Size: {x: 9.6, y: 9.6}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -736,8 +736,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 454733981}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.75, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 5, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 1647933090}
   m_RootOrder: 4
@@ -787,7 +787,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 9.6, y: 9.6}
+  m_Size: {x: 8, y: 8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -1060,7 +1060,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 528645266}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.5, z: 0}
+  m_LocalPosition: {x: -0.25, y: 2.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1647933090}
@@ -1320,7 +1320,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 719837786}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7, y: 10, z: 0}
+  m_LocalPosition: {x: 7, y: 12.75, z: 0}
   m_LocalScale: {x: 3, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 731481876}
@@ -1429,9 +1429,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 726478612}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 21.75, y: 4.5, z: 0}
+  m_LocalPosition: {x: 21.75, y: 6.75, z: 0}
   m_LocalScale: {x: 3, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1825046268}
   m_Father: {fileID: 731481876}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1542,7 +1543,6 @@ Transform:
   - {fileID: 353170047}
   - {fileID: 726478613}
   - {fileID: 719837787}
-  - {fileID: 1825046268}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2203,13 +2203,13 @@ GameObject:
   m_Component:
   - component: {fileID: 1647933090}
   - component: {fileID: 1647933092}
-  - component: {fileID: 1647933095}
   - component: {fileID: 1647933091}
   - component: {fileID: 1647933093}
   - component: {fileID: 1647933094}
   - component: {fileID: 1647933089}
   - component: {fileID: 1647933096}
   - component: {fileID: 1647933097}
+  - component: {fileID: 1647933095}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -2341,8 +2341,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 1647933093}
   moveSpeed: 40
---- !u!61 &1647933095
-BoxCollider2D:
+--- !u!70 &1647933095
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2354,19 +2354,9 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.22, y: -1.3}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.6486021, y: 3.6}
-  m_EdgeRadius: 0
+  m_Offset: {x: -0.22000003, y: -0.6909745}
+  m_Size: {x: 1.74, y: 4.618051}
+  m_Direction: 0
 --- !u!114 &1647933096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2401,11 +2391,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerupIcon: {fileID: 454733983}
-  canePowerupSprite: {fileID: 21300000, guid: f5c4adfbd88f4964b81ce1e36134b47e, type: 3}
-  phonePowerupSprite: {fileID: 21300000, guid: 214b65f5f9ed8694bab84572bb898a5c, type: 3}
-  beerPowerupSprite: {fileID: 21300000, guid: 15314ebaaf23da64ebdbfadfe5045a33, type: 3}
-  skateboardPowerupSprite: {fileID: 21300000, guid: 357614bad5601384ab6dc0f758f9d7e1, type: 3}
-  lollipopPowerupSprite: {fileID: 21300000, guid: 1c25ae41b1b0f434c913b1900f697e80, type: 3}
+  canePowerupSprite: {fileID: 21300000, guid: 7f02b51e88cbff64a8fc406675e01520, type: 3}
+  phonePowerupSprite: {fileID: 21300000, guid: 2502c03395a9bf247949b03103ebc100, type: 3}
+  beerPowerupSprite: {fileID: 21300000, guid: b00327fcc12523547883181cccdaaea5, type: 3}
+  skateboardPowerupSprite: {fileID: 21300000, guid: f240582d843ac0742904031e48ad4de8, type: 3}
+  lollipopPowerupSprite: {fileID: 21300000, guid: ea8df47dc2d259d4c988a60a81024416, type: 3}
 --- !u!1 &1698718298
 GameObject:
   m_ObjectHideFlags: 0
@@ -2676,11 +2666,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1825046266}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 22.635, y: 6.506, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.29500008, y: 2.006, z: 0}
+  m_LocalScale: {x: 0.33333334, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 731481876}
-  m_RootOrder: 3
+  m_Father: {fileID: 726478613}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1825046269
 MonoBehaviour:
@@ -2770,7 +2760,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2130570425}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3, z: 0}
+  m_LocalPosition: {x: 0, y: -3.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1647933090}
