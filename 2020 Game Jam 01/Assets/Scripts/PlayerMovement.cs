@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private CharacterController2D controller;
 
-    [SerializeField] private float moveSpeed = 40f;
+    public float moveSpeed = 40f;
 
     private float xMove = 0f;
     private bool jumping = false;
@@ -16,28 +16,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        //Switch movement speed based on health.
-        switch (PlayerHealth.health) {
-            case 5:
-                moveSpeed = 40f;
-                break;
-            case 4:
-                moveSpeed = 35f;
-                break;
-            case 3:
-                moveSpeed = 30f;
-                break;
-            case 2:
-                moveSpeed = 25f;
-                break;
-            case 1:
-                moveSpeed = 20f;
-                break;
-            default:
-                moveSpeed = 40f;
-                break;
-        }
-
         //Getting our player movement horizontally.
         //The result will be 1 if we press the D key,
         //and -1 if we press the A key.
