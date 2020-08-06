@@ -2,8 +2,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using UnityEditor.Build;
-using UnityEngine.Diagnostics;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,7 +11,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Rewind")]
     [SerializeField] private TimeBody timeBody;
-    [SerializeField] private GameObject rewindArrow;
+    [SerializeField] private GameObject rewindUI;
 
     [Header("Lose")]
     [SerializeField] private GameObject loseMenu;
@@ -48,16 +46,34 @@ public class GameManager : MonoBehaviour
         loseMenu.SetActive(true);
 
         //Disable our rewind arrow and hearts.
-        rewindArrow.SetActive(false);
+        rewindUI.SetActive(false);
         hearts.SetActive(false);
     }
 
     public void Retry()
     {
-        LevelLoader.LoadLevel(LevelLoader.currentLevel);
+
+        //Load the first level.
+        LevelLoader.LoadLevel(1);
 
         //Set the time scale back to 1 again.
         Time.timeScale = 1.0f;
+    }
+
+    public void Win()
+    {
+        //If our level on is greater than or equal to the scene index - 1, then go
+        //to the next level.
+        if (PlayerPrefs.GetInt("LevelOn") >= LevelLoader.currentSceneIndex - 1)
+        {
+            PlayerPrefs.SetInt("LevelOn", LevelLoader.currentSceneIndex);
+        }
+
+        //If we have a level after this one, load the next scene.
+        if (LevelLoader.sceneCount > LevelLoader.currentSceneIndex)
+        {
+            LevelLoader.LoadLevel(LevelLoader.currentSceneIndex + 1);
+        }
     }
 
     public IEnumerator RewindBack(float time)
@@ -80,7 +96,7 @@ public class GameManager : MonoBehaviour
 
 
         //Enable the rewind arrow.
-        rewindArrow.SetActive(true);
+        rewindUI.SetActive(true);
 
 
 
@@ -106,7 +122,7 @@ public class GameManager : MonoBehaviour
         player.GetComponent<CharacterController2D>().enabled = true;
 
         //Disable the rewind arrow.
-        rewindArrow.SetActive(false);
+        rewindUI.SetActive(false);
 
 
     }

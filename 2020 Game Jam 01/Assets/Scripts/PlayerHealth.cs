@@ -8,11 +8,19 @@ public class PlayerHealth : MonoBehaviour
     public static int health;
     public static int numOfHearts;
 
+    private GameManager gameManager;
+
+    [Header("Hearts")]
+
     [SerializeField] private Image[] hearts;
     [SerializeField] private Sprite fullHeart;
     [SerializeField] private Sprite emptyHeart;
 
-    private GameManager gameManager;
+    [Header("Age")]
+
+    [SerializeField] private SpriteRenderer head;
+    [SerializeField] private Sprite[] ageSprites;
+
 
     private void Start()
     {
@@ -31,6 +39,13 @@ public class PlayerHealth : MonoBehaviour
         if (health > numOfHearts)
         {
             health = numOfHearts;
+        }
+
+        //If we have health, set our head sprite to the
+        //age sprite list on the health - 1 index.
+        if (health > 0)
+        {
+            head.sprite = ageSprites[health - 1];
         }
 
         for (int i = 0; i < hearts.Length; i++)

@@ -15,8 +15,8 @@ public class PlayerAbilities : MonoBehaviour
 
     };
 
-    public static AbilityTypes abilityType = AbilityTypes.CaneJumpBoost;
-    public static AbilityTypes prevAbilityType = AbilityTypes.CaneJumpBoost;
+    public static AbilityTypes abilityType;
+    public static AbilityTypes prevAbilityType;
 
     //The time until the ability ends.
     private float timeUntilBoostEnds = 5f;
@@ -27,6 +27,8 @@ public class PlayerAbilities : MonoBehaviour
     //If we used the ability.
     private bool hasUsedAbility = false;
 
+    [Header("Powerup")]
+
     [SerializeField] private SpriteRenderer powerupIcon;
 
     [SerializeField] private Sprite canePowerupSprite;
@@ -35,11 +37,17 @@ public class PlayerAbilities : MonoBehaviour
     [SerializeField] private Sprite skateboardPowerupSprite;
     [SerializeField] private Sprite lollipopPowerupSprite;
 
+    private void Start()
+    {
+        abilityType = AbilityTypes.CaneJumpBoost;
+        prevAbilityType = abilityType;
+    }
+
     private void Update()
     {           
 
         //If we haven't started the ability yet, and we press p, start the ability.
-        if (Input.GetKeyDown(KeyCode.P) && !hasStartedAbility)
+        if (Input.GetKeyDown(KeyCode.P) && !hasStartedAbility && Time.timeScale != 0)
         {
             Debug.Log("Starting Ability " + abilityType);
             hasStartedAbility = true;
