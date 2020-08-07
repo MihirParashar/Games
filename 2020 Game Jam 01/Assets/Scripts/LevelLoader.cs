@@ -14,7 +14,7 @@ public class LevelLoader : MonoBehaviour
         currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
         //Set the scene count to the number of scenes.
-        sceneCount = SceneManager.sceneCount;
+        sceneCount = SceneManager.sceneCountInBuildSettings;
     }
 
     public static void LoadLevel(int levelIndex)

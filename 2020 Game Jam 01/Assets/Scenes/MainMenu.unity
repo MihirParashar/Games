@@ -1020,7 +1020,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: NOT NAMED GAME
+  m_text: REWIND LIFE
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3543f0c85ecf9cc4ea228c3c8bf1494a, type: 2}
   m_sharedMaterial: {fileID: -1483231644016791880, guid: 3543f0c85ecf9cc4ea228c3c8bf1494a, type: 2}
@@ -1094,10 +1094,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1318678450}
-    characterCount: 14
+    characterCount: 11
     spriteCount: 0
-    spaceCount: 2
-    wordCount: 3
+    spaceCount: 1
+    wordCount: 2
     linkCount: 0
     lineCount: 1
     pageCount: 1

@@ -39,7 +39,8 @@ public class PlayerAbilities : MonoBehaviour
 
     private void Start()
     {
-        abilityType = AbilityTypes.CaneJumpBoost;
+        int health = PlayerPrefs.GetInt("Health", 5);
+        abilityType = (AbilityTypes)(-health + 5);
         prevAbilityType = abilityType;
     }
 
@@ -49,7 +50,6 @@ public class PlayerAbilities : MonoBehaviour
         //If we haven't started the ability yet, and we press p, start the ability.
         if (Input.GetKeyDown(KeyCode.P) && !hasStartedAbility && Time.timeScale != 0)
         {
-            Debug.Log("Starting Ability " + abilityType);
             hasStartedAbility = true;
             prevAbilityType = abilityType;
 
@@ -114,7 +114,6 @@ public class PlayerAbilities : MonoBehaviour
         }
         if (timeUntilBoostEnds <= 0f && !hasUsedAbility)
         {
-            Debug.Log("Ended Ability.");
 
             powerupIcon.sprite = null;
 

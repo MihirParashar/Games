@@ -40,7 +40,14 @@ public class GameManager : MonoBehaviour
         //Set the time scale to 0.
         Time.timeScale = 0.0f;
 
-        Debug.Log("Player Dead");
+        //If we haven't completed all levels yet, remove all levels progressed.
+        if (PlayerPrefs.GetInt("HasCompletedLevels", 0) == 0)
+        {
+            PlayerPrefs.SetInt("LevelOn", 1);
+        }
+
+        //Reset the player's health.
+        PlayerPrefs.SetInt("Health", 5);
 
         //Enable the lose text.
         loseMenu.SetActive(true);
@@ -54,7 +61,7 @@ public class GameManager : MonoBehaviour
     {
 
         //Load the first level.
-        LevelLoader.LoadLevel(1);
+        LevelLoader.LoadLevel(2);
 
         //Set the time scale back to 1 again.
         Time.timeScale = 1.0f;
@@ -70,9 +77,15 @@ public class GameManager : MonoBehaviour
         }
 
         //If we have a level after this one, load the next scene.
-        if (LevelLoader.sceneCount > LevelLoader.currentSceneIndex)
+        if (LevelLoader.sceneCount > LevelLoader.currentSceneIndex + 1)
         {
             LevelLoader.LoadLevel(LevelLoader.currentSceneIndex + 1);
+        }
+
+        //If we are on the last level, then set has completed all levels to true.
+        if (LevelLoader.sceneCount - 1 == LevelLoader.currentSceneIndex)
+        {
+            PlayerPrefs.SetInt("HasCompletedLevels", 1);
         }
     }
 

@@ -18,7 +18,7 @@ public class Obstacle : MonoBehaviour
         {
 
             //Make the player lose one health.
-            PlayerHealth.health--;
+            PlayerPrefs.SetInt("Health", PlayerPrefs.GetInt("Health", 5) - 1);
 
             //Change the player ability to it's current ability
             //plus 1.
