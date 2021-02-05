@@ -26,12 +26,13 @@ public class PlayerController : MonoBehaviour
         float xMove = Input.GetAxis("Vertical") * Time.deltaTime;
         float yMove = Input.GetAxis("Horizontal") * Time.deltaTime;
 
-        float xRot = Input.GetAxis("Mouse X") * Time.deltaTime;
-        float yRot = Mathf.Clamp(Input.GetAxis("Mouse Y") * Time.deltaTime, -90, 90);
+        float xRot = Input.GetAxis("Mouse X") * Time.deltaTime * mouseSens;
 
-        rb.MoveRotation(rb.rotation * Quaternion.Euler(new Vector3(0, xRot * mouseSens, 0)));
+        rb.MoveRotation(rb.rotation * Quaternion.Euler(new Vector3(0, xRot, 0)));
 
         rb.MovePosition(transform.position + (transform.forward * xMove * moveSpeed) + (transform.right * yMove * moveSpeed));
+
+
         if (Input.GetKeyDown("space"))
         {
             rb.AddForce(transform.up * jumpForce);
