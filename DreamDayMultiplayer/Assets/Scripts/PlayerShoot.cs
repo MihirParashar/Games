@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerShoot : MonoBehaviour
 {
     [SerializeField] private Camera cam;
+    [SerializeField] private Transform firePoint;
     [SerializeField] private LayerMask shootableLayers;
 
     public Weapon playerWeapon;
@@ -33,7 +34,7 @@ public class PlayerShoot : MonoBehaviour
     void Shoot()
     {
         RaycastHit hit;
-        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, playerWeapon.range, shootableLayers))
+        if (Physics.Raycast(firePoint.position, cam.transform.forward, out hit, playerWeapon.range, shootableLayers))
         {
             Debug.Log("Player hit: " + hit.transform.name);
         }

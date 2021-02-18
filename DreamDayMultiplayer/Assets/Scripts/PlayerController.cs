@@ -6,6 +6,8 @@ public class PlayerController : MonoBehaviour
 {
     #region Variables
     [SerializeField] private float moveSpeed = 30f;
+    [SerializeField] private Transform armTransform;
+    [SerializeField] private float mouseSens;
 
     private Rigidbody rb;
     #endregion
@@ -41,9 +43,20 @@ public class PlayerController : MonoBehaviour
         rb.MovePosition(new Vector3(transform.position.x + xMove1 + zMove1, transform.position.y, transform.position.z + xMove2 + zMove2));
 
         //Setting our rotation based on the current player input.
-        float xRot = Input.GetAxis("Mouse X");
+        float xRot = Input.GetAxis("Mouse X") * mouseSens;
+        float yRot = Input.GetAxis("Mouse Y") * mouseSens;
 
-        //Applying the rotation.
+        //Clamping the y-rotation so the player can't look too far down or up.
+        yRot = Mathf.Clamp(yRot, -90f, 60f);
+
+        //Applying the x-rotation to the player.
         transform.Rotate(new Vector3(0, xRot, 0));
+
+        Debug.Log(yRot);
+
+        //Applying the y-rotation to the player's arm
+        armTransform.localEulerAngles = new Vector3(armTransform.localEulerAngles.x + yRot, 0f, 0f); 
+
+        
     }
 }
