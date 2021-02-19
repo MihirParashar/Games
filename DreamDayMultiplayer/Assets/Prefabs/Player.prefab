@@ -38,6 +38,7 @@ Transform:
   - {fileID: 3572359958637706138}
   - {fileID: 5235618375743056890}
   - {fileID: 2372293448119518035}
+  - {fileID: 7213409432316859185}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -138,8 +139,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 15
-  armTransform: {fileID: 3572359958637706138}
+  jumpHeight: 100
+  camRotLimit: 60
   mouseSens: 1
+  armTransform: {fileID: 3572359958637706138}
+  groundCheckTransform: {fileID: 7213409432316859185}
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 2048
+  groundCheckRadius: 1.5
 --- !u!114 &482726133062863056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,7 +181,7 @@ MonoBehaviour:
   firePoint: {fileID: 5168864450128927683}
   shootableLayers:
     serializedVersion: 2
-    m_Bits: 567
+    m_Bits: 2615
   playerWeapon:
     name: Ray Shooter
     damage: 10
@@ -204,7 +212,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3095693547295941874}
   m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
-  m_LocalPosition: {x: 0, y: 5.22, z: -6.55}
+  m_LocalPosition: {x: 0, y: 5.2, z: -6.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3095693547166350440}
@@ -351,7 +359,7 @@ Transform:
   m_GameObject: {fileID: 5282989370178920799}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.3131, y: 2.6262, z: 1.3131}
+  m_LocalScale: {x: 1.3, y: 2.62, z: 1.3}
   m_Children: []
   m_Father: {fileID: 3095693547166350440}
   m_RootOrder: 3
@@ -418,6 +426,36 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &6152086021696615509
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7213409432316859185}
+  m_Layer: 8
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7213409432316859185
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6152086021696615509}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3095693547166350440}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6524699687033864980
 GameObject:
   m_ObjectHideFlags: 0
@@ -445,8 +483,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6524699687033864980}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.9, z: -0.0118}
-  m_LocalScale: {x: 1.4844843, y: 1.4844843, z: 1.4844843}
+  m_LocalPosition: {x: 0, y: 2.15, z: 0}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children: []
   m_Father: {fileID: 3095693547166350440}
   m_RootOrder: 2

@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class PlayerShoot : MonoBehaviour
 {
+    #region Variables
     [SerializeField] private Camera cam;
     [SerializeField] private Transform firePoint;
     [SerializeField] private LayerMask shootableLayers;
 
     public Weapon playerWeapon;
+    #endregion
 
 
     void Start()
