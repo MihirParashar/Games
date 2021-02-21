@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
@@ -69,7 +67,7 @@ public class PlayerController : MonoBehaviour
         //If we are pressing the space key and we are on the ground, then jump.
         if (isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
-            rb.MovePosition(new Vector3(transform.position.x, transform.position.y + yMove, transform.position.z));
+            rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
         }
         #endregion
 
