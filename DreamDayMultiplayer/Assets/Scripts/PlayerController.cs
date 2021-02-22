@@ -26,14 +26,16 @@ public class PlayerController : MonoBehaviour
         //Initializing our Rigidbody component.
         rb = GetComponent<Rigidbody>();
 
-        //Setting our cursor to lock to the center of the screen.
+        //Setting our cursor to lock to the center
+        //of the screen.
         Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()
     {
         #region Locking Cursor
-        //The escape key toggles whether our cursor is locked or not
+        //The escape key toggles whether our cursor
+        //is locked or not.
         if (Input.GetKeyDown(KeyCode.Escape) && Cursor.lockState == CursorLockMode.Locked)
         {
             Cursor.lockState = CursorLockMode.None;
@@ -56,15 +58,16 @@ public class PlayerController : MonoBehaviour
         float yMove = Input.GetAxis("Jump");
 
 
-        //Multiplying the input by the move speed and deltaTime.
+        //Multiplying the input by the move speed
+        //and deltaTime.
         xMove *= moveSpeed * Time.deltaTime;
         zMove *= moveSpeed * Time.deltaTime;
-        yMove *= jumpHeight * Time.deltaTime;
 
         //Applying the movement.
         rb.MovePosition(new Vector3(transform.position.x + xMove, transform.position.y, transform.position.z + zMove));
 
-        //If we are pressing the space key and we are on the ground, then jump.
+        //If we are pressing the space key and we
+        //are on the ground, then jump.
         if (isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
             rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
@@ -72,11 +75,13 @@ public class PlayerController : MonoBehaviour
         #endregion
 
         #region Rotation
-        //Setting our rotation based on the current player input.
+        //Setting our rotation based on the current
+        //player input.
         float xRot = Input.GetAxis("Mouse X") * mouseSens;
         float yRot = Input.GetAxis("Mouse Y") * mouseSens;
 
-        //Clamping the y-rotation so the player can't look too far down or up.
+        //Clamping the y-rotation so the player can't
+        //look too far down or up.
         yRot = Mathf.Clamp(yRot, -camRotLimit, camRotLimit);
 
         //Applying the x-rotation to the player.
