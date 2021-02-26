@@ -57,11 +57,9 @@ public class PlayerShoot : NetworkBehaviour
     //A command that we can run whenever a player is shot.
     [Command]
     void CmdPlayerShot(string playerID, int damageAmount)
-    {
-        Debug.Log(playerID + "has been shot.");
-
+    { 
         Player player = GameManager.GetPlayer(playerID);
 
-        player.TakeDamage(damageAmount);
+        player.RpcTakeDamage(damageAmount);
     }
 }

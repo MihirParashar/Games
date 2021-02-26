@@ -19,6 +19,9 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody rb;
     private bool isGrounded;
+    private float currentYRot;
+    private float xRot;
+    private float yRot;
     #endregion
 
     void Start()
@@ -77,18 +80,22 @@ public class PlayerController : MonoBehaviour
         #region Rotation
         //Setting our rotation based on the current
         //player input.
-        float xRot = Input.GetAxis("Mouse X") * mouseSens;
-        float yRot = Input.GetAxis("Mouse Y") * mouseSens;
+        xRot = Input.GetAxis("Mouse X") * mouseSens;
+        yRot = Input.GetAxis("Mouse Y") * mouseSens;
 
         //Clamping the y-rotation so the player can't
         //look too far down or up.
-        yRot = Mathf.Clamp(yRot, -camRotLimit, camRotLimit);
+        currentYRot -= yRot;
+        yRot = Mathf.Clamp(currentYRot, -camRotLimit, camRotLimit);
+        #endregion
+    }
 
+    private void FixedUpdate()
+    {
         //Applying the x-rotation to the player.
         transform.Rotate(new Vector3(0, xRot, 0));
 
         //Applying the y-rotation to the player's arm.
-        armTransform.localEulerAngles = new Vector3(armTransform.localEulerAngles.x + yRot, 0f, 0f);
-        #endregion
+        armTransform.localEulerAngles = new Vector3(-yRot, 0f, 0f);
     }
 }

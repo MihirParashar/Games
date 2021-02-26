@@ -10,31 +10,26 @@ public class PlayerSetup : NetworkBehaviour
     [SerializeField] private Behaviour[] componentsToDisable;
 
 	private const string remoteLayerName = "Remote Player";
-	private Camera sceneCamera;
 #endregion
 
 	void Start()
-	{
+	{ 
 		if (!isLocalPlayer)
 		{
-			//Disable the local player's components since we
-			//are not the local player.
+			//Disable the local player's components since
+			//we are not the local player.
 			DisableComponents();
 
 			//Set our layer to the remote layer.
 			AssignRemoteLayer();
 			
 		}
-		else
-		{
-			//If we are the local player, then disable the
-			//scene camera.
-			sceneCamera = Camera.main;
-			if (sceneCamera != null)
-			{
-				sceneCamera.gameObject.SetActive(false);
-			}
-		}
+
+		//Since we already know that this object must have
+		//a player component (we required it in the
+		//beginning), we can simply directly reference it
+		//without having to make a variable.
+		GetComponent<Player>().Setup();
 	}
 
 	//Overriding the OnStartClient function from the 
@@ -77,15 +72,15 @@ public class PlayerSetup : NetworkBehaviour
 
 	void OnDisable()
 	{
-		//If we die/exit, re-enable the scene camera.
-		if (sceneCamera != null)
-		{
-			sceneCamera.gameObject.SetActive(true);
-		}
+		//If we die/exit, do the following:
 
-		//Then, unlock the cursor.
+		//Re-enable our scene camera.
+		GameManager.instance.SetSceneCameraActive(true);
+
+		//Unlock the cursor.
 		Cursor.lockState = CursorLockMode.None;
 
+		//Unregister ourselves from the player list.
 		GameManager.UnregisterPlayer(transform.name);
 	}
 

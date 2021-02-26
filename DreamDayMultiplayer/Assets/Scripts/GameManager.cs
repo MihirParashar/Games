@@ -4,6 +4,13 @@ using System;
 
 public class GameManager : MonoBehaviour
 {
+
+    public MatchSettings matchSettings;
+
+    //Creating a static instance of itself, also known as a
+    //singleton.
+    public static GameManager instance;
+
     //The string that will be added before the player's network
     //ID in order to create a player ID.
     private const string playerIDPrefix = "Player ";
@@ -12,6 +19,32 @@ public class GameManager : MonoBehaviour
     //their player components.
     private static Dictionary<string, Player> players = new Dictionary<string, Player>();
 
+    private Camera sceneCamera;
+
+
+    private void Start()
+    {
+        //Assigning our scene camera.
+        sceneCamera = Camera.main;
+
+        if (instance == null)
+        {
+            instance = this;
+        } else
+        {
+            //If the instance is already assigned, then that means
+            //there is a duplicate GameManager, so log an error.
+            Debug.LogError("GameManager: More than one GameManager in the scene!");
+        }
+    }
+
+    //Creating a public method to enable or disable our scene camera.
+    public void SetSceneCameraActive (bool active)
+    {
+       sceneCamera.gameObject.SetActive(active);
+    }
+
+    #region Player Registering
     //A function that adds a player with the specified network ID and 
     //Player component to the dictionary of players.
     public static void RegisterPlayer(string networkID, Player player)
@@ -43,4 +76,5 @@ public class GameManager : MonoBehaviour
     {
         return players[playerID];
     }
+    #endregion
 }
