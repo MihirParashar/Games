@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
 
     public MatchSettings matchSettings;
+    [SerializeField] private GameObject deathText;
 
     //Creating a static instance of itself, also known as a
     //singleton.
@@ -41,7 +42,19 @@ public class GameManager : MonoBehaviour
     //Creating a public method to enable or disable our scene camera.
     public void SetSceneCameraActive (bool active)
     {
-       sceneCamera.gameObject.SetActive(active);
+        if (sceneCamera != null)
+        {
+            sceneCamera.gameObject.SetActive(active);
+        }
+    }
+
+    //Creating a public method to enable or disable our death text.
+    public void SetDeathTextActive(bool active)
+    {
+        if (deathText != null)
+        {
+            deathText.SetActive(active);
+        }
     }
 
     #region Player Registering

@@ -37,7 +37,7 @@ public class Player : NetworkBehaviour
         if (Input.GetKeyDown(KeyCode.K))
         {
             RpcTakeDamage(99999);
-        }        
+        } 
     }
 
 
@@ -109,12 +109,14 @@ public class Player : NetworkBehaviour
             col.enabled = false;
         }
 
-        //Enabling our scene camera (only if we are the
-        //local player).
+        //Enabling our scene camera and death text
+        //(only if we are the local player).
         if (isLocalPlayer)
         {
             GameManager.instance.SetSceneCameraActive(true);
+            GameManager.instance.SetDeathTextActive(true);
         }
+
 
         //Call respawn function.
         StartCoroutine(Respawn());
@@ -168,12 +170,14 @@ public class Player : NetworkBehaviour
             col.enabled = true;
         }
 
-        //Disabling our scene camera (only if we are the
-        //local player).
+        //Disabling our scene camera and death text
+        //(only if we are the local player).
         if (isLocalPlayer)
         {
             GameManager.instance.SetSceneCameraActive(false);
+            GameManager.instance.SetDeathTextActive(false);
         }
+
 
         //Resetting the player's health to their max 
         //health.

@@ -41,15 +41,16 @@ public class PlayerController : MonoBehaviour
         //is locked or not.
         if (Input.GetKeyDown(KeyCode.Escape) && Cursor.lockState == CursorLockMode.Locked)
         {
-            Cursor.lockState = CursorLockMode.None;
-        } else if (Input.GetKeyDown(KeyCode.Escape) && Cursor.lockState == CursorLockMode.None)
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape) && Cursor.lockState == CursorLockMode.None)
         {
             Cursor.lockState = CursorLockMode.Locked;
         }
         #endregion
 
         #region Movement
-        
+
         //Checking if a sphere with the specified radius with a center of the specified position
         //intersects an object that has a layer from the specified LayerMask. If true, then we 
         //are on the ground so we can jump. If false, then we are in the air so we can't jump.
