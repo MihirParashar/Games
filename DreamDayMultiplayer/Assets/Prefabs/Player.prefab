@@ -231,7 +231,6 @@ MonoBehaviour:
   - {fileID: 3095693547166350447}
   - {fileID: 3095693547295941872}
   - {fileID: 3095693547295941873}
-  - {fileID: 7229096699056225781}
 --- !u!114 &7229096699056225781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,6 +245,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 3095693547295941872}
   firePoint: {fileID: 5168864450128927683}
+  muzzleFlash: {fileID: 3201172200542112657}
   shootableLayers:
     serializedVersion: 2
     m_Bits: 3639
@@ -253,6 +253,8 @@ MonoBehaviour:
     name: Ray Shooter
     damage: 10
     range: 100
+    fireRate: 5
+    isAutomatic: 0
 --- !u!114 &2895600884192347461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -748,6 +750,11 @@ PrefabInstance:
 --- !u!4 &5168864450128927683 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7915686123520150013, guid: 05da0c651ddea2e48bb111efcdc66ab0, type: 3}
+  m_PrefabInstance: {fileID: 3053814673301049918}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &3201172200542112657 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 436160200061688239, guid: 05da0c651ddea2e48bb111efcdc66ab0, type: 3}
   m_PrefabInstance: {fileID: 3053814673301049918}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1811315994450105026 stripped
