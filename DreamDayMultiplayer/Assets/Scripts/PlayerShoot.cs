@@ -6,8 +6,11 @@ public class PlayerShoot : NetworkBehaviour
     #region Variables
     [SerializeField] private Camera cam;
     [SerializeField] private Transform firePoint;
-    [SerializeField] private ParticleSystem muzzleFlash;
     [SerializeField] private LayerMask shootableLayers;
+    
+    [Header("Particle Effects")]
+    [SerializeField] private ParticleSystem muzzleFlash;
+    [SerializeField] private ParticleSystem impactEffect;
 
     public Weapon playerWeapon;
 
@@ -72,6 +75,8 @@ public class PlayerShoot : NetworkBehaviour
             return;
         }
 
+        //Run the command that spawns the muzzle flash effects
+        //because we shot.
         CmdOnShoot();
 
         RaycastHit hit;
@@ -82,6 +87,10 @@ public class PlayerShoot : NetworkBehaviour
         //from the shootableLayers LayerMask.
         if (Physics.Raycast(firePoint.position, cam.transform.forward, out hit, playerWeapon.range, shootableLayers))
         {
+            //Run the command that spawns the impact effect
+            //because we hit something.
+            CmdOnHit(hit.point, hit.normal);
+
             //If the object we hit has the player tag, then run
             //the PlayerShot command.
             if (hit.collider.CompareTag(playerTag))
@@ -110,12 +119,29 @@ public class PlayerShoot : NetworkBehaviour
         RpcShootEffects();
     }
 
+    //Command to run whenever an obect is hit.
+    [Command]
+    void CmdOnHit(Vector3 hitPos, Vector3 hitNormal)
+    {
+        RpcImpactEffect(hitPos, hitNormal);
+    }
+
     //Command to play the shooting effects.
     [ClientRpc]
     void RpcShootEffects()
     {
         muzzleFlash.Play();
     }
+
+    //Command to instantiate the impact effect.
+    [ClientRpc]
+    void RpcImpactEffect(Vector3 hitPos, Vector3 hitNormal)
+    {
+        //Instantiating our impact effect at the given hit position
+        //and rotation.
+        Instantiate(impactEffect, hitPos, Quaternion.LookRotation(hitNormal));
+    }
+
 
     #endregion
 }

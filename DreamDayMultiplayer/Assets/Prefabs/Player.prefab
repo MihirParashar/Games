@@ -245,16 +245,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 3095693547295941872}
   firePoint: {fileID: 5168864450128927683}
-  muzzleFlash: {fileID: 3201172200542112657}
   shootableLayers:
     serializedVersion: 2
-    m_Bits: 3639
+    m_Bits: 2615
+  muzzleFlash: {fileID: 3201172200542112657}
+  impactEffect: {fileID: 198000013440722320, guid: 02a509a7fa70ed740ba4197e20c5d32d, type: 3}
   playerWeapon:
     name: Ray Shooter
     damage: 10
     range: 100
-    fireRate: 5
-    isAutomatic: 0
+    fireRate: 10
+    isAutomatic: 1
 --- !u!114 &2895600884192347461
 MonoBehaviour:
   m_ObjectHideFlags: 0
