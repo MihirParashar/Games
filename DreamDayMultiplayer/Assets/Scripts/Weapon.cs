@@ -3,10 +3,19 @@
 [System.Serializable]
 public class Weapon
 {
-    public string name = "Ray Shooter";
+    [Header("Stats")]
+    public string name;
 
-    public int damage = 10;
-    public float range = 100f;
-    public float fireRate = 5f; //How many times a second we can shoot our gun.
+    public int damage;
+    public float range;
+    public float fireRate; //How many times a second we can shoot our gun.
+    public int maxAmmo;
+    public float secondsToReload;
     public bool isAutomatic = false;
+    [HideInInspector] public bool isReloading = false;
+    [HideInInspector] public int currentAmmo;
+
+    [Header("Effects")]
+    public ParticleSystem muzzleFlash;
+    public ParticleSystem impactEffect;
 }

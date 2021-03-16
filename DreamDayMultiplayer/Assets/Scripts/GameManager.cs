@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
 
     public MatchSettings matchSettings;
-    [SerializeField] private GameObject deathText;
 
     //Creating a static instance of itself, also known as a
     //singleton.
@@ -20,8 +20,20 @@ public class GameManager : MonoBehaviour
     //their player components.
     private static Dictionary<string, Player> players = new Dictionary<string, Player>();
 
+    //Creating a list that stores all of the kills for a 
+    //scoreboard. 
+    private static List<KillInfo> scoreboardKills = new List<KillInfo>();
+
     private Camera sceneCamera;
 
+    public static void AddKill(KillInfo killInfo) {
+        //Find the player that killed the other player from the
+        //kill info provided, and add to that player's kill count.
+        killInfo.playerKiller.AddToKillCount();
+
+        //Adding this KillInfo to the scoreboard of kills.
+        scoreboardKills.Add(killInfo);
+    }
 
     private void Start()
     {
@@ -37,6 +49,10 @@ public class GameManager : MonoBehaviour
             //there is a duplicate GameManager, so log an error.
             Debug.LogError("GameManager: More than one GameManager in the scene!");
         }
+
+        //Invoking our method to find the player with the most kills
+        //every time our round ends.
+        InvokeRepeating("FindPlayerWithMostKills", matchSettings.roundTimeSeconds, matchSettings.roundTimeSeconds);
     }
 
     //Creating a public method to enable or disable our scene camera.
@@ -48,12 +64,35 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //Creating a public method to enable or disable our death text.
-    public void SetDeathTextActive(bool active)
-    {
-        if (deathText != null)
+    //A simple function that loops through all of the players
+    //and finds the player with the highest amount of kills. 
+    private void FindPlayerWithMostKills() {
+
+        int highestKillCount = 0;
+
+        Player playerWithMostKills = null;
+        string playerWithMostKillsID = null;
+
+        int i = 0;
+
+        //Looping through all of the players, and checking if their
+        //kill count is higher than the highest kill count so far.
+        //If it is, then store that player and their ID.
+        foreach (Player player in players.Values)
         {
-            deathText.SetActive(active);
+            if (player.GetKillCount() > highestKillCount) {
+                highestKillCount = player.GetKillCount();
+                playerWithMostKills = player;
+                playerWithMostKillsID = players.Keys.ToArray()[i];
+            }
+            i++;
+        }
+        //If the highest kill count is more than 1, make the player with
+        //that number of kills win. Otherwise, nobody wins.
+        if (highestKillCount > 0) {
+            //Debug.LogError("Player with most kills: " + playerWithMostKillsID + ", with " + highestKillCount + " kills.");
+        } else {
+            //Debug.LogError("Nobody has won yet.");
         }
     }
 

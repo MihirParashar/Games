@@ -9,9 +9,22 @@ public class Player : NetworkBehaviour
     [SerializeField] private GameObject[] disableGameObjectsOnDeath;
     private bool[] wasEnabled;
 
-    //Syncing this variable to all of the clients so that
-    //all of the clients know this player's current health.
+    //Syncing the current health and kill count so that
+    //all clients know what each player's health and
+    //kill count is.
     [SyncVar] private int currentHealth;
+    private int killCount;
+
+    //It's good practice to make get/set methods
+    //for a private variable instead of making it
+    //public.
+    public int GetKillCount() { 
+        return killCount; 
+    }
+        
+    public void AddToKillCount() {
+        killCount++;
+    }
 
     //Creating a private boolean for if we are alive or not,
     //then creating an accessor for it. This also needs to
@@ -33,11 +46,19 @@ public class Player : NetworkBehaviour
             return;
         }
 
-        //[TEMPORARY] For testing purposes.
+        //Setting our kill count UI to our current
+        //player's kill count.
+        PlayerUI.instance.SetKillCountText(killCount.ToString());
+
+        /*[TEMPORARY] For testing purposes.
         if (Input.GetKeyDown(KeyCode.K))
         {
-            RpcTakeDamage(99999);
-        } 
+            if (isServer) {
+                RpcTakeDamage(90);
+            } else {
+                CmdTakeDamage(90);
+            }
+        } */
     }
 
 
@@ -60,7 +81,7 @@ public class Player : NetworkBehaviour
     //Function that makes player take damage.
     //ClientRpc makes this function called on all clients.
     [ClientRpc]
-    public void RpcTakeDamage(int damageAmount)
+    public void RpcTakeDamage(int damageAmount, string sourcePlayerID)
     {
         //If the player is not alive, then abort the 
         //function.
@@ -76,15 +97,20 @@ public class Player : NetworkBehaviour
         //If our current health is less than 1, then kill the player.
         if (currentHealth < 1)
         {
-            Die();
+            Die(sourcePlayerID);
         }
     }
 
     //Function to be ran when the player dies.
-    private void Die()
+    private void Die(string sourcePlayerID)
     {
 
         alive = false;
+
+        //Running the OnPlayerKilled event, and sending it our source
+        //player's ID as the player killer, and ourself as the player
+        //that died.
+        GameManager.AddKill(new KillInfo(GameManager.GetPlayer(sourcePlayerID), this));
 
         //Looping through all of the behaviours in the list to
         //disable them.
@@ -109,12 +135,14 @@ public class Player : NetworkBehaviour
             col.enabled = false;
         }
 
-        //Enabling our scene camera and death text
-        //(only if we are the local player).
+        //Setting our scene camera, death text,
+        //and crosshair (only if we are the local
+        //player).
         if (isLocalPlayer)
         {
             GameManager.instance.SetSceneCameraActive(true);
-            GameManager.instance.SetDeathTextActive(true);
+            PlayerUI.instance.SetDeathTextActive(true);
+            PlayerUI.instance.SetCrosshairActive(false);
         }
 
 
@@ -170,12 +198,14 @@ public class Player : NetworkBehaviour
             col.enabled = true;
         }
 
-        //Disabling our scene camera and death text
-        //(only if we are the local player).
+        //Setting our scene camera, death text,
+        //and crosshair (only if we are the local
+        //player).
         if (isLocalPlayer)
         {
             GameManager.instance.SetSceneCameraActive(false);
-            GameManager.instance.SetDeathTextActive(false);
+            PlayerUI.instance.SetDeathTextActive(false);
+            PlayerUI.instance.SetCrosshairActive(true);
         }
 
 
