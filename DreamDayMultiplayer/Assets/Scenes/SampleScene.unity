@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.574817, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.4964127, b: 0.57481724, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5792,6 +5792,7 @@ GameObject:
   - component: {fileID: 1005554420}
   - component: {fileID: 1005554421}
   - component: {fileID: 1005554422}
+  - component: {fileID: 1005554423}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -5893,7 +5894,7 @@ MonoBehaviour:
   m_MatchHost: mm.unet.unity3d.com
   m_MatchPort: 443
   matchName: MatchmakingRoom
-  matchSize: 5
+  matchSize: 16
   isNetworkActive: 0
   matchMaker: {fileID: 0}
 --- !u!114 &1005554422
@@ -5912,6 +5913,18 @@ MonoBehaviour:
   showGUI: 1
   offsetX: 0
   offsetY: 0
+--- !u!114 &1005554423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1005554419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13ec7c4d41aa00c4b8ee8e70d8902f58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1273747531
 GameObject:
   m_ObjectHideFlags: 0

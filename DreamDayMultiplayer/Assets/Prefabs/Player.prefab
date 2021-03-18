@@ -206,10 +206,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f004f653e76a709439e345fe33371470, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 15
+  moveSpeed: 10
   jumpHeight: 10
   camRotLimit: 50
-  mouseSens: 5
+  mouseSens: 0.4
   armTransform: {fileID: 3572359958637706138}
   groundCheckTransform: {fileID: 7213409432316859185}
   groundLayers:

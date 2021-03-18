@@ -12,6 +12,7 @@ public class WeaponSwitcher : NetworkBehaviour
     //so we can edit it and then apply it to
     //the synced version.
     private int _selectedWeapon = 0;
+    private int prevSelectedWeapon = 0;
     [SerializeField] private Transform itemHolder;
     #endregion
 
@@ -31,6 +32,8 @@ public class WeaponSwitcher : NetworkBehaviour
 
     void Update()
     {
+        prevSelectedWeapon = selectedWeapon;
+
         //We don't want to do any of this if we are not
         //the local player.
         if (!isLocalPlayer) {
@@ -82,9 +85,32 @@ public class WeaponSwitcher : NetworkBehaviour
         }
         #endregion
 
-        if (isServer) {
+        //We only want to run the weapon select command
+        //if we actually changed our weapon.
+        if (prevSelectedWeapon != _selectedWeapon)
+        {
+            if (isServer)
+            {
+                RpcWeaponSelect(_selectedWeapon);
+            }
+            else
+            {
+                CmdSelectWeapon(_selectedWeapon);
+            }
+        }
+    }
+
+    //Overriding our OnStartLocalPlayerMethod to add in
+    //our weapon select function.
+    public override void OnStartLocalPlayer()
+    {
+        base.OnStartLocalPlayer();
+        if (isServer)
+        {
             RpcWeaponSelect(_selectedWeapon);
-        } else {
+        }
+        else
+        {
             CmdSelectWeapon(_selectedWeapon);
         }
     }
