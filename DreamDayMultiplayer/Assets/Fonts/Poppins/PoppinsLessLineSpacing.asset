@@ -57,11 +57,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-  m_Name: Poppins-ExtraBold SDF
+  m_Name: PoppinsLessLineSpacing
   m_EditorClassIdentifier: 
-  hashCode: -744137624
+  hashCode: -1586523859
   material: {fileID: 622790582024607372}
-  materialHashCode: -1585044024
+  materialHashCode: -280713235
   m_Version: 1.1.0
   m_SourceFontFileGUID: cd65edc9401359840867cfdad1cf9e5f
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: cd65edc9401359840867cfdad1cf9e5f, type: 3}
@@ -73,7 +73,7 @@ MonoBehaviour:
     m_StyleName: ExtraBold
     m_PointSize: 62
     m_Scale: 1
-    m_LineHeight: 93
+    m_LineHeight: 50
     m_AscentLine: 65.1
     m_CapLine: 44
     m_MeanLine: 35

@@ -1,12 +1,15 @@
 using UnityEngine;
 using UnityEngine.Networking;
+using TMPro;
 
 public class HostGame : MonoBehaviour
 {
     #region Variables
-    private uint matchSize = 5;
     private string matchName = "default";
+    private uint matchSize = 5;
     private string matchPassword = "";
+
+    [SerializeField] private TMP_InputField matchSizeInput;
 
     private NetworkManager networkManager;
     #endregion
@@ -21,6 +24,16 @@ public class HostGame : MonoBehaviour
         if (networkManager.matchMaker == null)
         {
             networkManager.StartMatchMaker();
+        }
+    }
+
+    private void Update()
+    {
+        //Dynamic integers don't work in TextMeshPro
+        //for input fields, so we have to do it manually.
+        if (matchSizeInput.text != null && matchSizeInput.text != "")
+        {
+            SetMatchSize((uint)int.Parse(matchSizeInput.text));
         }
     }
 
@@ -45,14 +58,14 @@ public class HostGame : MonoBehaviour
         matchPassword = _matchPassword;
     }
 
-    public void Creatematch()
+    public void CreateMatch()
     {
         //If our match name actually exists, then create our match.
         if (matchName != "" && matchName != null)
         {
             Debug.Log("Creating match " + matchName + "with " + matchSize + " max players.");
 
-            networkManager.matchMaker.CreateMatch(matchName, matchSize, matchAdvertise:true, matchPassword, "", "", "", 0, 0, networkManager.OnMatchCreate);
+            networkManager.matchMaker.CreateMatch(matchName, matchSize, matchAdvertise:true, matchPassword, "", "", 0, 0, networkManager.OnMatchCreate);
         }
     }
 }
