@@ -32,11 +32,14 @@ public class PlayerUI : MonoBehaviour
     public void SetKillCountText(string killCount) {
         killCountText.text = killCount;
     }
+
     public void SetDeathTextActive(bool active) {
         deathText.gameObject.SetActive(active);
     }
+
     public void SetCrosshairActive(bool active) {
         crosshair.gameObject.SetActive(active);
     }
+    
     #endregion
 }

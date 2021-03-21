@@ -5,7 +5,8 @@ using TMPro;
 public class HostGame : MonoBehaviour
 {
     #region Variables
-    private string matchName = "default";
+    private const string defaultMatchName = "Untitled Room";
+    private string matchName = defaultMatchName;
     private uint matchSize = 5;
     private string matchPassword = "";
 
@@ -41,7 +42,14 @@ public class HostGame : MonoBehaviour
     //the specified match name inputed.
     public void SetMatchName(string _matchName)
     {
-        matchName = _matchName;
+        //We only want to change our match name
+        //if the field is not empty. If it is,
+        //then just set it to the default.
+        if (matchName != "") {
+            matchName = _matchName;
+        } else {
+            matchName = defaultMatchName;
+        }
     }
 
     //Function that sets our match size to 
@@ -60,12 +68,7 @@ public class HostGame : MonoBehaviour
 
     public void CreateMatch()
     {
-        //If our match name actually exists, then create our match.
-        if (matchName != "" && matchName != null)
-        {
-            Debug.Log("Creating match " + matchName + "with " + matchSize + " max players.");
-
-            networkManager.matchMaker.CreateMatch(matchName, matchSize, matchAdvertise:true, matchPassword, "", "", 0, 0, networkManager.OnMatchCreate);
-        }
+        //Actually create our match.
+        networkManager.matchMaker.CreateMatch(matchName, matchSize, matchAdvertise:true, matchPassword, "", "", 0, 0, networkManager.OnMatchCreate);
     }
 }

@@ -106,4 +106,8 @@ public class JoinGame : MonoBehaviour
         //provided.
         networkManager.matchMaker.JoinMatch(matchInfo.networkId, "", "", "", 0, 0, networkManager.OnMatchJoined);
     }
+
+    public void OnMatchJoined(bool success, string extendedInfo, MatchInfo matchInfo) {
+        
+    }
 }
