@@ -4,17 +4,20 @@ using System.Collections.Generic;
 using UnityEngine.Networking;
 using UnityEngine.Networking.Match;
 
+[RequireComponent(typeof(HostGame))]
 public class JoinGame : MonoBehaviour
 {
     #region Variables
     [SerializeField] private TextMeshProUGUI statusText;
     [SerializeField] private Transform matchListParent;
     [SerializeField] private GameObject matchListItemPrefab;
+    [SerializeField] private GameObject passwordPanel;
 
     //A list of all of our match list item GameObjects.
     private List<GameObject> matchList = new List<GameObject>();
 
     private NetworkManager networkManager;
+    private string inputtedPassword;
     #endregion
 
 
@@ -34,7 +37,7 @@ public class JoinGame : MonoBehaviour
 
     public void RefreshMatchList()
     {
-        networkManager.matchMaker.ListMatches(0, 20, "", true, 0, 0, OnMatchList);
+        networkManager.matchMaker.ListMatches(0, 20, "", false, 0, 0, OnMatchList);
 
         //Setting our status text to let the player
         //know that we are loading the matches.
@@ -50,7 +53,7 @@ public class JoinGame : MonoBehaviour
 
         //If we couldn't find any match list, then
         //tell the player we could not find it.
-        if (matchList == null)
+        if (!success || matchList == null)
         {
             statusText.text = "Could not find match list. Is your internet connection stable?";
             return;
@@ -81,7 +84,7 @@ public class JoinGame : MonoBehaviour
         //player that we couldn't find any.
         if (matchList.Count == 0)
         {
-            statusText.text = "No matches yet. Try hosting one.";
+            statusText.text = "No rooms yet. Try creating one.";
             return;
         }
     }
@@ -101,13 +104,12 @@ public class JoinGame : MonoBehaviour
     //The function that runs when our 
     //onJoinMatch callback is invoked.
     public void JoinMatch(MatchInfoSnapshot matchInfo)
-    {
-        //Joining the match with the properties of the match
-        //provided.
+    { 
         networkManager.matchMaker.JoinMatch(matchInfo.networkId, "", "", "", 0, 0, networkManager.OnMatchJoined);
     }
 
-    public void OnMatchJoined(bool success, string extendedInfo, MatchInfo matchInfo) {
-        
+    public void SetInputtedPassword(string _inputtedPassword)
+    {
+        inputtedPassword = _inputtedPassword;
     }
 }

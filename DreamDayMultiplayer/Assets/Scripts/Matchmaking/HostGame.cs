@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.Networking;
+using System;
+using Random = System.Random;
 using TMPro;
 
 public class HostGame : MonoBehaviour
@@ -8,9 +10,11 @@ public class HostGame : MonoBehaviour
     private const string defaultMatchName = "Untitled Room";
     private string matchName = defaultMatchName;
     private uint matchSize = 5;
+    private bool hasPassword = false;
     private string matchPassword = "";
 
     [SerializeField] private TMP_InputField matchSizeInput;
+    [SerializeField] private TextMeshProUGUI generatedPasswordInput;
 
     private NetworkManager networkManager;
     #endregion
@@ -61,14 +65,52 @@ public class HostGame : MonoBehaviour
 
     //Function that sets our match password to 
     //the specified match password inputed.
-    public void SetMatchPassword(string _matchPassword)
+    public void SetHasPassword(bool hasPassword)
     {
-        matchPassword = _matchPassword;
+        //If we set our has password
+        //input to true, then generate a random
+        //password.
+        if (hasPassword)
+        { 
+            matchPassword = GenerateRandomPassword();
+            generatedPasswordInput.text = "Generated Password: " + matchPassword;
+        } else
+        {
+            generatedPasswordInput.text = "Generated Password: [NONE]";
+        }
     }
 
     public void CreateMatch()
     {
         //Actually create our match.
-        networkManager.matchMaker.CreateMatch(matchName, matchSize, matchAdvertise:true, matchPassword, "", "", 0, 0, networkManager.OnMatchCreate);
+        networkManager.matchMaker.CreateMatch(matchName, matchSize, matchAdvertise:true, "", "", "", 0, 0, networkManager.OnMatchCreate);
+        //Debug.Log(matchPassword);
+    }
+
+    //Function that randomly generates a
+    //string that we can use as our room
+    //password (not my code).
+    private string GenerateRandomPassword()
+    {
+        string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        char[] stringChars = new char[8];
+        Random random = new Random();
+
+        for (int i = 0; i < stringChars.Length; i++)
+        {
+            stringChars[i] = chars[random.Next(chars.Length)];
+        }
+
+        string generatedPassword = new String(stringChars);
+
+        return generatedPassword;
+    }
+
+
+    //Creating a method to get our
+    //match password from other scripts.
+    public string GetMatchPassword()
+    {
+        return matchPassword;
     }
 }

@@ -12,6 +12,7 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI killCountText;
     [SerializeField] private TextMeshProUGUI deathText;
     [SerializeField] private Image crosshair;
+    [SerializeField] private GameObject pauseMenu;
     #endregion
 
     private void Start() {
@@ -24,6 +25,24 @@ public class PlayerUI : MonoBehaviour
             //there is a duplicate PlayerUI, so log an error.
             Debug.LogError("PlayerUI: More than one PlayerUI in the scene!");
         }
+    }
+
+    private void Update()
+    {
+        //If we are pressing the escape key, then toggle
+        //the pause menu.
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            TogglePauseMenu();
+        }
+    }
+
+    private void TogglePauseMenu()
+    {
+        //Setting our pause menu's active
+        //state to the opposite of what it
+        //previously was.
+        pauseMenu.SetActive(!pauseMenu.activeSelf);
     }
 
     #region Set Methods For UI
