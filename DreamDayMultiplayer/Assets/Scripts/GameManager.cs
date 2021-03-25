@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
+using UnityEngine.Networking.Match;
 using System.Collections.Generic;
 using System;
 using System.Linq;
@@ -25,6 +27,7 @@ public class GameManager : MonoBehaviour
     private static List<KillInfo> scoreboardKills = new List<KillInfo>();
 
     private Camera sceneCamera;
+    private NetworkManager networkManager;
 
     public static void AddKill(KillInfo killInfo) {
         //Find the player that killed the other player from the
@@ -37,6 +40,9 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        //Caching our networkManager instance for efficiency.
+        networkManager = NetworkManager.singleton;
+
         //Assigning our scene camera.
         sceneCamera = Camera.main;
 
@@ -95,6 +101,17 @@ public class GameManager : MonoBehaviour
             //Debug.LogError("Nobody has won yet.");
         }
     }
+
+    //Function that disconnects a player
+    //from the match.
+    public void DisconnectPlayer()
+    {
+        MatchInfo currentMatchInfo = networkManager.matchInfo;
+        networkManager.matchMaker.DropConnection(currentMatchInfo.networkId, currentMatchInfo.nodeId, 0, networkManager.OnDropConnection);
+        networkManager.StopHost();
+    }
+
+
 
     #region Player Registering
     //A function that adds a player with the specified network ID and 

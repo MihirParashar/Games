@@ -208,6 +208,12 @@ public class Player : NetworkBehaviour
             PlayerUI.instance.SetCrosshairActive(true);
         }
 
+        //Loop through all of our guns to set them back
+        //to their default max ammo count.
+        foreach (Weapon playerWeapon in GetComponent<PlayerShoot>().playerWeapons)
+        {
+            playerWeapon.currentAmmo = playerWeapon.maxAmmo;
+        }
 
         //Resetting the player's health to their max 
         //health.

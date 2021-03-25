@@ -11,13 +11,11 @@ public class JoinGame : MonoBehaviour
     [SerializeField] private TextMeshProUGUI statusText;
     [SerializeField] private Transform matchListParent;
     [SerializeField] private GameObject matchListItemPrefab;
-    [SerializeField] private GameObject passwordPanel;
 
     //A list of all of our match list item GameObjects.
     private List<GameObject> matchList = new List<GameObject>();
 
     private NetworkManager networkManager;
-    private string inputtedPassword;
     #endregion
 
 
@@ -104,12 +102,7 @@ public class JoinGame : MonoBehaviour
     //The function that runs when our 
     //onJoinMatch callback is invoked.
     public void JoinMatch(MatchInfoSnapshot matchInfo)
-    { 
-        networkManager.matchMaker.JoinMatch(matchInfo.networkId, "", "", "", 0, 0, networkManager.OnMatchJoined);
-    }
-
-    public void SetInputtedPassword(string _inputtedPassword)
     {
-        inputtedPassword = _inputtedPassword;
+        networkManager.matchMaker.JoinMatch(matchInfo.networkId, "", "", "", 0, 0, networkManager.OnMatchJoined);
     }
 }

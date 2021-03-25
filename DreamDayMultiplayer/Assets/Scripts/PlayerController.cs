@@ -36,14 +36,24 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        #region Locking Cursor
-        //The escape key toggles whether our cursor
-        //is locked or not.
-        if (Input.GetKeyDown(KeyCode.Escape) && Cursor.lockState == CursorLockMode.Locked)
+        #region Cursor Locking
+        //If the pause menu is active, unlock
+        //our cursor. Otherwise, lock our cursor.
+        if (PlayerUI.pauseMenuActiveState)
         {
-            Cursor.lockState = CursorLockMode.Locked;
-        }
-        else if (Input.GetKeyDown(KeyCode.Escape) && Cursor.lockState == CursorLockMode.None)
+            Cursor.lockState = CursorLockMode.None;
+
+            //Remove all new rotation inputs
+            //since we are paused.
+            xRot = 0;
+            yRot = 0;
+
+            //If we are in the pause menu, then 
+            //we don't want to do anything else
+            //in this function (since it involves
+            //movement), so just return.
+            return;
+        } else
         {
             Cursor.lockState = CursorLockMode.Locked;
         }

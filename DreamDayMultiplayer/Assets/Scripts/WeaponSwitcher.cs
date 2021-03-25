@@ -32,6 +32,15 @@ public class WeaponSwitcher : NetworkBehaviour
 
     void Update()
     {
+        //If we are in the pause menu, then 
+        //we don't want to do anything else
+        //in this function (since it involves
+        //weapon switching), so just return.
+        if (PlayerUI.pauseMenuActiveState)
+        {
+            return;
+        }
+
         prevSelectedWeapon = selectedWeapon;
 
         //We don't want to do any of this if we are not

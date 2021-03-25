@@ -14,7 +14,7 @@ public class HostGame : MonoBehaviour
     private string matchPassword = "";
 
     [SerializeField] private TMP_InputField matchSizeInput;
-    [SerializeField] private TextMeshProUGUI generatedPasswordInput;
+    //[SerializeField] private TextMeshProUGUI generatedPasswordInput;
 
     private NetworkManager networkManager;
     #endregion
@@ -36,7 +36,7 @@ public class HostGame : MonoBehaviour
     {
         //Dynamic integers don't work in TextMeshPro
         //for input fields, so we have to do it manually.
-        if (matchSizeInput.text != null && matchSizeInput.text != "")
+        if (matchSizeInput != null && matchSizeInput.text != "")
         {
             SetMatchSize((uint)int.Parse(matchSizeInput.text));
         }
@@ -65,20 +65,20 @@ public class HostGame : MonoBehaviour
 
     //Function that sets our match password to 
     //the specified match password inputed.
-    public void SetHasPassword(bool hasPassword)
-    {
-        //If we set our has password
-        //input to true, then generate a random
-        //password.
-        if (hasPassword)
-        { 
-            matchPassword = GenerateRandomPassword();
-            generatedPasswordInput.text = "Generated Password: " + matchPassword;
-        } else
-        {
-            generatedPasswordInput.text = "Generated Password: [NONE]";
-        }
-    }
+    //public void SetHasPassword(bool hasPassword)
+    //{
+    //    //If we set our has password
+    //    //input to true, then generate a random
+    //    //password.
+    //    if (hasPassword)
+    //    { 
+    //        matchPassword = GenerateRandomPassword();
+    //        generatedPasswordInput.text = "Generated Password: " + matchPassword;
+    //    } else
+    //    {
+    //        generatedPasswordInput.text = "Generated Password: [NONE]";
+    //    }
+    //}
 
     public void CreateMatch()
     {

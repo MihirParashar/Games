@@ -44,6 +44,14 @@ public class PlayerShoot : NetworkBehaviour
 
     void Update()
     {
+        //If we are in the pause menu, then 
+        //we don't want to do anything else
+        //in this function (since it involves
+        //shooting), so just return.
+        if (PlayerUI.pauseMenuActiveState)
+        {
+            return;
+        }
         selectedWeaponIndex = weaponSwitcher.GetSelectedWeaponIndex();
         currentPlayerWeapon = playerWeapons[selectedWeaponIndex];
 
@@ -148,6 +156,7 @@ public class PlayerShoot : NetworkBehaviour
             currentPlayerWeapon.currentAmmo = currentPlayerWeapon.maxAmmo;
             weaponToReload.isReloading = false;
     }
+
 
     #region Server Commands
     //A command that we can run whenever a player is shot.

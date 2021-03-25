@@ -74,8 +74,12 @@ public class PlayerSetup : NetworkBehaviour
 	{
 		//If we die/exit, do the following:
 
-		//Re-enable our scene camera.
-		GameManager.instance.SetSceneCameraActive(true);
+		//Re-enable our scene camera (if we are the local
+		//player).
+		if (isLocalPlayer)
+		{
+			GameManager.instance.SetSceneCameraActive(true);
+		}
 
 		//Unlock the cursor.
 		Cursor.lockState = CursorLockMode.None;
