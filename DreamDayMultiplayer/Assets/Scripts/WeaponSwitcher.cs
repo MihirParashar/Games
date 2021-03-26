@@ -174,6 +174,7 @@ public class WeaponSwitcher : NetworkBehaviour
 
             i++;
         }
+
     }
     #endregion
 }

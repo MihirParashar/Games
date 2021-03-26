@@ -14,6 +14,7 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI deathText;
     [SerializeField] private Image crosshair;
     [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private TextMeshProUGUI ammoText;
     #endregion
 
     private void Start() {
@@ -66,6 +67,11 @@ public class PlayerUI : MonoBehaviour
     public void SetCrosshairActive(bool active) {
         crosshair.gameObject.SetActive(active);
     }
-    
+
+    public void SetAmmoText(string newText)
+    {
+        ammoText.text = newText;
+    }
+
     #endregion
 }
