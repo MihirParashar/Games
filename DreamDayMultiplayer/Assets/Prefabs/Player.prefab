@@ -209,7 +209,7 @@ MonoBehaviour:
   moveSpeed: 10
   jumpHeight: 10
   camRotLimit: 50
-  mouseSens: 0.4
+  mouseSens: 1
   armTransform: {fileID: 3572359958637706138}
   groundCheckTransform: {fileID: 7213409432316859185}
   groundLayers:

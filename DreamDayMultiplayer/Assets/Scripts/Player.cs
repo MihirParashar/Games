@@ -94,6 +94,12 @@ public class Player : NetworkBehaviour
         //damage amount.
         currentHealth -= damageAmount;
 
+        //Setting our health bar to the current amount of health we
+        //have.
+        if (isLocalPlayer) {
+            PlayerUI.instance.SetHealthBarValue(currentHealth);
+        }
+
         //If our current health is less than 1, then kill the player.
         if (currentHealth < 1)
         {
@@ -218,5 +224,11 @@ public class Player : NetworkBehaviour
         //Resetting the player's health to their max 
         //health.
         currentHealth = maxHealth;
+
+        //Setting our health bar to the current amount of health we
+        //have.
+        if (isLocalPlayer) {
+            PlayerUI.instance.SetHealthBarValue(currentHealth);
+        }
     }
 }

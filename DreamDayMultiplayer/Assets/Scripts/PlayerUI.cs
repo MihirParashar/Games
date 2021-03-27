@@ -15,6 +15,7 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private Image crosshair;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private TextMeshProUGUI ammoText;
+    [SerializeField] private Slider healthBar;
     #endregion
 
     private void Start() {
@@ -71,6 +72,11 @@ public class PlayerUI : MonoBehaviour
     public void SetAmmoText(string newText)
     {
         ammoText.text = newText;
+    }
+
+    public void SetHealthBarValue(int newValue)
+    {
+        healthBar.value = newValue;
     }
 
     #endregion
