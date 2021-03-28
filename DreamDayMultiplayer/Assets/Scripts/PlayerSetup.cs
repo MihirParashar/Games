@@ -81,6 +81,9 @@ public class PlayerSetup : NetworkBehaviour
 			GameManager.instance.SetSceneCameraActive(true);
 		}
 
+		//Close the pause menu.
+		PlayerUI.instance.TogglePauseMenu();
+
 		//Unlock the cursor.
 		Cursor.lockState = CursorLockMode.None;
 

@@ -13,16 +13,17 @@ public class HostGame : MonoBehaviour
     private bool hasPassword = false;
     private string matchPassword = "";
 
-    [SerializeField] private TMP_InputField matchSizeInput;
     //[SerializeField] private TextMeshProUGUI generatedPasswordInput;
 
+    private TMP_InputField matchSizeInput;
     private NetworkManager networkManager;
     #endregion
 
     private void Start()
     {
-        //Caching our variable for more efficiency.
+        //Caching our variables for more efficiency.
         networkManager = NetworkManager.singleton;
+        matchSizeInput = MenuUI.instance.GetMatchSizeInput();
 
         //If we haven't started a matchmaker yet,
         //then start it manually.
@@ -36,7 +37,7 @@ public class HostGame : MonoBehaviour
     {
         //Dynamic integers don't work in TextMeshPro
         //for input fields, so we have to do it manually.
-        if (matchSizeInput != null && matchSizeInput.text != "")
+        if (matchSizeInput.text != null && matchSizeInput.text != "")
         {
             SetMatchSize((uint)int.Parse(matchSizeInput.text));
         }

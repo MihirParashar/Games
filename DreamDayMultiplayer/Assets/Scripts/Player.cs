@@ -50,7 +50,7 @@ public class Player : NetworkBehaviour
         //player's kill count.
         PlayerUI.instance.SetKillCountText(killCount.ToString());
 
-        /*[TEMPORARY] For testing purposes.
+        /* TESTING ONLY
         if (Input.GetKeyDown(KeyCode.K))
         {
             if (isServer) {

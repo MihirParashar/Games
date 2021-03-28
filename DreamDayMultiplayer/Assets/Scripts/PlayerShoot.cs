@@ -89,7 +89,9 @@ public class PlayerShoot : NetworkBehaviour
         }
 
         //Updating our ammo count text.
-        PlayerUI.instance.SetAmmoText(currentPlayerWeapon.currentAmmo + " / " + currentPlayerWeapon.maxAmmo);
+        if (isLocalPlayer) {
+            PlayerUI.instance.SetAmmoText(currentPlayerWeapon.currentAmmo + " / " + currentPlayerWeapon.maxAmmo);
+        }
 
         //If we have run out of ammo, force us to reload. Or, if we
         //are not currently at our max ammo count, and we press "R",

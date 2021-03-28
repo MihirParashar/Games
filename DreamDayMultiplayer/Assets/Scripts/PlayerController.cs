@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
 
     [Header("Rotation")]
     [SerializeField] private float camRotLimit = 60f;
-    [SerializeField] private float mouseSens;
     [SerializeField] private Transform armTransform;
 
     [Header("Ground Check")]
@@ -18,6 +17,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float groundCheckRadius;
 
     private Rigidbody rb;
+    private float mouseSens;
     private bool isGrounded;
     private float currentYRot;
     private float xRot;
@@ -32,6 +32,9 @@ public class PlayerController : MonoBehaviour
         //Setting our cursor to lock to the center
         //of the screen.
         Cursor.lockState = CursorLockMode.Locked;
+
+        //Caching our variable for efficiency.
+        mouseSens = PlayerPrefs.GetFloat("MouseSensitivity");
     }
 
     void Update()
@@ -43,10 +46,8 @@ public class PlayerController : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
 
-            //Remove all new rotation inputs
-            //since we are paused.
-            xRot = 0;
-            yRot = 0;
+            //[TEMPORARY]
+            Debug.Log(Cursor.lockState);
 
             //If we are in the pause menu, then 
             //we don't want to do anything else
@@ -56,7 +57,11 @@ public class PlayerController : MonoBehaviour
         } else
         {
             Cursor.lockState = CursorLockMode.Locked;
+
+            //[TEMPORARY]
+            Debug.Log(Cursor.lockState);
         }
+        
         #endregion
 
         #region Movement
@@ -103,6 +108,12 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //We don't want to do any of this if we are
+        //paused, so just return.
+        if (PlayerUI.pauseMenuActiveState) {
+            return;
+        }
+
         //Applying the x-rotation to the player.
         transform.Rotate(new Vector3(0, xRot, 0));
 

@@ -16,6 +16,7 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private TextMeshProUGUI ammoText;
     [SerializeField] private Slider healthBar;
+    [SerializeField] private TextMeshProUGUI healthBarText;
     #endregion
 
     private void Start() {
@@ -77,6 +78,11 @@ public class PlayerUI : MonoBehaviour
     public void SetHealthBarValue(int newValue)
     {
         healthBar.value = newValue;
+
+        //Whenever we change the health bar's value,
+        //we should change the text that displays
+        //the value as well.
+        healthBarText.text = healthBar.value.ToString();
     }
 
     #endregion

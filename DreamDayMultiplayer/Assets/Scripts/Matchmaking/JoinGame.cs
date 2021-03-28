@@ -8,7 +8,6 @@ using UnityEngine.Networking.Match;
 public class JoinGame : MonoBehaviour
 {
     #region Variables
-    [SerializeField] private TextMeshProUGUI statusText;
     [SerializeField] private Transform matchListParent;
     [SerializeField] private GameObject matchListItemPrefab;
 
@@ -16,12 +15,14 @@ public class JoinGame : MonoBehaviour
     private List<GameObject> matchList = new List<GameObject>();
 
     private NetworkManager networkManager;
+    private TextMeshProUGUI statusText;
     #endregion
 
 
     private void Start() { 
-        //Caching our variable for more efficiency.
+        //Caching our variables for more efficiency.
         networkManager = NetworkManager.singleton;
+        statusText = MenuUI.instance.GetStatusText();
 
         //If we haven't started a matchmaker yet,
         //then start it manually.
