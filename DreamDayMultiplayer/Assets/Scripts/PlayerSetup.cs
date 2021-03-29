@@ -45,14 +45,14 @@ public class PlayerSetup : NetworkBehaviour
 
 		//Getting our network ID from the
 		//NetworkIdentity component.
-		string networkID = GetComponent<NetworkIdentity>().netId.ToString();
+		string playerID = PlayerPrefs.GetString("PlayerUsername");
 
 		//Assigning our player manager 
 		//component  to a variable.
 		Player player = GetComponent<Player>();
 
 		//Registering this player.
-		GameManager.RegisterPlayer(networkID, player);
+		GameManager.RegisterPlayer(playerID, player);
     }
 
     void AssignRemoteLayer ()

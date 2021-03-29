@@ -17,6 +17,7 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI ammoText;
     [SerializeField] private Slider healthBar;
     [SerializeField] private TextMeshProUGUI healthBarText;
+    [SerializeField] private TextMeshProUGUI roundTimerText;
     #endregion
 
     private void Start() {
@@ -83,6 +84,11 @@ public class PlayerUI : MonoBehaviour
         //we should change the text that displays
         //the value as well.
         healthBarText.text = healthBar.value.ToString();
+    }
+
+    public void SetRoundTimerText(string newText)
+    {
+        roundTimerText.text = newText;
     }
 
     #endregion

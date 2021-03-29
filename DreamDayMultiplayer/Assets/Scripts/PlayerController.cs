@@ -46,9 +46,6 @@ public class PlayerController : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
 
-            //[TEMPORARY]
-            Debug.Log(Cursor.lockState);
-
             //If we are in the pause menu, then 
             //we don't want to do anything else
             //in this function (since it involves
@@ -57,9 +54,6 @@ public class PlayerController : MonoBehaviour
         } else
         {
             Cursor.lockState = CursorLockMode.Locked;
-
-            //[TEMPORARY]
-            Debug.Log(Cursor.lockState);
         }
         
         #endregion

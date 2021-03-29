@@ -15,4 +15,10 @@ public class PlayerSettings : MonoBehaviour
     public void SetMouseSensistivity(float newSens) {
         PlayerPrefs.SetFloat("MouseSensitivity", newSens);
     }
+
+    //Function that sets our username to what
+    //is specified.
+    public void SetUsername(string newUsername) {
+        PlayerPrefs.SetString("PlayerUsername", newUsername);
+    }
 }

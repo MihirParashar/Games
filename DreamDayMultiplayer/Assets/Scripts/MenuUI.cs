@@ -16,6 +16,7 @@ public class MenuUI : MonoBehaviour
 
     [Header("Player Settings")]
     [SerializeField] private TextMeshProUGUI mouseSensitivityText;
+    [SerializeField] private Slider mouseSensitivitySlider;
 
     #endregion
 
@@ -29,11 +30,20 @@ public class MenuUI : MonoBehaviour
             //there is a duplicate MenuUI, so log an error.
             Debug.LogError("MenuUI: More than one MenuUI in the scene!");
         }
+
+        //On start, refresh all of our slider values.
+        RefreshSliders();
     }
 
     private void Update() {
         //Update our mouse sensitivity text.
         mouseSensitivityText.text = PlayerPrefs.GetFloat("MouseSensitivity").ToString("F2");
+    }
+
+    //Function that updates all of our slider values to what the
+    //corresponding settings are set to.
+    public void RefreshSliders() {
+        mouseSensitivitySlider.value = PlayerPrefs.GetFloat("MouseSensitivity");
     }
 
     #region Get/Set Methods For UI
