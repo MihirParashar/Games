@@ -9,10 +9,11 @@ public class Player : NetworkBehaviour
     [SerializeField] private GameObject[] disableGameObjectsOnDeath;
     private bool[] wasEnabled;
 
-    //Syncing the current health and kill count so that
+    //Syncing the current health and username so that
     //all clients know what each player's health and
-    //kill count is.
+    //username is.
     [SyncVar] private int currentHealth;
+    [SyncVar] private string username = "Player";
     private int killCount;
 
     //It's good practice to make get/set methods
@@ -35,6 +36,22 @@ public class Player : NetworkBehaviour
     public bool alive { 
         get { return _alive; }
         protected set { _alive = value; }
+    }
+
+
+    //Overriding the OnStartClient function from the 
+    //NetworkBehaviour script so that we can add our
+    //RegisterPlayer function.
+    public override void OnStartClient()
+    {
+        //This basically means add whatever was 
+        //previously in this function, because we
+        //don't want to overwrite this function,
+        //we just want to add to it.
+        base.OnStartClient();
+
+        //Changing our username to all clients.
+        CmdChangeUsername(PlayerPrefs.GetString("PlayerUsername"));
     }
 
     private void Update()
@@ -77,6 +94,24 @@ public class Player : NetworkBehaviour
         //Set our defaults when we are first initialized.
         SetDefaults();
     }
+
+
+    //Function that is sent from the client to the server
+    //to change the username.
+    [Command]
+    private void CmdChangeUsername(string newUsername)
+    {
+        RpcChangeUsername(newUsername);
+    }
+
+    //Function that is sent from the server to all clients
+    //to change the username.
+    [ClientRpc]
+    private void RpcChangeUsername(string newUsername)
+    {
+        username = newUsername;
+    }
+
 
     //Function that makes player take damage.
     //ClientRpc makes this function called on all clients.
@@ -230,5 +265,12 @@ public class Player : NetworkBehaviour
         if (isLocalPlayer) {
             PlayerUI.instance.SetHealthBarValue(currentHealth);
         }
+    }
+
+    //Function that returns our username for other scripts to
+    //get.
+    public string GetUsername()
+    {
+        return username;
     }
 }

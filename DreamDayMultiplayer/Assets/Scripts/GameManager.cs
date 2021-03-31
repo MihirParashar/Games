@@ -17,7 +17,7 @@ public class GameManager : NetworkBehaviour
 
     //The string that will be added before the player's network
     //ID in order to create a player ID.
-    private const string playerIDPrefix = "Player ";
+    private const string playerIDPrefix = "Player";
 
     //Creating a dictionary to store the list of player IDs and
     //their player components.
@@ -122,9 +122,9 @@ public class GameManager : NetworkBehaviour
         PlayerUI.instance.SetRoundTimerText("Winner: " + FindPlayerWithMostKills());
 
         yield return new WaitForSeconds(5f);
-
-        MatchInfo currentMatchInfo = networkManager.matchInfo;
-        networkManager.matchMaker.DestroyMatch(currentMatchInfo.networkId, 0, OnDestroyMatch);
+        
+        //[TEMPORARY]
+        Debug.Log("Game should end now.");
     }
 
     private void OnDestroyMatch(bool success, string extendedInfo) {
@@ -159,30 +159,30 @@ public class GameManager : NetworkBehaviour
     #region Player Registering
     //A function that adds a player with the specified network ID and 
     //Player component to the dictionary of players.
-    public static void RegisterPlayer(string playerID, Player player)
+    public static void RegisterPlayer(string registerPlayerID, Player player)
     {
         //Adding the player to the dictionary, or in other words,
         //registering them.
-        players.Add(playerID, player);
+        players.Add(registerPlayerID, player);
 
         //Setting the player's name in the editor to their player
         //ID, so we can more easily recognize which player is which.
-        player.transform.name = playerID;
+        player.transform.name = registerPlayerID;
     }
 
     //A function that does the opposite of what our RegisterPlayer
     //function does: remove the player with the specified ID from 
     //the dictionary of players.
-    public static void UnregisterPlayer(string playerID)
+    public static void UnregisterPlayer(string unregisterPlayerID)
     {
-        players.Remove(playerID);
+        players.Remove(unregisterPlayerID);
     }
 
     //A method that returns us the player that has the given player
     //ID.
-    public static Player GetPlayer(string playerID)
+    public static Player GetPlayer(string getPlayerID)
     {
-        return players[playerID];
+        return players[getPlayerID];
     }
     #endregion
 }
