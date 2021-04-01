@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
+using System.Collections;
 
 //Require the player manager component 
 //since we need it to register ourseleves.
@@ -37,6 +38,7 @@ public class PlayerSetup : NetworkBehaviour
 	//RegisterPlayer function.
     public override void OnStartClient()
     {
+
 		//This basically means add whatever was 
 		//previously in this function, because we
 		//don't want to overwrite this function,
@@ -48,8 +50,19 @@ public class PlayerSetup : NetworkBehaviour
 		Player player = GetComponent<Player>();
 
 		//Registering this player.
-		GameManager.RegisterPlayer(player.GetUsername(), player);
+		StartCoroutine(WaitToRegisterPlayer(player));
     }
+	
+	//Function hat waits until our player has
+	//a username, then registers the player.
+	IEnumerator WaitToRegisterPlayer(Player player) {
+
+		while (player.GetUsername() == "" || player.GetUsername() == null) {
+			yield return null;
+		}
+
+		GameManager.RegisterPlayer(player.GetUsername(), player);
+	}
 
     void AssignRemoteLayer ()
     {
@@ -75,10 +88,12 @@ public class PlayerSetup : NetworkBehaviour
 		if (isLocalPlayer)
 		{
 			GameManager.instance.SetSceneCameraActive(true);
-		}
 
-		//Close the pause menu.
-		PlayerUI.instance.TogglePauseMenu();
+			//Close the pause menu if it's open.
+			if (PlayerUI.pauseMenuActiveState) {
+				PlayerUI.instance.TogglePauseMenu();
+			}
+		}
 
 		//Unlock the cursor.
 		Cursor.lockState = CursorLockMode.None;

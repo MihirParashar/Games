@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -13,7 +14,7 @@ public class Player : NetworkBehaviour
     //all clients know what each player's health and
     //username is.
     [SyncVar] private int currentHealth;
-    [SyncVar] private string username = "Player";
+    [SyncVar] private string username;
     private int killCount;
 
     //It's good practice to make get/set methods
@@ -38,20 +39,23 @@ public class Player : NetworkBehaviour
         protected set { _alive = value; }
     }
 
+    public override void OnStartLocalPlayer() {
 
-    //Overriding the OnStartClient function from the 
-    //NetworkBehaviour script so that we can add our
-    //RegisterPlayer function.
-    public override void OnStartClient()
-    {
-        //This basically means add whatever was 
-        //previously in this function, because we
-        //don't want to overwrite this function,
-        //we just want to add to it.
-        base.OnStartClient();
+        //We don't want to override the whole function, 
+        //only add on to it, so call whatever was
+        //previously in the function, then run what we 
+        //want.
+        base.OnStartLocalPlayer();
 
-        //Changing our username to all clients.
-        CmdChangeUsername(PlayerPrefs.GetString("PlayerUsername"));
+        //Changing our username to all clients if
+		//we are the local player.
+		if (isLocalPlayer) {
+            if (isServer) {
+                RpcChangeUsername(PlayerPrefs.GetString("PlayerUsername"));
+            } else {
+			    CmdChangeUsername(PlayerPrefs.GetString("PlayerUsername"));
+            }
+		}
     }
 
     private void Update()
@@ -66,17 +70,8 @@ public class Player : NetworkBehaviour
         //Setting our kill count UI to our current
         //player's kill count.
         PlayerUI.instance.SetKillCountText(killCount.ToString());
-
-        /* TESTING ONLY
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            if (isServer) {
-                RpcTakeDamage(90);
-            } else {
-                CmdTakeDamage(90);
-            }
-        } */
     }
+
 
 
     public void Setup ()
@@ -99,7 +94,7 @@ public class Player : NetworkBehaviour
     //Function that is sent from the client to the server
     //to change the username.
     [Command]
-    private void CmdChangeUsername(string newUsername)
+    public void CmdChangeUsername(string newUsername)
     {
         RpcChangeUsername(newUsername);
     }
@@ -107,7 +102,7 @@ public class Player : NetworkBehaviour
     //Function that is sent from the server to all clients
     //to change the username.
     [ClientRpc]
-    private void RpcChangeUsername(string newUsername)
+    public void RpcChangeUsername(string newUsername)
     {
         username = newUsername;
     }
