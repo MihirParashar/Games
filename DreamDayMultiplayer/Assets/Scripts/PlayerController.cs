@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     [Header("Ground Check")]
     [SerializeField] private Transform groundCheckTransform;
     [SerializeField] private LayerMask groundLayers;
-    [SerializeField] private float groundCheckRadius;
+    [SerializeField] private float groundCheckHeight;
 
     private Rigidbody rb;
     private float mouseSens;
@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
         //Checking if a sphere with the specified radius with a center of the specified position
         //intersects an object that has a layer from the specified LayerMask. If true, then we 
         //are on the ground so we can jump. If false, then we are in the air so we can't jump.
-        isGrounded = Physics.CheckSphere(groundCheckTransform.position, groundCheckRadius, groundLayers);
+        isGrounded = Physics.CheckBox(groundCheckTransform.position, new Vector3(0.025f, groundCheckHeight, 0.025f), Quaternion.identity, groundLayers);
 
         //Setting values to move based on our current position and our current player input
         float xMove = (transform.forward.x * Input.GetAxis("Vertical")) + (transform.right.x * Input.GetAxis("Horizontal"));

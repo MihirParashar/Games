@@ -83,9 +83,10 @@ public class HostGame : MonoBehaviour
 
     public void CreateMatch()
     {
-        //Actually create our match.
-        networkManager.matchMaker.CreateMatch(matchName, matchSize, matchAdvertise:true, "", "", "", 0, 0, networkManager.OnMatchCreate);
-        //Debug.Log(matchPassword);
+        //If we have put in a username, then create our match.
+        if (!MenuUI.instance.CheckIfUsernameEmpty()) {
+            networkManager.matchMaker.CreateMatch(matchName, matchSize, matchAdvertise:true, "", "", "", 0, 0, networkManager.OnMatchCreate);
+        }
     }
 
     //Function that randomly generates a

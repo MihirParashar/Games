@@ -57,7 +57,7 @@ public class PlayerSetup : NetworkBehaviour
 	//a username, then registers the player.
 	IEnumerator WaitToRegisterPlayer(Player player) {
 
-		while (player.GetUsername() == "" || player.GetUsername() == null) {
+		while (string.IsNullOrEmpty(player.GetUsername())) {
 			yield return null;
 		}
 

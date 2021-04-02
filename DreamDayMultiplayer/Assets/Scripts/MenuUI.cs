@@ -14,9 +14,14 @@ public class MenuUI : MonoBehaviour
     [SerializeField] private TMP_InputField matchSizeInput;
     [SerializeField] private TextMeshProUGUI statusText;
 
+    [Header("Usernames")]
+    [SerializeField] private TMP_InputField usernameInput;
+    [SerializeField] private TextMeshProUGUI noUsernameErrorText;
+
     [Header("Player Settings")]
     [SerializeField] private TextMeshProUGUI mouseSensitivityText;
     [SerializeField] private Slider mouseSensitivitySlider;
+    
 
     #endregion
 
@@ -31,8 +36,9 @@ public class MenuUI : MonoBehaviour
             Debug.LogError("MenuUI: More than one MenuUI in the scene!");
         }
 
-        //On start, refresh all of our slider values.
-        RefreshSliders();
+        //On start, update all of our values that are controlled
+        //by PlayerPrefs.
+        UpdateSavedUI();
     }
 
     private void Update() {
@@ -40,10 +46,27 @@ public class MenuUI : MonoBehaviour
         mouseSensitivityText.text = PlayerPrefs.GetFloat("MouseSensitivity").ToString("F2");
     }
 
-    //Function that updates all of our slider values to what the
-    //corresponding settings are set to.
-    public void RefreshSliders() {
+    //Function that updates all of our values controlled
+    //by PlayerPrefs to what the corresponding settings
+    // are set to.
+    public void UpdateSavedUI() {
         mouseSensitivitySlider.value = PlayerPrefs.GetFloat("MouseSensitivity");
+        if (!string.IsNullOrEmpty(PlayerPrefs.GetString("PlayerUsername"))) {
+            usernameInput.text = PlayerPrefs.GetString("PlayerUsername");
+        }
+    }
+
+    //Function that checks if our username input field is empty
+    //or not. If it is, return true and set the error text.
+    //Otherwise, empty the error text and return false.
+    public bool CheckIfUsernameEmpty() {
+        if (string.IsNullOrEmpty(usernameInput.text)) {
+            noUsernameErrorText.text = "PLEASE ENTER A USERNAME.";
+            return true;
+        } else {
+            noUsernameErrorText.text = "";
+            return false;
+        }
     }
 
     #region Get/Set Methods For UI

@@ -104,6 +104,10 @@ public class JoinGame : MonoBehaviour
     //onJoinMatch callback is invoked.
     public void JoinMatch(MatchInfoSnapshot matchInfo)
     {
-        networkManager.matchMaker.JoinMatch(matchInfo.networkId, "", "", "", 0, 0, networkManager.OnMatchJoined);
+        //If we have put in a username, then join the
+        //match.
+        if (!MenuUI.instance.CheckIfUsernameEmpty()) {
+            networkManager.matchMaker.JoinMatch(matchInfo.networkId, "", "", "", 0, 0, networkManager.OnMatchJoined);
+        }
     }
 }
