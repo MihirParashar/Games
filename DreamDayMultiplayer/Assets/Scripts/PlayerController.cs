@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     [Header("Rotation")]
     [SerializeField] private float camRotLimit = 60f;
     [SerializeField] private Transform armTransform;
+    [SerializeField] private Rigidbody armRigidbody;
 
     [Header("Ground Check")]
     [SerializeField] private Transform groundCheckTransform;
@@ -17,6 +18,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float groundCheckHeight;
 
     private Rigidbody rb;
+    private Vector3 oldArmPosition;
     private float mouseSens;
     private bool isGrounded;
     private float currentYRot;
@@ -109,7 +111,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //Applying the x-rotation to the player.
-        transform.Rotate(new Vector3(0, xRot, 0));
+        transform.Rotate(0f, xRot, 0f);
 
         //Applying the y-rotation to the player's arm.
         armTransform.localEulerAngles = new Vector3(-yRot, 0f, 0f);
