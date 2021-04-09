@@ -9,6 +9,7 @@ public class PlayerUI : MonoBehaviour
     //Creating a static instance of itself, also known as a
     //singleton.
     public static PlayerUI instance;
+
     public static bool pauseMenuActiveState = false;
     [SerializeField] private TextMeshProUGUI killCountText;
     [SerializeField] private TextMeshProUGUI deathText;

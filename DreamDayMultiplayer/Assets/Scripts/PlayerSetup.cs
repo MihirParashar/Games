@@ -53,7 +53,7 @@ public class PlayerSetup : NetworkBehaviour
 		StartCoroutine(WaitToRegisterPlayer(player));
     }
 	
-	//Function hat waits until our player has
+	//Function that waits until our player has
 	//a username, then registers the player.
 	IEnumerator WaitToRegisterPlayer(Player player) {
 
