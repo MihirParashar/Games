@@ -8,20 +8,20 @@ using System.Linq;
 
 public class GameManager : NetworkBehaviour
 {
+    [Header("Scoreboard")]
+    [SerializeField] public GameObject scoreboardItemPrefab;
+    [SerializeField] public Transform scoreboardItemParent;
 
+    [Header("Match Settings")]
     public MatchSettings matchSettings;
 
     //Creating a static instance of itself, also known as a
     //singleton.
     public static GameManager instance;
 
-    //The string that will be added before the player's network
-    //ID in order to create a player ID.
-    private const string playerIDPrefix = "Player";
-
     //Creating a dictionary to store the list of player IDs and
     //their player components.
-    private static Dictionary<string, Player> players = new Dictionary<string, Player>();
+    public static Dictionary<string, Player> players = new Dictionary<string, Player>();
 
     //Creating a list that stores all of the kills for a 
     //scoreboard. 
