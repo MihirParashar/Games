@@ -453,3 +453,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d62acad2ef2fa9448adeaf77a5759a84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerNameText: {fileID: 7635388619273374629}
+  playerKillsText: {fileID: 7635388618611142177}
+  playerDeathsText: {fileID: 7635388618956021862}

@@ -16,6 +16,7 @@ public class Player : NetworkBehaviour
     [SyncVar] private int currentHealth;
     [SyncVar] private string username;
     private int killCount;
+    private int deathCount;
 
     //It's good practice to make get/set methods
     //for a private variable instead of making it
@@ -23,9 +24,19 @@ public class Player : NetworkBehaviour
     public int GetKillCount() { 
         return killCount; 
     }
-        
+
+    public int GetDeathCount()
+    {
+        return deathCount;
+    }
+
     public void AddToKillCount() {
         killCount++;
+    }
+
+    public void AddToDeathCount()
+    {
+        deathCount++;
     }
 
     //Creating a private boolean for if we are alive or not,

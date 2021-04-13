@@ -2764,6 +2764,7 @@ MonoBehaviour:
   deathText: {fileID: 745099672}
   crosshair: {fileID: 554969844}
   pauseMenu: {fileID: 2084096910}
+  scoreboard: {fileID: 1058205724}
   ammoText: {fileID: 822340489}
   healthBar: {fileID: 1442275452}
   healthBarText: {fileID: 1715860794}

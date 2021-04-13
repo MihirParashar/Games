@@ -23,12 +23,16 @@ public class GameManager : NetworkBehaviour
     //their player components.
     public static Dictionary<string, Player> players = new Dictionary<string, Player>();
 
-    //Creating a list that stores all of the kills for a 
-    //scoreboard. 
-    private static List<KillInfo> scoreboardKills = new List<KillInfo>();
-
     //Syncing the time left in the match to all players.
     [SyncVar] private float timeLeftInMatch;
+
+    //Creating a delegate for whenever a player 
+    //is registered/deregistered.
+    private delegate void PlayerRegisterEvent();
+    private static PlayerRegisterEvent OnPlayerRegistered;
+
+    private delegate void PlayerUnregisterEvent(string playerIDItem);
+    private static PlayerUnregisterEvent OnPlayerUnregistered;
 
     private Camera sceneCamera;
     private NetworkManager networkManager;
@@ -39,12 +43,17 @@ public class GameManager : NetworkBehaviour
         //kill info provided, and add to that player's kill count.
         killInfo.playerKiller.AddToKillCount();
 
-        //Adding this KillInfo to the scoreboard of kills.
-        scoreboardKills.Add(killInfo);
+        //Add to the death count of the player killed.
+        killInfo.playerThatDied.AddToDeathCount();
     }
 
     private void Start()
     {
+        //Adding a callback function to our OnPlayerRegistered
+        //event.
+        OnPlayerRegistered += SetupScoreboard;
+        OnPlayerUnregistered += RemoveScoreboardItem;
+        
         //Caching our networkManager instance for efficiency.
         networkManager = NetworkManager.singleton;
 
@@ -85,7 +94,86 @@ public class GameManager : NetworkBehaviour
             string secondsLeft = Mathf.RoundToInt(timeLeftInMatch % 60f).ToString("00");
             PlayerUI.instance.SetRoundTimerText(minutesLeft + ":" + secondsLeft);
         }
+
+        //Updating our scoreboard every frame.
+        RefreshScoreboard();
     }
+
+    private void OnDestroy()
+    {
+        //Removing the callback function from our 
+        //OnPlayerRegistered event when we .
+        OnPlayerRegistered -= SetupScoreboard;
+        OnPlayerUnregistered -= RemoveScoreboardItem;
+    }
+
+    //Function that sets up the scoreboard items
+    //by instantiating a new item for every player.
+    private void SetupScoreboard()
+    {
+        //First, clear our original scoreboard.
+        foreach (ScoreboardItem sbItem in scoreboardItemParent.GetComponentsInChildren<ScoreboardItem>())
+        {
+            Destroy(sbItem);
+            Debug.Log("Item destroyed");
+        }
+        
+        //Then, loop through all of our players
+        //to create a new scoreboard item for each
+        //one.
+        for (int i = 0; i < players.Values.Count; i++)
+        {
+            Instantiate(scoreboardItemPrefab, scoreboardItemParent);
+        }
+    }
+
+    //Function that loops through all scoreboard items
+    //and updates them.
+    private void RefreshScoreboard()
+    {
+        int i = 0;
+        foreach (ScoreboardItem sbItem in scoreboardItemParent.GetComponentsInChildren<ScoreboardItem>())
+        {
+            sbItem.UpdateItem(players.Values.ToArray()[i]);
+            i++;
+        }
+    }
+
+    //Function that removes the scoreboard item
+    //with the given player ID as the name.
+    private void RemoveScoreboardItem(string playerIDItem)
+    {
+        foreach (ScoreboardItem sbItem in scoreboardItemParent.GetComponentsInChildren<ScoreboardItem>())
+        {
+            //If our player ID is the same as our name text
+            //value, then we have a match.
+            if (playerIDItem == sbItem.GetNameTextValue())
+            {
+                Destroy(sbItem);
+                break;
+            }
+        } 
+    }
+
+    //Public function to enable or disable our scene camera.
+    public void SetSceneCameraActive (bool active)
+    {
+        if (sceneCamera != null)
+        {
+            sceneCamera.gameObject.SetActive(active);
+        }
+    }
+
+    //Function that disconnects a player
+    //from the match.
+    public void DisconnectPlayer()
+    {
+        MatchInfo currentMatchInfo = networkManager.matchInfo;
+        networkManager.matchMaker.DropConnection(currentMatchInfo.networkId, currentMatchInfo.nodeId, 0, networkManager.OnDropConnection);
+        networkManager.StopHost();
+    }
+
+    #region Match Time & Winner Picking
 
     //Function that is sent from the client to the server to
     //reduce the time left in the match.
@@ -110,13 +198,25 @@ public class GameManager : NetworkBehaviour
         }
     }
 
-    //Creating a public method to enable or disable our scene camera.
-    public void SetSceneCameraActive (bool active)
-    {
-        if (sceneCamera != null)
+    //Method that loops through all of the registered player IDs and
+    //returns the player ID that corresponds to the player with the
+    //highest kills.
+    private string FindPlayerWithMostKills() {
+
+        int highestKillCount = 0;
+        string playerIDWithMostKills = "Nobody";
+
+        //Looping through all of the players, and checking if their
+        //kill count is higher than the highest kill count so far.
+        //If it is, then store that player and their ID.
+        foreach (string playerID in players.Keys)
         {
-            sceneCamera.gameObject.SetActive(active);
+            if (GetPlayer(playerID).GetKillCount() > highestKillCount) {
+                playerIDWithMostKills = playerID;
+            }
         }
+
+        return playerIDWithMostKills;
     }
 
     //Function that ends our round.
@@ -139,41 +239,13 @@ public class GameManager : NetworkBehaviour
         networkManager.StopMatchMaker();
     }
 
+
+    
     private void OnDestroyMatch(bool success, string extendedInfo) {
         Debug.Log("Successful: " + success + "... Reason: " + extendedInfo);
     }
 
-    //Method that loops through all of the registered player IDs and
-    //returns the player ID that corresponds to the player with the
-    //highest kills.
-    private string FindPlayerWithMostKills() {
-
-        int highestKillCount = 0;
-        string playerIDWithMostKills = "Nobody";
-
-        //Looping through all of the players, and checking if their
-        //kill count is higher than the highest kill count so far.
-        //If it is, then store that player and their ID.
-        foreach (string playerID in players.Keys)
-        {
-            if (GetPlayer(playerID).GetKillCount() > highestKillCount) {
-                playerIDWithMostKills = playerID;
-            }
-        }
-
-        return playerIDWithMostKills;
-    }
-
-    //Function that disconnects a player
-    //from the match.
-    public void DisconnectPlayer()
-    {
-        MatchInfo currentMatchInfo = networkManager.matchInfo;
-        networkManager.matchMaker.DropConnection(currentMatchInfo.networkId, currentMatchInfo.nodeId, 0, networkManager.OnDropConnection);
-        networkManager.StopHost();
-    }
-
-
+    #endregion
 
     #region Player Registering
     //A function that adds a player with the specified network ID and 
@@ -187,6 +259,8 @@ public class GameManager : NetworkBehaviour
         //Setting the player's name in the editor to their player
         //ID, so we can more easily recognize which player is which.
         player.transform.name = registerPlayerID;
+
+        OnPlayerRegistered();
     }
 
     //A function that does the opposite of what our RegisterPlayer
@@ -195,6 +269,7 @@ public class GameManager : NetworkBehaviour
     public static void UnregisterPlayer(string unregisterPlayerID)
     {
         players.Remove(unregisterPlayerID);
+        OnPlayerUnregistered(unregisterPlayerID);
     }
 
     //A method that returns us the player that has the given player

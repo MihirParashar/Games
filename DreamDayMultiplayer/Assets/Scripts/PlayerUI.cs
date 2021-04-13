@@ -15,6 +15,7 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI deathText;
     [SerializeField] private Image crosshair;
     [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private GameObject scoreboard;
     [SerializeField] private TextMeshProUGUI ammoText;
     [SerializeField] private Slider healthBar;
     [SerializeField] private TextMeshProUGUI healthBarText;
@@ -45,6 +46,11 @@ public class PlayerUI : MonoBehaviour
         {
             TogglePauseMenu();
         }
+
+        //If we are pressing and holding the tab key,
+        //then enable the scoreboard. Otherwise, 
+        //disable it.
+        scoreboard.SetActive(Input.GetKey(KeyCode.Tab));
     }
 
     public void TogglePauseMenu()

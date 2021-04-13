@@ -62,18 +62,6 @@ public class PlayerSetup : NetworkBehaviour
 		}
 
 		GameManager.RegisterPlayer(player.GetUsername(), player);
-
-
-		//THIS IS TEMPORARY. I should be creating a delegate for
-		//this instead of just calling it right after.
-		//For every player spawned, create a new scoreboard 
-		//item.
-
-		for (int i = 0; i < GameManager.players.Values.Count; i++)
-		{
-			GameObject scoreboardItem = Instantiate(GameManager.instance.scoreboardItemPrefab);
-			scoreboardItem.transform.SetParent(GameManager.instance.scoreboardItemParent);
-		}
 	}
 
 
