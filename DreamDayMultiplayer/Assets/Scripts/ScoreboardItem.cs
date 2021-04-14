@@ -7,20 +7,23 @@ public class ScoreboardItem : MonoBehaviour
     [SerializeField] private TextMeshProUGUI playerNameText;
     [SerializeField] private TextMeshProUGUI playerKillsText;
     [SerializeField] private TextMeshProUGUI playerDeathsText;
+
+    private Player assignedPlayer;
     #endregion
 
     //Function that updates this scoreboard item's text
     //to the data of the player given.
-    public void UpdateItem(Player player)
+    public void AssignPlayerData(Player _assignedPlayer)
     {
-        playerNameText.text = player.GetUsername();
-        playerKillsText.text = player.GetKillCount().ToString();
-        playerDeathsText.text = player.GetDeathCount().ToString();
+        assignedPlayer = _assignedPlayer;
     }
 
-    //Function to get our name text value.
-    public string GetNameTextValue()
+    private void Update()
     {
-        return playerNameText.text;
+        //Update our scoreboard text to our player's
+        //stats every frame.
+        playerNameText.text = assignedPlayer.GetUsername();
+        playerKillsText.text = assignedPlayer.GetKillCount().ToString();
+        playerDeathsText.text = assignedPlayer.GetDeathCount().ToString();
     }
 }
