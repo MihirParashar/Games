@@ -31,9 +31,14 @@ public class GameManager : NetworkBehaviour
     private delegate void PlayerRegisterEvent();
     private static PlayerRegisterEvent OnRegisteredOrUnregistered;
 
+    //We will update our timer and frame countt
+    //in intervals of this many seconds.
+    private const float HUDRefreshRate = 1f;
+
     private Camera sceneCamera;
     private NetworkManager networkManager;
     private bool hasRoundEnded = false;
+    private float HUDRefreshTimer;
 
     public static void AddKill(KillInfo killInfo) {
         //Find the player that killed the other player from the
@@ -85,10 +90,19 @@ public class GameManager : NetworkBehaviour
         //If the round has not ended yet, then
         //update our timer to how much time is
         //left in minutes and seconds.
-        if (!hasRoundEnded) {
+        if (!hasRoundEnded && Time.unscaledTime > HUDRefreshTimer) {
+
             string minutesLeft = Mathf.Floor(timeLeftInMatch / 60f).ToString("00");
             string secondsLeft = Mathf.RoundToInt(timeLeftInMatch % 60f).ToString("00");
+
             PlayerUI.instance.SetRoundTimerText(minutesLeft + ":" + secondsLeft);
+
+            //Setting our frame count text.
+            int frameCount = (int)(1f / Time.unscaledDeltaTime);
+            PlayerUI.instance.SetFrameCountText(frameCount.ToString());
+
+            //Resetting our timer.
+            HUDRefreshTimer = Time.unscaledTime + HUDRefreshRate;
         }
     }
 

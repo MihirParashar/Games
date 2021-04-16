@@ -20,6 +20,7 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private Slider healthBar;
     [SerializeField] private TextMeshProUGUI healthBarText;
     [SerializeField] private TextMeshProUGUI roundTimerText;
+    [SerializeField] private TextMeshProUGUI frameCountText;
     #endregion
 
     private void Start() {
@@ -96,6 +97,11 @@ public class PlayerUI : MonoBehaviour
     public void SetRoundTimerText(string newText)
     {
         roundTimerText.text = newText;
+    }
+
+    public void SetFrameCountText(string newText)
+    {
+        frameCountText.text = newText;
     }
 
     #endregion

@@ -18,4 +18,5 @@ public class Weapon
     [Header("Effects")]
     public ParticleSystem muzzleFlash;
     public ParticleSystem impactEffect;
+    public AudioSource shootSoundEffect;
 }

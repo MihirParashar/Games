@@ -21,6 +21,8 @@ public class MenuUI : MonoBehaviour
     [Header("Player Settings")]
     [SerializeField] private TextMeshProUGUI mouseSensitivityText;
     [SerializeField] private Slider mouseSensitivitySlider;
+    [SerializeField] private TextMeshProUGUI volumeText;
+    [SerializeField] private Slider volumeSlider;
     
 
     #endregion
@@ -44,6 +46,7 @@ public class MenuUI : MonoBehaviour
     private void Update() {
         //Update our mouse sensitivity text.
         mouseSensitivityText.text = PlayerPrefs.GetFloat("MouseSensitivity").ToString("F2");
+        volumeText.text = Mathf.Round(PlayerPrefs.GetFloat("Volume") * 100).ToString() + "%";
     }
 
     //Function that updates all of our values controlled
@@ -51,6 +54,8 @@ public class MenuUI : MonoBehaviour
     // are set to.
     public void UpdateSavedUI() {
         mouseSensitivitySlider.value = PlayerPrefs.GetFloat("MouseSensitivity");
+        volumeSlider.value = PlayerPrefs.GetFloat("Volume");
+
         if (!string.IsNullOrEmpty(PlayerPrefs.GetString("PlayerUsername"))) {
             usernameInput.text = PlayerPrefs.GetString("PlayerUsername");
         }

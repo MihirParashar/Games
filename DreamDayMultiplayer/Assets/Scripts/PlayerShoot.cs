@@ -194,6 +194,7 @@ public class PlayerShoot : NetworkBehaviour
     void RpcShootEffects()
     {
         currentPlayerWeapon.muzzleFlash.Play();
+        currentPlayerWeapon.shootSoundEffect.Play();
     }
 
     //Command to instantiate the impact effect.

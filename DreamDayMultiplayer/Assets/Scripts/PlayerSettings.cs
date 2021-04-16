@@ -1,12 +1,21 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class PlayerSettings : MonoBehaviour
 {
+    [SerializeField] private AudioMixer mixer;
+
     void Start() {
-        //If we have not set a PlayerPref for the mouse
-        //sensitivity yet, then set it to the default.
-        if (PlayerPrefs.GetFloat("MouseSensitivity") == null || PlayerPrefs.GetFloat("MouseSensitivity") == 0f) {
+        //If we have not set a PlayerPref for any of 
+        //the player settings yet, then set it to the
+        //default.
+        if (PlayerPrefs.GetFloat("MouseSensitivity") == 0f) {
             PlayerPrefs.SetFloat("MouseSensitivity", 1f);
+        }
+
+        if (PlayerPrefs.GetFloat("Volume") == 0f)
+        {
+            PlayerPrefs.SetFloat("Volume", 1f);
         }
     }
 
@@ -21,4 +30,12 @@ public class PlayerSettings : MonoBehaviour
     public void SetUsername(string newUsername) {
         PlayerPrefs.SetString("PlayerUsername", newUsername);
     }
+
+    //Function that sets our volume to what
+    //is specified.
+    public void SetVolume (float newVolume)
+    {
+        PlayerPrefs.SetFloat("Volume", newVolume);
+        mixer.SetFloat("Volume", Mathf.Log10(newVolume) * 20);
+    }   
 }
