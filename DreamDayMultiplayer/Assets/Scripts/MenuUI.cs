@@ -44,17 +44,17 @@ public class MenuUI : MonoBehaviour
     }
 
     private void Update() {
-        //Update our mouse sensitivity text.
-        mouseSensitivityText.text = PlayerPrefs.GetFloat("MouseSensitivity").ToString("F2");
-        volumeText.text = Mathf.Round(PlayerPrefs.GetFloat("Volume") * 100).ToString() + "%";
+        //Update our mouse sensitivity and volume text.
+        mouseSensitivityText.text = PlayerPrefs.GetFloat("MouseSensitivity", 1f).ToString("F2");
+        volumeText.text = Mathf.Round(PlayerPrefs.GetFloat("Volume", 1f) * 100).ToString() + "%";
     }
 
     //Function that updates all of our values controlled
     //by PlayerPrefs to what the corresponding settings
     // are set to.
     public void UpdateSavedUI() {
-        mouseSensitivitySlider.value = PlayerPrefs.GetFloat("MouseSensitivity");
-        volumeSlider.value = PlayerPrefs.GetFloat("Volume");
+        mouseSensitivitySlider.value = PlayerPrefs.GetFloat("MouseSensitivity", 1f);
+        volumeSlider.value = PlayerPrefs.GetFloat("Volume", 1f);
 
         if (!string.IsNullOrEmpty(PlayerPrefs.GetString("PlayerUsername"))) {
             usernameInput.text = PlayerPrefs.GetString("PlayerUsername");

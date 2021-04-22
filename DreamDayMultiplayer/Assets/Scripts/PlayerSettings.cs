@@ -3,21 +3,9 @@ using UnityEngine.Audio;
 
 public class PlayerSettings : MonoBehaviour
 {
+    #region Variables
     [SerializeField] private AudioMixer mixer;
-
-    void Start() {
-        //If we have not set a PlayerPref for any of 
-        //the player settings yet, then set it to the
-        //default.
-        if (PlayerPrefs.GetFloat("MouseSensitivity") == 0f) {
-            PlayerPrefs.SetFloat("MouseSensitivity", 1f);
-        }
-
-        if (PlayerPrefs.GetFloat("Volume") == 0f)
-        {
-            PlayerPrefs.SetFloat("Volume", 1f);
-        }
-    }
+    #endregion
 
     //Function that sets the mouse sensitivity
     //to the amount inputted.

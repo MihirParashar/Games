@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         //Caching our variable for efficiency.
-        mouseSens = PlayerPrefs.GetFloat("MouseSensitivity");
+        mouseSens = PlayerPrefs.GetFloat("MouseSensitivity", 1f);
     }
 
     void Update()

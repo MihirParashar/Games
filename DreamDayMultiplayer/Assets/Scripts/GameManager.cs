@@ -88,8 +88,7 @@ public class GameManager : NetworkBehaviour
         }
 
         //If the round has not ended yet, then
-        //update our timer to how much time is
-        //left in minutes and seconds.
+        //update our timer and FPS count.
         if (!hasRoundEnded && Time.unscaledTime > HUDRefreshTimer) {
 
             string minutesLeft = Mathf.Floor(timeLeftInMatch / 60f).ToString("00");
@@ -99,7 +98,7 @@ public class GameManager : NetworkBehaviour
 
             //Setting our frame count text.
             int frameCount = (int)(1f / Time.unscaledDeltaTime);
-            PlayerUI.instance.SetFrameCountText(frameCount.ToString());
+            PlayerUI.instance.SetFrameCountText(frameCount.ToString() + " FPS");
 
             //Resetting our timer.
             HUDRefreshTimer = Time.unscaledTime + HUDRefreshRate;
