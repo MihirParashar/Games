@@ -7184,8 +7184,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: DREAM DAY GAME
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: d915117f446f3114fbcbfe25d6c5441e, type: 2}
-  m_sharedMaterial: {fileID: 622790582024607372, guid: d915117f446f3114fbcbfe25d6c5441e, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 79b994024f6af440e8e91561eda5d751, type: 2}
+  m_sharedMaterial: {fileID: 622790582024607372, guid: 79b994024f6af440e8e91561eda5d751, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

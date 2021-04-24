@@ -83,7 +83,7 @@ MonoBehaviour:
     m_SuperscriptSize: 0.5
     m_SubscriptOffset: -21.7
     m_SubscriptSize: 0.5
-    m_UnderlineOffset: -6.2
+    m_UnderlineOffset: -7.03
     m_UnderlineThickness: 3.1
     m_StrikethroughOffset: 14
     m_StrikethroughThickness: 3.1
@@ -2690,7 +2690,7 @@ Material:
     - _OutlineSoftness: 0
     - _OutlineUVSpeedX: 0
     - _OutlineUVSpeedY: 0
-    - _OutlineWidth: 0.341
+    - _OutlineWidth: 0
     - _PerspectiveFilter: 0.875
     - _Reflectivity: 10
     - _ScaleRatioA: 0.8333333

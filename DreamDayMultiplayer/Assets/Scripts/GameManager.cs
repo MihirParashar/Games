@@ -120,7 +120,6 @@ public class GameManager : NetworkBehaviour
         foreach (ScoreboardItem sbItem in scoreboardItemParent.GetComponentsInChildren<ScoreboardItem>())
         {
             Destroy(sbItem.gameObject);
-            Debug.Log("Item destroyed");
         }
 
         //Then, loop through all of our players
