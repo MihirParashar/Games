@@ -54,7 +54,6 @@ public class GameManager : NetworkBehaviour
         //Adding callback functions to our OnRegisteredOrUnregistered
         //event.
         OnRegisteredOrUnregistered += SetupScoreboard;
-        OnRegisteredOrUnregistered += TestDebug;
         
         //Caching our networkManager instance for efficiency.
         networkManager = NetworkManager.singleton;
@@ -75,12 +74,6 @@ public class GameManager : NetworkBehaviour
         //Starting our round timer to the amount specified in our
         //match settings.
         timeLeftInMatch = matchSettings.roundTimeSeconds;
-    }
-        
-    //[TEMPORARY]
-    private void TestDebug()
-    {
-        Debug.LogError("Player was registered or unregistered!");
     }
 
     private void Update() {
@@ -117,7 +110,6 @@ public class GameManager : NetworkBehaviour
         //Removing callback functions from our 
         //OnRegisteredOrUnregistered event.
         OnRegisteredOrUnregistered -= SetupScoreboard;
-        OnRegisteredOrUnregistered -= TestDebug;
     }
 
     //Function that loops through all scoreboard items
