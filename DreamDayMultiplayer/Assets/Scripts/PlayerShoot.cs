@@ -125,7 +125,7 @@ public class PlayerShoot : NetworkBehaviour
         //Reduce our ammo count by 1.
         currentPlayerWeapon.currentAmmo--;
 
-        //Run the comman`d that spawns the muzzle flash effects
+        //Run the command that spawns the muzzle flash effects
         //because we shot.
         CmdOnShoot();
 

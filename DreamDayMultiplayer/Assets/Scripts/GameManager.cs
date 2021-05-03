@@ -49,12 +49,14 @@ public class GameManager : NetworkBehaviour
         killInfo.playerThatDied.AddToDeathCount();
     }
 
+    private void Awake()
+    {
+        //Adding callback functions to our event.
+        OnRegisteredOrUnregistered += SetupScoreboard;  
+    }
+
     private void Start()
     {
-        //Adding callback functions to our OnRegisteredOrUnregistered
-        //event.
-        OnRegisteredOrUnregistered += SetupScoreboard;
-        
         //Caching our networkManager instance for efficiency.
         networkManager = NetworkManager.singleton;
 
@@ -81,11 +83,11 @@ public class GameManager : NetworkBehaviour
         //the client RPC function. If not, we first
         //have to call the command that gets sent
         //to the server.
-        if (isServer) {
-            RpcReduceTimeLeft();
-        } else {
-            CmdReduceTimeLeft();
-        }
+        //if (isServer) {
+        //    RpcReduceTimeLeft();
+        //} else {
+        //    CmdReduceTimeLeft();
+        //}
 
         //If the round has not ended yet, then
         //update our timer and FPS count.
@@ -236,7 +238,6 @@ public class GameManager : NetworkBehaviour
         //Setting the player's name in the editor to their player
         //ID, so we can more easily recognize which player is which.
         player.transform.name = registerPlayerID;
-
         OnRegisteredOrUnregistered();
     }
 
