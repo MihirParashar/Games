@@ -83,11 +83,14 @@ public class GameManager : NetworkBehaviour
         //the client RPC function. If not, we first
         //have to call the command that gets sent
         //to the server.
-        //if (isServer) {
-        //    RpcReduceTimeLeft();
-        //} else {
-        //    CmdReduceTimeLeft();
-        //}
+        if (isServer)
+        {
+            RpcReduceTimeLeft();
+        }
+        else
+        {
+            CmdReduceTimeLeft();
+        }
 
         //If the round has not ended yet, then
         //update our timer and FPS count.
