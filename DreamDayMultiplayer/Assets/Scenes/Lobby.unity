@@ -4414,7 +4414,7 @@ MonoBehaviour:
   m_AutoCreatePlayer: 1
   m_PlayerSpawnMethod: 1
   m_OfflineScene: Lobby
-  m_OnlineScene: SampleScene
+  m_OnlineScene: Game
   m_SpawnPrefabs:
   - {fileID: 0}
   m_CustomConfig: 0

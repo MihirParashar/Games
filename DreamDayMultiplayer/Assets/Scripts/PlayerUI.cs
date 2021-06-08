@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using TMPro;
 
@@ -11,14 +12,21 @@ public class PlayerUI : MonoBehaviour
     public static PlayerUI instance;
 
     public static bool pauseMenuActiveState = false;
+    [Header("Health/Kills/Deaths")]
     [SerializeField] private TextMeshProUGUI killCountText;
     [SerializeField] private TextMeshProUGUI deathText;
-    [SerializeField] private Image crosshair;
-    [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject scoreboard;
-    [SerializeField] private TextMeshProUGUI ammoText;
     [SerializeField] private Slider healthBar;
     [SerializeField] private TextMeshProUGUI healthBarText;
+
+    [Header("Mobile Controls")]
+    [SerializeField] private Joystick movementJoystick;
+    [SerializeField] private Button jumpButton;
+
+    [Header("Other")]
+    [SerializeField] private Image crosshair;
+    [SerializeField] private TextMeshProUGUI ammoText;
+    [SerializeField] private GameObject pauseMenu;
     [SerializeField] private TextMeshProUGUI roundTimerText;
     [SerializeField] private TextMeshProUGUI frameCountText;
     #endregion
@@ -62,10 +70,16 @@ public class PlayerUI : MonoBehaviour
         pauseMenu.SetActive(!pauseMenu.activeSelf);
 
         pauseMenuActiveState = pauseMenu.activeSelf;
+
+        //Setting the mobile controls' active state
+        //to the opposite of the pause menu's active
+        //state.
+        movementJoystick.gameObject.SetActive(!pauseMenu.activeSelf);
+        jumpButton.gameObject.SetActive(!pauseMenu.activeSelf);
     }
 
-    #region Set Methods For UI
-    //Creating set methods for all of the UI variables
+    #region Get/Set Methods For UI
+    //Creating get/set methods for all of the UI variables
     //so we can access them from other scripts if we need to.
     public void SetKillCountText(string killCount) {
         killCountText.text = killCount;
@@ -102,6 +116,16 @@ public class PlayerUI : MonoBehaviour
     public void SetFrameCountText(string newText)
     {
         frameCountText.text = newText;
+    }
+
+    public void AddJumpButtonListener(UnityAction JumpEvent)
+    {
+        jumpButton.onClick.AddListener(JumpEvent);
+    }
+
+    public Joystick GetMovementJoystick()
+    {
+        return movementJoystick;
     }
 
     #endregion

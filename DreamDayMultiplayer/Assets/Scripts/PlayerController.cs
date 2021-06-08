@@ -3,6 +3,9 @@
 public class PlayerController : MonoBehaviour
 {
     #region Variables
+    [Header("Mobile Controls")]
+    [SerializeField] private Joystick joystick;
+
     [Header("Movement")]  
     [SerializeField] private float moveSpeed = 30f;
     [SerializeField] private float jumpHeight = 30f;
@@ -11,19 +14,19 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float camRotLimit = 60f;
     [SerializeField] private Transform armTransform;
     [SerializeField] private Rigidbody armRigidbody;
+    private float currentYRot;
+    private float xRot;
+    private float yRot;
 
     [Header("Ground Check")]
     [SerializeField] private Transform groundCheckTransform;
     [SerializeField] private LayerMask groundLayers;
     [SerializeField] private float groundCheckHeight;
+    private bool isGrounded;
 
     private Rigidbody rb;
-    private Vector3 oldArmPosition;
     private float mouseSens;
-    private bool isGrounded;
-    private float currentYRot;
-    private float xRot;
-    private float yRot;
+    
     #endregion
 
     void Start()
@@ -37,6 +40,12 @@ public class PlayerController : MonoBehaviour
 
         //Caching our variable for efficiency.
         mouseSens = PlayerPrefs.GetFloat("MouseSensitivity", 1f);
+
+        //Adding our Jump function to the onClick event
+        //listener for our Jump button. This means that
+        //every time the player presses the jump button,
+        //the jump function will be ran.
+        PlayerUI.instance.AddJumpButtonListener(Jump);
     }
 
     void Update()
@@ -53,11 +62,12 @@ public class PlayerController : MonoBehaviour
             //in this function (since it involves
             //movement), so just return.
             return;
-        } else
+        }
+        else
         {
             Cursor.lockState = CursorLockMode.Locked;
         }
-        
+
         #endregion
 
         #region Movement
@@ -70,7 +80,6 @@ public class PlayerController : MonoBehaviour
         //Setting values to move based on our current position and our current player input
         float xMove = (transform.forward.x * Input.GetAxis("Vertical")) + (transform.right.x * Input.GetAxis("Horizontal"));
         float zMove = (transform.forward.z * Input.GetAxis("Vertical")) + (transform.right.z * Input.GetAxis("Horizontal"));
-        float yMove = Input.GetAxis("Jump");
 
 
         //Multiplying the input by the move speed
@@ -81,12 +90,12 @@ public class PlayerController : MonoBehaviour
         //Applying the movement.
         rb.MovePosition(new Vector3(transform.position.x + xMove, transform.position.y, transform.position.z + zMove));
 
-        //If we are pressing the space key and we
-        //are on the ground, then jump.
-        if (isGrounded && Input.GetKeyDown(KeyCode.Space))
+        //Jumping if we press the space bar.
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
+            Jump();
         }
+        
         #endregion
 
         #region Rotation
@@ -99,6 +108,10 @@ public class PlayerController : MonoBehaviour
         //look too far down or up.
         currentYRot -= yRot;
         yRot = Mathf.Clamp(currentYRot, -camRotLimit, camRotLimit);
+        #endregion
+
+        #region Mobile Controls
+        
         #endregion
     }
 
@@ -115,5 +128,14 @@ public class PlayerController : MonoBehaviour
 
         //Applying the y-rotation to the player's arm.
         armTransform.localEulerAngles = new Vector3(-yRot, 0f, 0f);
+    }
+
+    //Function that adds a force to make our player jump.
+    private void Jump()
+    {
+        if (isGrounded)
+        {
+            rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
+        }
     }
 }
