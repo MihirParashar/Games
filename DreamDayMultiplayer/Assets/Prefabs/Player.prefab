@@ -375,7 +375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5734b07e8f15ac5419d044929418a9bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 3095693547295941872}
+  playerCamera: {fileID: 3095693547295941872}
   firePoint: {fileID: 5168864450128927683}
   shootableLayers:
     serializedVersion: 2

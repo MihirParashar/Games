@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 public class PlayerShoot : NetworkBehaviour
 {
     #region Variables
-    [SerializeField] private Camera cam;
+    [SerializeField] private Camera playerCamera;
     [SerializeField] private Transform firePoint;
     [SerializeField] private LayerMask shootableLayers;
     [SerializeField] private WeaponSwitcher weaponSwitcher;
@@ -26,7 +26,7 @@ public class PlayerShoot : NetworkBehaviour
         selectedWeaponIndex = weaponSwitcher.GetSelectedWeaponIndex();
         currentPlayerWeapon = playerWeapons[selectedWeaponIndex];
 
-        if (cam == null)
+        if (playerCamera == null)
         {
             //If we have no camera referenced, debug an error
             //and disable this object.
@@ -135,7 +135,7 @@ public class PlayerShoot : NetworkBehaviour
         //point in the forward direction and has a range of the
         //specified weapon range hits any objects with any layer
         //from the shootableLayers LayerMask.
-        if (Physics.Raycast(firePoint.position, cam.transform.forward, out hit, currentPlayerWeapon.range, shootableLayers))
+        if (Physics.Raycast(firePoint.position, playerCamera.transform.forward, out hit, currentPlayerWeapon.range, shootableLayers))
         {
             //Run the command that spawns the impact effect
             //because we hit something.

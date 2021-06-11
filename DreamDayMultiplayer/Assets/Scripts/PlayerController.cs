@@ -3,8 +3,6 @@
 public class PlayerController : MonoBehaviour
 {
     #region Variables
-    [Header("Mobile Controls")]
-    [SerializeField] private Joystick joystick;
 
     [Header("Movement")]  
     [SerializeField] private float moveSpeed = 30f;
@@ -26,6 +24,8 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody rb;
     private float mouseSens;
+    private bool isOnMobileDevice;
+    private Joystick joystick;
     
     #endregion
 
@@ -34,40 +34,46 @@ public class PlayerController : MonoBehaviour
         //Initializing our Rigidbody component.
         rb = GetComponent<Rigidbody>();
 
-        //Setting our cursor to lock to the center
-        //of the screen.
-        Cursor.lockState = CursorLockMode.Locked;
-
-        //Caching our variable for efficiency.
+        //Caching our variables for efficiency.
         mouseSens = PlayerPrefs.GetFloat("MouseSensitivity", 1f);
+        joystick = PlayerUI.instance.GetMovementJoystick();
 
         //Adding our Jump function to the onClick event
         //listener for our Jump button. This means that
         //every time the player presses the jump button,
         //the jump function will be ran.
         PlayerUI.instance.AddJumpButtonListener(Jump);
+
+        //Checking if we are on a mobile/handheld
+        //device, and storing it.
+        isOnMobileDevice = SystemInfo.deviceType == DeviceType.Handheld;
     }
 
     void Update()
     {
         #region Cursor Locking
-        //If the pause menu is active, unlock
-        //our cursor. Otherwise, lock our cursor.
-        if (PlayerUI.pauseMenuActiveState)
-        {
-            Cursor.lockState = CursorLockMode.None;
 
-            //If we are in the pause menu, then 
-            //we don't want to do anything else
-            //in this function (since it involves
-            //movement), so just return.
-            return;
-        }
-        else
+        //We only want to lock our cursor if we are
+        //not on mobile.
+        if (!isOnMobileDevice)
         {
-            Cursor.lockState = CursorLockMode.Locked;
-        }
+            //If the pause menu is active, unlock
+            //our cursor. Otherwise, lock our cursor.
+            if (PlayerUI.pauseMenuActiveState)
+            {
+                Cursor.lockState = CursorLockMode.None;
 
+                //If we are in the pause menu, then 
+                //we don't want to do anything else
+                //in this function (since it involves
+                //movement), so just return.
+                return;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+        }
         #endregion
 
         #region Movement
@@ -77,9 +83,20 @@ public class PlayerController : MonoBehaviour
         //are on the ground so we can jump. If false, then we are in the air so we can't jump.
         isGrounded = Physics.CheckBox(groundCheckTransform.position, new Vector3(0.025f, groundCheckHeight, 0.025f), Quaternion.identity, groundLayers);
 
-        //Setting values to move based on our current position and our current player input
-        float xMove = (transform.forward.x * Input.GetAxis("Vertical")) + (transform.right.x * Input.GetAxis("Horizontal"));
-        float zMove = (transform.forward.z * Input.GetAxis("Vertical")) + (transform.right.z * Input.GetAxis("Horizontal"));
+        float xMove;
+        float zMove;
+
+        //Setting values to move based on our current position and our current player input if
+        //we are not on mobile. If we are, set our input based on the joystick.
+        if (!isOnMobileDevice)
+        {
+            xMove = (transform.forward.x * Input.GetAxis("Vertical")) + (transform.right.x * Input.GetAxis("Horizontal"));
+            zMove = (transform.forward.z * Input.GetAxis("Vertical")) + (transform.right.z * Input.GetAxis("Horizontal"));
+        } else
+        {
+            xMove = (transform.forward.x * joystick.Vertical) + (transform.right.x * joystick.Horizontal);
+            zMove = (transform.forward.z * joystick.Vertical) + (transform.right.z* joystick.Horizontal);
+        }
 
 
         //Multiplying the input by the move speed
@@ -95,7 +112,7 @@ public class PlayerController : MonoBehaviour
         {
             Jump();
         }
-        
+
         #endregion
 
         #region Rotation
@@ -109,10 +126,6 @@ public class PlayerController : MonoBehaviour
         currentYRot -= yRot;
         yRot = Mathf.Clamp(currentYRot, -camRotLimit, camRotLimit);
         #endregion
-
-        #region Mobile Controls
-        
-        #endregion
     }
 
     private void FixedUpdate()
@@ -123,11 +136,24 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        //Applying the x-rotation to the player.
-        transform.Rotate(0f, xRot, 0f);
+        //If we are on a mobile device, then we should only rotate when
+        //we are pressing down. Otherwise, we can apply rotation every
+        //frame.
+        if (Input.GetButton("Fire1") && isOnMobileDevice)
+        {
+            //Applying the x-rotation to the player.
+            transform.Rotate(0f, xRot, 0f);
+            //Applying the y-rotation to the player's arm.
+            armTransform.localEulerAngles = new Vector3(-yRot, 0f, 0f);
+        }
+        else if (!isOnMobileDevice)
+        {
+            //Applying the x-rotation to the player.
+            transform.Rotate(0f, xRot, 0f);
+            //Applying the y-rotation to the player's arm.
+            armTransform.localEulerAngles = new Vector3(-yRot, 0f, 0f);
+        }
 
-        //Applying the y-rotation to the player's arm.
-        armTransform.localEulerAngles = new Vector3(-yRot, 0f, 0f);
     }
 
     //Function that adds a force to make our player jump.
